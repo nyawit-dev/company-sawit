@@ -123,57 +123,11 @@
           class="mt-8 overflow-hidden rounded-2xl border-2 border-hair bg-card"
         >
           <div class="overflow-x-auto">
-            <table class="w-full border-collapse text-left text-sm">
-              <caption
-                class="border-b border-hair px-5 py-4 text-left font-mono text-[0.625rem] leading-relaxed tracking-wider text-quiet uppercase"
-              >
-                Komitmen perusahaan dan lingkup pengecualiannya
-              </caption>
-              <thead>
-                <tr class="border-b border-hair">
-                  <th
-                    scope="col"
-                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                  >
-                    Komitmen
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                  >
-                    Tahun target
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                  >
-                    Yang tidak dicakup
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="c in commitments"
-                  :key="c.name"
-                  class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-sunken"
-                >
-                  <th
-                    scope="row"
-                    class="px-5 py-3 text-sm font-bold text-body"
-                  >
-                    {{ c.name }}
-                  </th>
-                  <td
-                    class="px-5 py-3 font-mono text-sm font-bold whitespace-nowrap text-leaf-700 dark:text-leaf-300"
-                  >
-                    {{ c.year }}
-                  </td>
-                  <td class="px-5 py-3 text-sm text-quiet">
-                    {{ c.excluded }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <DataTable
+                  caption="Komitmen perusahaan dan lingkup pengecualiannya."
+                  :columns="commitmentColumns.map((label) => ({ label }))"
+                  :rows="commitments.map((c) => [c.name, c.year, c.excluded])"
+                />
           </div>
         </div>
       </div>
@@ -238,6 +192,8 @@ const values = [
     body: 'Kami bermitra dengan masyarakat melalui program plasma. Masyarakat menanam di lahan kami, menjual hasilnya kepada kami, dengan harga yang kami tetapkan.',
   },
 ]
+
+const commitmentColumns = ['Komitmen', 'Tahun target', 'Yang tidak dicakup']
 
 const commitments = [
   {

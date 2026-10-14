@@ -47,75 +47,21 @@
             class="overflow-hidden rounded-2xl border-2 border-hair bg-card lg:col-span-3"
           >
             <div class="overflow-x-auto">
-              <table class="w-full border-collapse text-left text-sm">
-                <caption
-                  class="border-b border-hair px-5 py-4 text-left font-mono text-[0.625rem] leading-relaxed tracking-wider text-quiet uppercase"
-                >
-                  Tonggak perusahaan 1998&ndash;2024, menurut dokumen resmi
-                  perusahaan.
-                </caption>
-                <thead>
-                  <tr class="border-b border-hair">
-                    <th
-                      scope="col"
-                      class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                    >
-                      Tahun
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                    >
-                      Peristiwa menurut perusahaan
-                    </th>
-                    <th
-                      scope="col"
-                      class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                    >
-                      Yang tidak dicakup
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="row in history"
-                    :key="row.year"
-                    class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-sunken"
-                  >
-                    <th
-                      scope="row"
-                      class="px-5 py-3 font-mono text-sm font-bold whitespace-nowrap text-body"
-                    >
-                      {{ row.year }}
-                    </th>
-                    <td class="px-5 py-3 text-sm text-quiet">
-                      {{ row.event }}
-                    </td>
-                    <td class="px-5 py-3 text-sm text-quiet">
-                      {{ row.omitted }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <DataTable
+                  caption="Tonggak perusahaan 1998&ndash;2024, menurut dokumen resmi perusahaan."
+                  :columns="historyColumns.map((label) => ({ label }))"
+                  :rows="history.map((r) => [r.year, r.event, r.omitted])"
+                />
             </div>
           </div>
 
-          <figure class="m-0 lg:col-span-2">
-            <img
-              :src="asset_company_sawit_img_mill_jpg"
-              alt="Pabrik pengolahan kelapa sawit pada senja, dengan cerobong boiler tinggi, struktur konveyor, dan lampu kerja yang mulai menyala"
-              width="1600"
-              height="1067"
-              loading="lazy"
-              class="block w-full rounded-2xl border-2 border-hair object-cover transition-transform duration-500 ease-out hover:scale-102"
-            />
-            <figcaption
-              class="mt-3 font-mono text-[0.625rem] leading-relaxed text-quiet"
-            >
-              Pabrik blok tengah, beroperasi sejak 2009. Gambar dibuat dengan
-              model generatif untuk laman ini; bukan foto bangunan yang ada.
-            </figcaption>
-          </figure>
+          <Figure
+            class="lg:col-span-2"
+            :src="asset_company_sawit_img_mill_jpg"
+            alt="Pabrik pengolahan kelapa sawit pada senja, dengan cerobong boiler tinggi, struktur konveyor, dan lampu kerja yang mulai menyala"
+            caption="Pabrik blok tengah, beroperasi sejak 2009. Bukan foto bangunan yang ada."
+            attribution="Gambar dibuat dengan model generatif untuk laman ini."
+          />
         </div>
       </div>
     </section>
@@ -173,48 +119,11 @@
           class="overflow-hidden rounded-2xl border-2 border-hair bg-card"
         >
           <div class="overflow-x-auto">
-            <table class="w-full border-collapse text-left text-sm">
-              <caption
-                class="border-b border-hair px-5 py-4 text-left font-mono text-[0.625rem] leading-relaxed tracking-wider text-quiet uppercase"
-              >
-                Susunan pengurus dan masa jabatan, menurut anggaran dasar.
-              </caption>
-              <thead>
-                <tr class="border-b border-hair">
-                  <th
-                    v-for="col in boardColumns"
-                    :key="col"
-                    scope="col"
-                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                  >
-                    {{ col }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="person in board"
-                  :key="person.role"
-                  class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-sunken"
-                >
-                  <th
-                    scope="row"
-                    class="px-5 py-3 text-sm font-bold whitespace-nowrap text-body"
-                  >
-                    {{ person.role }}
-                  </th>
-                  <td class="px-5 py-3 font-mono text-sm text-quiet">
-                    {{ person.term }}
-                  </td>
-                  <td class="px-5 py-3 text-sm text-quiet">
-                    {{ person.background }}
-                  </td>
-                  <td class="px-5 py-3 text-sm text-quiet">
-                    {{ person.omitted }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <DataTable
+                  caption="Susunan pengurus dan masa jabatan, menurut anggaran dasar."
+                  :columns="boardColumns.map((label) => ({ label }))"
+                  :rows="board.map((p) => [p.role, p.term, p.background, p.omitted])"
+                />
           </div>
         </div>
       </div>
@@ -224,22 +133,11 @@
     <section class="border-b-2 border-hair">
       <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
         <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
-          <figure class="m-0">
-            <img
-              :src="asset_company_sawit_img_clear_cut_jpg"
-              alt="Foto udara area perkebunan yang baru ditanami dengan barisan geometris muda, dan pita hutan gelap yang belum tersentuh di tepi atas bingkai"
-              width="1600"
-              height="1200"
-              loading="lazy"
-              class="block w-full rounded-2xl border-2 border-hair object-cover transition-transform duration-500 ease-out hover:scale-102"
-            />
-            <figcaption
-              class="mt-3 font-mono text-[0.625rem] leading-relaxed text-quiet"
-            >
-              Blok barat, tahun tanam 2023. Gambar dibuat dengan model generatif
-              untuk laman ini.
-            </figcaption>
-          </figure>
+          <Figure
+            :src="asset_company_sawit_img_clear_cut_jpg"
+            alt="Foto udara area perkebunan yang baru ditanami dengan barisan geometris muda, dan pita hutan gelap yang belum tersentuh di tepi atas bingkai"
+            caption="Blok barat, tahun tanam 2023."
+          />
 
           <div>
             <SectionHead num="04" title="Lahan">
@@ -320,6 +218,8 @@ const seals = [
   { name: 'Pratik kebun terbaik', scope: 'Diberikan oleh asosiasi yang kami ketuai' },
   { name: 'Perusahaan hijau', scope: 'Kriteria kelayakan tidak dipublikasikan' },
 ]
+
+const historyColumns = ['Tahun', 'Peristiwa menurut perusahaan', 'Yang tidak dicakup']
 
 const boardColumns = [
   'Jabatan',

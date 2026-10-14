@@ -204,25 +204,13 @@
               </dl>
             </div>
 
-            <figure
+            <Figure
               v-if="harm.photo"
               :class="harm.photoFirst ? 'lg:order-1' : 'lg:order-2'"
-              class="m-0"
-            >
-              <img
-                :src="`/company-sawit/img/${harm.photo.file}`"
-                :alt="harm.photo.alt"
-                width="1600"
-                height="1067"
-                loading="lazy"
-                class="block w-full rounded-2xl border-2 border-hair object-cover transition-transform duration-500 ease-out hover:scale-102"
-              />
-              <figcaption
-                class="mt-3 font-mono text-[0.625rem] leading-relaxed text-quiet"
-              >
-                {{ harm.photo.caption }}
-              </figcaption>
-            </figure>
+              :src="`/company-sawit/img/${harm.photo.file}`"
+              :alt="harm.photo.alt"
+              :caption="harm.photo.caption"
+            />
 
             <!-- The operational table, in the block whose subject is the
                  numbers themselves. -->
@@ -231,77 +219,25 @@
               class="overflow-hidden rounded-2xl border-2 border-hair bg-card"
             >
               <div class="overflow-x-auto">
-                <table class="w-full border-collapse text-left text-sm">
-                  <caption
-                    class="border-b border-hair px-5 py-4 text-left font-mono text-[0.625rem] leading-relaxed tracking-wider text-quiet uppercase"
-                  >
-                    Ringkasan operasional 2019&ndash;2024, sebagaimana
-                    dilaporkan perusahaan. Kolom terakhir ditulis untuk laman
-                    ini.
-                  </caption>
-                  <thead>
-                    <tr class="border-b border-hair">
-                      <th
-                        v-for="col in harm.table.columns"
-                        :key="col"
-                        scope="col"
-                        class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                      >
-                        {{ col }}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr
-                      v-for="row in harm.table.rows"
-                      :key="row.year"
-                      class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-sunken"
-                    >
-                      <th
-                        scope="row"
-                        class="px-5 py-3 font-mono text-sm font-bold text-body"
-                      >
-                        {{ row.year }}
-                      </th>
-                      <td class="px-5 py-3 font-mono text-sm text-quiet">
-                        {{ row.area }}
-                      </td>
-                      <td class="px-5 py-3 font-mono text-sm text-quiet">
-                        {{ row.tbs }}
-                      </td>
-                      <td class="px-5 py-3 text-sm text-quiet">
-                        {{ row.omitted }}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <DataTable
+                  caption="Ringkasan operasional 2019&ndash;2024, sebagaimana dilaporkan perusahaan. Kolom terakhir ditulis untuk laman ini."
+                  :columns="harm.table.columns.map((label) => ({ label }))"
+                  :rows="harm.table.rows.map((row) => [row.year, row.area, row.tbs, row.omitted])"
+                />
               </div>
             </div>
 
             <!-- Three photographs, for the programme that is also the
                  convalescence bill. -->
             <div v-else-if="harm.gallery" class="grid gap-6 md:grid-cols-3">
-              <figure
+              <Figure
                 v-for="shot in harm.gallery"
                 :key="shot.file"
-                class="m-0"
-              >
-                <img
-                  :src="`/company-sawit/img/${shot.file}`"
-                  :alt="shot.alt"
-                  width="1600"
-                  height="1067"
-                  loading="lazy"
-                  class="block aspect-4/3 w-full rounded-2xl border-2 border-hair object-cover transition-transform duration-500 ease-out hover:scale-102"
-                />
-                <figcaption
-                  class="mt-3 font-mono text-[0.625rem] leading-relaxed text-quiet"
-                >
-                  {{ shot.caption }}
-                </figcaption>
-              </figure>
+                :src="`/company-sawit/img/${shot.file}`"
+                :alt="shot.alt"
+                :caption="shot.caption"
+              />
             </div>
-          </div>
 
           <!-- Extra prose for the blocks that need it below the split. -->
           <template v-if="harm.after">
@@ -314,9 +250,10 @@
               <span v-html="para"></span>
             </p>
           </template>
+          </div>
         </div>
       </section>
-    </section>
+      </section>
 
     <!-- ================= CONTACT ================= -->
     <section class="border-t-2 border-hair">

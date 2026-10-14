@@ -107,53 +107,11 @@
           class="mt-8 overflow-hidden rounded-2xl border-2 border-hair bg-card"
         >
           <div class="overflow-x-auto">
-            <table class="w-full border-collapse text-left text-sm">
-              <caption
-                class="border-b border-hair px-5 py-4 text-left font-mono text-[0.625rem] leading-relaxed tracking-wider text-quiet uppercase"
-              >
-                Komponen situs dan asal-usulnya.
-              </caption>
-              <thead>
-                <tr class="border-b border-hair">
-                  <th
-                    scope="col"
-                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                  >
-                    Komponen
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                  >
-                    Pembuat
-                  </th>
-                  <th
-                    scope="col"
-                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
-                  >
-                    Lisensi
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="row in credits"
-                  :key="row.component"
-                  class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-sunken"
-                >
-                  <th
-                    scope="row"
-                    class="px-5 py-3 text-sm font-bold text-body"
-                  >
-                    {{ row.component }}
-                  </th>
-                  <td class="px-5 py-3 text-sm text-quiet">{{ row.maker }}</td>
-                  <td class="px-5 py-3 text-sm text-quiet">
-                    {{ row.license }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <DataTable
+                  caption="Komponen situs dan asal-usulnya."
+                  :columns="creditColumns.map((label) => ({ label }))"
+                  :rows="credits.map((r) => [r.component, r.maker, r.license])"
+                />
           </div>
         </div>
       </div>
@@ -216,6 +174,8 @@ const disclaimer = [
     body: ' Setiap foto di situs ini dibuat dengan model generatif, diberi keterangan sebagai demikian di tempatnya, dan bukan dokumentasi kejadian nyata.',
   },
 ]
+
+const creditColumns = ['Komponen', 'Pembuat', 'Lisensi']
 
 const credits = [
   {
