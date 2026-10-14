@@ -3,211 +3,173 @@
     <!-- Register A: the filing. The legal page is deliberately the most boring
          page on the site, because a disclaimer that reads like marketing is a
          disclaimer nobody believes. -->
-    <section class="page-head">
-      <div class="wrap">
+    <header class="border-b-2 border-hair bg-sunken">
+      <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <img
-          class="page-head__seal"
-          :src="'/company-sawit/logo.svg'"
+          :src="logoUrl"
           alt="Segel PT Perkebunan Asap Emas Nusantara"
           width="72"
           height="72"
+          class="mb-6 w-18"
         />
-        <p class="page-head__meta">Penafian &amp; kredit &middot; dokumen hukum</p>
-        <h1>Ini bukan perusahaan. Ini karya fiksi.</h1>
-        <p class="lede">
+        <p
+          class="m-0 mb-3 font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
+        >
+          Penafian &amp; kredit &middot; dokumen hukum
+        </p>
+        <h1
+          class="m-0 max-w-3xl text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] font-extrabold tracking-tight text-body"
+        >
+          Ini bukan perusahaan. Ini karya fiksi.
+        </h1>
+        <p
+          class="m-0 mt-4 max-w-2xl text-[clamp(1rem,1.9vw,1.125rem)] leading-relaxed text-quiet"
+        >
           Halaman ini menjelaskan apa yang nyata dan apa yang tidak di situs ini,
-          siapa yang membuat gambar yang Anda lihat, dan mengapa tidak ada
-          satu pun nama, tempat, atau lembaga sungguhan yang disebut di dalamnya.
+          siapa yang membuat gambar yang Anda lihat, dan mengapa tidak ada satu
+          pun nama, tempat, atau lembaga sungguhan yang disebut di dalamnya.
         </p>
       </div>
-    </section>
+    </header>
 
-    <section>
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">01</span>
-          <div>
-            <h2>Penafian</h2>
-            <p>
-              Bagian berikut berlaku untuk seluruh isi situs ini tanpa kecuali.
-            </p>
-          </div>
-        </div>
+    <!-- 01. DISCLAIMER -->
+    <section class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="01" title="Penafian">
+          Bagian berikut berlaku untuk seluruh isi situs ini tanpa kecuali.
+        </SectionHead>
 
-        <div class="legal">
-          <p>
-            <strong>PT Perkebunan Asap Emas Nusantara tidak ada.</strong> Nama
-            tersebut diciptakan untuk karya satire ini. Perusahaan tersebut
-            tidak terdaftar di mana pun, tidak memiliki izin, tidak memiliki
-            karyawan, tidak memiliki pabrik, dan tidak pernah melakukan apa pun
-            yang dijelaskan di laman ini karena ia tidak pernah ada.
-          </p>
-          <p>
-            <strong>Seluruh angka, tabel, dan peristiwa adalah rekaan.</strong>
-            Setiap angka yang ditampilkan sebagai &ldquo;dilaporkan
-            perusahaan&rdquo; tidak berasal dari perusahaan mana pun, karena tidak
-            ada perusahaannya. Kolom berjudul &ldquo;Yang tidak dicakup&rdquo;
-            ditulis untuk laman ini dan bukan kutipan dari dokumen nyata.
-          </p>
-          <p>
-            <strong>Tidak ada orang nyata yang dinamai.</strong> Situs ini tidak
-            menyebut nama orang, jabatan yang ditempati individu tertentu, atau
-            peran apa pun yang bisa dihubungkan ke manusia sungguhan. Tabel
-            pengurus memuat jabatan, bukan nama, justru karena itu.
-          </p>
-          <p>
-            <strong>Tidak ada tempat, lembaga, atau badan sungguhan yang
-            disebut.</strong> Desa Konoha beserta seluruh cakrawala situs ini
-            adalah lokasi rekaan dalam dunia fiksi. Situs ini tidak menyebut
-            nama provinsi, kota, pelabuhan, sungai, bursa efek, lembaga
-            sertifikasi, atau badan pengawas mana pun di dunia nyata, dan tidak
-            menuduh lembaga sungguhan atas apa pun. Nama mata uang
-            &ldquo;Ryo&rdquo; adalah mata uang rekaan.
-          </p>
-          <p>
-            <strong>Tidak ada testimoni, tidak ada sumber, tidak ada kutipan.</strong>
-            Situs ini tidak mengutip media, laporan, putusan pengadilan, atau
-            dokumen apa pun. Tidak ada klaim di laman ini yang diklaim berasal
-            dari sumber primer, karena tidak ada sumbernya.
-          </p>
-          <p>
-            <strong>Gambar adalah hasil generatif.</strong> Setiap foto di situs
-            ini dibuat dengan model generatif, diberi keterangan sebagai
-            demikian di tempatnya, dan bukan dokumentasi kejadian nyata.
+        <div class="mt-8 grid max-w-3xl gap-4">
+          <p
+            v-for="clause in disclaimer"
+            :key="clause.head"
+            class="m-0 text-[1.0625rem] leading-relaxed text-quiet"
+          >
+            <strong class="font-extrabold text-body">{{ clause.head }}</strong>
+            {{ clause.body }}
           </p>
         </div>
       </div>
     </section>
 
-    <section class="split split--wide-text">
-      <div class="wrap">
-        <div>
-          <div class="section-head">
-            <span class="section-head__num">02</span>
-            <div>
-              <h2>Mengapa tidak ada nama nyata</h2>
-              <p>
-                Bukan karena hati-hati berlebihan. Satire yang menyebut nama
-                lembaga atau wilayah sungguhan dalam tuduhan fiktif berubah
-                menjadi tuduhan, dan itu bisa digugat.
-              </p>
-            </div>
+    <!-- 02 + 03. WHY NO REAL NAMES, AND THE ONE BORROWED NAME -->
+    <section class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div class="grid items-start gap-12 lg:grid-cols-2">
+          <div>
+            <SectionHead num="02" title="Mengapa tidak ada nama nyata">
+              Bukan karena hati-hati berlebihan. Satire yang menyebut nama
+              lembaga atau wilayah sungguhan dalam tuduhan fiktif berubah menjadi
+              tuduhan, dan itu bisa digugat.
+            </SectionHead>
+            <p class="m-0 mt-6 text-[1.0625rem] leading-relaxed text-quiet">
+              Karena itu dunia situs ini dibangun dari nol: Desa Konoha sebagai
+              lokasi, Ryo sebagai mata uang, Dewan Hijau sebagai badan audit
+              rekaan, Negeri Api sebagai negara. Tidak ada satu pun rujukan ke
+              dunia nyata, dan itu membuat karya ini murni fiksi dari ujung ke
+              ujung.
+            </p>
           </div>
-          <p>
-            Karena itu dunia situs ini dibangun dari nol: Desa Konoha sebagai
-            lokasi, Ryo sebagai mata uang, Dewan Hijau sebagai badan audit
-            rekaan, Negeri Api sebagai negara. Tidak ada satu pun rujukan ke
-            dunia nyata, dan itu membuat karya ini murni fiksi dari ujung ke
-            ujung.
-          </p>
-        </div>
-        <div>
-          <div class="section-head">
-            <span class="section-head__num">03</span>
-            <div>
-              <h2>Catatan soal nama Konoha</h2>
-              <p>
-                Satu-satunya nama yang bukan rekaan sepenuhnya.
-              </p>
-            </div>
+
+          <div>
+            <SectionHead
+              num="03"
+              title="Catatan soal nama Konoha"
+              subtitle="Satu-satunya nama yang bukan rekaan sepenuhnya."
+            />
+            <p class="m-0 mt-6 text-[1.0625rem] leading-relaxed text-quiet">
+              &ldquo;Konoha&rdquo; diambil dari dunia fiksi anime
+              <em class="font-bold text-body not-italic">Naruto</em>, yang
+              merupakan karya berhak cipta milik pemegang haknya. Nama itu
+              dipakai di sini sebagai penghormatan dan penanda fiksi, bukan untuk
+              mengklaim kepemilikan atas karya tersebut atau berafiliasi dengan
+              pemegang haknya.
+            </p>
+            <p class="m-0 mt-4 text-[1.0625rem] leading-relaxed text-quiet">
+              Jika Anda pemegang hak atas karya tersebut dan keberatan atas
+              pemakaian namanya di laman ini, ganti namanya cukup satu kali edit
+              di seluruh berkas situs ini, dan seluruh dunia situs akan berubah
+              menjadi rekaan sepenuhnya tanpa nama pinjaman.
+            </p>
           </div>
-          <p>
-            &ldquo;Konoha&rdquo; diambil dari dunia fiksi anime
-            <em>Naruto</em>, yang merupakan karya berhak cipta milik pemegang
-            haknya. Nama itu dipakai di sini sebagai penghormatan dan penanda
-            fiksi, bukan untuk mengklaim kepemilikan atas karya tersebut atau
-            berafiliasi dengan pemegang haknya.
-          </p>
-          <p>
-            Jika Anda pemegang hak atas karya tersebut dan keberatan atas
-            pemakaian namanya di laman ini, ganti namanya cukup satu kali edit
-            di seluruh berkas situs ini, dan seluruh dunia situs akan berubah
-            menjadi rekaan sepenuhnya tanpa nama pinjaman.
-          </p>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">04</span>
-          <div>
-            <h2>Kredit</h2>
-            <p>
-              Apa yang sungguhan di situs ini, dan siapa pembuatnya.
-            </p>
-          </div>
-        </div>
+    <!-- 04. CREDITS -->
+    <section class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="04" title="Kredit">
+          Apa yang sungguhan di situs ini, dan siapa pembuatnya.
+        </SectionHead>
 
-        <div class="table-wrap" tabindex="0" role="region"
-             aria-label="Tabel kredit, geser ke samping untuk melihat kolom lain">
-          <table class="table">
-            <caption class="table__caption">
-              Komponen situs dan asal-usulnya.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Komponen</th>
-                <th scope="col">Pembuat</th>
-                <th scope="col">Lisensi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Konsep, teks, dan struktur</th>
-                <td>Dibuat atas permintaan pemilik repositori</td>
-                <td>Hak cipta pada pemilik situs</td>
-              </tr>
-              <tr>
-                <th scope="row">Foto lanskap dan objek</th>
-                <td>Dihasilkan dengan model generatif</td>
-                <td>Lihat ketentuan penyedia model</td>
-              </tr>
-              <tr>
-                <th scope="row">Segel dan logo</th>
-                <td>SVG digambar tangan untuk situs ini</td>
-                <td>Hak cipta pada pemilik situs</td>
-              </tr>
-              <tr>
-                <th scope="row">Font Nunito</th>
-                <td>Vernon Adams dkk.</td>
-                <td>SIL Open Font License 1.1</td>
-              </tr>
-              <tr>
-                <th scope="row">Font IBM Plex Mono</th>
-                <td>Mike Abbink, IBM</td>
-                <td>SIL Open Font License 1.1</td>
-              </tr>
-              <tr>
-                <th scope="row">Kerangka situs</th>
-                <td>Nuxt 4 (MIT)</td>
-                <td>MIT</td>
-              </tr>
-              <tr>
-                <th scope="row">Nama Desa Konoha</th>
-                <td>Dunia fiksi Naruto</td>
-                <td>Hak cipta pemegang hak karya tersebut</td>
-              </tr>
-            </tbody>
-          </table>
+        <div
+          class="mt-8 overflow-hidden rounded-2xl border-2 border-hair bg-card"
+        >
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-left text-sm">
+              <caption
+                class="border-b border-hair px-5 py-4 text-left font-mono text-[0.625rem] leading-relaxed tracking-wider text-quiet uppercase"
+              >
+                Komponen situs dan asal-usulnya.
+              </caption>
+              <thead>
+                <tr class="border-b border-hair">
+                  <th
+                    scope="col"
+                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
+                  >
+                    Komponen
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
+                  >
+                    Pembuat
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
+                  >
+                    Lisensi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="row in credits"
+                  :key="row.component"
+                  class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-sunken"
+                >
+                  <th
+                    scope="row"
+                    class="px-5 py-3 text-sm font-bold text-body"
+                  >
+                    {{ row.component }}
+                  </th>
+                  <td class="px-5 py-3 text-sm text-quiet">{{ row.maker }}</td>
+                  <td class="px-5 py-3 text-sm text-quiet">
+                    {{ row.license }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="notice-section">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">05</span>
-          <div>
-            <h2>Ringkasnya</h2>
-            <p>
-              Jika Anda ingin satu paragraf untuk ditunjukkan kepada siapa pun
-              yang bertanya, pakai yang ini.
-            </p>
-          </div>
-        </div>
-        <blockquote class="legal-quote">
+    <!-- 05. THE ONE-PARAGRAPH VERSION -->
+    <section class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="05" title="Ringkasnya">
+          Jika Anda ingin satu paragraf untuk ditunjukkan kepada siapa pun yang
+          bertanya, pakai yang ini.
+        </SectionHead>
+
+        <blockquote
+          class="m-0 mt-8 max-w-3xl rounded-2xl border-2 border-leaf-400 bg-[var(--harm-leaf-bg)] p-6 text-[1.0625rem] leading-relaxed text-body"
+        >
           Situs ini adalah karya satire. Perusahaan, desa, mata uang, badan
           audit, dan seluruh angka di dalamnya adalah rekaan. Tidak ada
           perusahaan, lembaga, wilayah, atau orang nyata yang disebut atau
@@ -222,3 +184,74 @@
     <FictionNotice label="Situs fiksi" />
   </article>
 </template>
+
+<script setup lang="ts">
+// Bound, not literal: a literal public/ path gets rewritten into a static
+// import by the bundler, and public/ is not an import root.
+const logoUrl = '/company-sawit/logo.svg'
+
+const disclaimer = [
+  {
+    head: 'PT Perkebunan Asap Emas Nusantara tidak ada.',
+    body: ' Nama tersebut diciptakan untuk karya satire ini. Perusahaan tersebut tidak terdaftar di mana pun, tidak memiliki izin, tidak memiliki karyawan, tidak memiliki pabrik, dan tidak pernah melakukan apa pun yang dijelaskan di laman ini karena ia tidak pernah ada.',
+  },
+  {
+    head: 'Seluruh angka, tabel, dan peristiwa adalah rekaan.',
+    body: ' Setiap angka yang ditampilkan sebagai “dilaporkan perusahaan” tidak berasal dari perusahaan mana pun, karena tidak ada perusahaannya. Kolom berjudul “Yang tidak dicakup” ditulis untuk laman ini dan bukan kutipan dari dokumen nyata.',
+  },
+  {
+    head: 'Tidak ada orang nyata yang dinamai.',
+    body: ' Situs ini tidak menyebut nama orang, jabatan yang ditempati individu tertentu, atau peran apa pun yang bisa dihubungkan ke manusia sungguhan. Tabel pengurus memuat jabatan, bukan nama, justru karena itu.',
+  },
+  {
+    head: 'Tidak ada tempat, lembaga, atau badan sungguhan yang disebut.',
+    body: ' Desa Konoha beserta seluruh cakrawala situs ini adalah lokasi rekaan dalam dunia fiksi. Situs ini tidak menyebut nama provinsi, kota, pelabuhan, sungai, bursa efek, lembaga sertifikasi, atau badan pengawas mana pun di dunia nyata, dan tidak menuduh lembaga sungguhan atas apa pun. Nama mata uang “Ryo” adalah mata uang rekaan.',
+  },
+  {
+    head: 'Tidak ada testimoni, tidak ada sumber, tidak ada kutipan.',
+    body: ' Situs ini tidak mengutip media, laporan, putusan pengadilan, atau dokumen apa pun. Tidak ada klaim di laman ini yang diklaim berasal dari sumber primer, karena tidak ada sumbernya.',
+  },
+  {
+    head: 'Gambar adalah hasil generatif.',
+    body: ' Setiap foto di situs ini dibuat dengan model generatif, diberi keterangan sebagai demikian di tempatnya, dan bukan dokumentasi kejadian nyata.',
+  },
+]
+
+const credits = [
+  {
+    component: 'Konsep, teks, dan struktur',
+    maker: 'Dibuat atas permintaan pemilik repositori',
+    license: 'Hak cipta pada pemilik situs',
+  },
+  {
+    component: 'Foto lanskap dan objek',
+    maker: 'Dihasilkan dengan model generatif',
+    license: 'Lihat ketentuan penyedia model',
+  },
+  {
+    component: 'Segel dan logo',
+    maker: 'SVG digambar tangan untuk situs ini',
+    license: 'Hak cipta pada pemilik situs',
+  },
+  {
+    component: 'Font Nunito',
+    maker: 'Vernon Adams dkk.',
+    license: 'SIL Open Font License 1.1',
+  },
+  {
+    component: 'Font IBM Plex Mono',
+    maker: 'Mike Abbink, IBM',
+    license: 'SIL Open Font License 1.1',
+  },
+  {
+    component: 'Kerangka situs',
+    maker: 'Nuxt 4 (MIT) dan Tailwind CSS (MIT)',
+    license: 'MIT',
+  },
+  {
+    component: 'Nama Desa Konoha',
+    maker: 'Dunia fiksi Naruto',
+    license: 'Hak cipta pemegang hak karya tersebut',
+  },
+]
+</script>

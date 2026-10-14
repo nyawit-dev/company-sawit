@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -6,7 +8,11 @@ export default defineNuxtConfig({
   // GitHub Pages project site serves from /company-sawit/, so every asset and
   // route must be generated under that base. Nitro's static output is
   // committed by the workflow; no Node process serves it.
-  css: ['~/assets/theme.css'],
+  css: ['~/assets/css/main.css'],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   nitro: {
     preset: 'github-pages',
@@ -14,7 +20,7 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/company-sawit/',
     head: {
-      htmlAttrs: { lang: 'id', 'data-theme': 'sakura' },
+      htmlAttrs: { lang: 'id', 'data-theme': 'hijau' },
       title: 'PT Perkebunan Asap Emas Nusantara',
       meta: [
         { charset: 'utf-8' },

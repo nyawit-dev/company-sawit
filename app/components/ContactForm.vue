@@ -1,70 +1,95 @@
 <template>
-  <form class="form" @submit.prevent="onSubmit">
-    <!-- A corporate contact form. Every field is validated on the client and
-         there is nowhere for the submission to go: the company is fiction, so
-         the form says what it does instead of pretending to transmit. -->
-    <div class="form__row">
-      <label class="field">
-        <span class="field__label">Nama</span>
-        <input
-          v-model="form.name"
-          class="field__input"
-          type="text"
-          name="nama"
-          autocomplete="name"
-          required
-        />
-      </label>
+  <!-- A corporate contact form. Every field is validated on the client and
+       there is nowhere for the submission to go: the company is fiction, so
+       the form says what it does instead of pretending to transmit. -->
+  <form class="mt-8 grid gap-6 md:grid-cols-2" @submit.prevent="onSubmit">
+    <label class="block">
+      <span
+        class="mb-2 block font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
+        >Nama</span
+      >
+      <input
+        v-model="form.name"
+        type="text"
+        name="nama"
+        autocomplete="name"
+        required
+        class="min-h-11 w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+      />
+    </label>
 
-      <label class="field">
-        <span class="field__label">Surel</span>
-        <input
-          v-model="form.email"
-          class="field__input"
-          type="email"
-          name="surel"
-          autocomplete="email"
-          required
-        />
-      </label>
-    </div>
+    <label class="block">
+      <span
+        class="mb-2 block font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
+        >Surel</span
+      >
+      <input
+        v-model="form.email"
+        type="email"
+        name="surel"
+        autocomplete="email"
+        required
+        class="min-h-11 w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+      />
+    </label>
 
-    <label class="field">
-      <span class="field__label">Keperluan</span>
-      <select v-model="form.purpose" class="field__input" name="keperluan" required>
+    <label class="block md:col-span-2">
+      <span
+        class="mb-2 block font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
+        >Keperluan</span
+      >
+      <select
+        v-model="form.purpose"
+        name="keperluan"
+        required
+        class="min-h-11 w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+      >
         <option value="">Pilih salah satu</option>
         <option value="media">Permintaan media</option>
         <option value="investor">Hubungan investor</option>
         <option value="mitra">Kemitraan plasma</option>
         <option value="ganti-rugi">Klaim ganti rugi lahan</option>
+        <!-- The last option in the list is the one that matters, and it routes
+             to the same inbox as the media request. -->
         <option value="pengaduan">Pengaduan warga</option>
       </select>
     </label>
 
-    <label class="field">
-      <span class="field__label">Pesan</span>
+    <label class="block md:col-span-2">
+      <span
+        class="mb-2 block font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
+        >Pesan</span
+      >
       <textarea
         v-model="form.message"
-        class="field__input field__input--area"
         name="pesan"
         rows="5"
         required
-      />
+        class="w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+      ></textarea>
     </label>
 
-    <div class="form__foot">
-      <button class="button" type="submit" :disabled="sent">
+    <div
+      class="flex flex-wrap items-center gap-4 md:col-span-2"
+    >
+      <button
+        type="submit"
+        :disabled="sent"
+        class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-leaf-600 bg-leaf-600 px-6 py-3 text-base font-bold text-white shadow-[0_3px_0_var(--color-leaf-800)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-800)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-800)] disabled:cursor-not-allowed disabled:opacity-70"
+      >
         {{ sent ? 'Terkirim' : 'Kirim' }}
       </button>
-      <!-- The last option in the list is the one that matters, and it routes
-           to the same inbox as the media request. -->
-      <p class="form__note">
+      <p class="m-0 max-w-md text-sm leading-relaxed text-quiet">
         Pengaduan warga dan permintaan media diteruskan ke unit hubungan
         korporat yang sama.
       </p>
     </div>
 
-    <p v-if="sent" class="form__sent" role="status">
+    <p
+      v-if="sent"
+      role="status"
+      class="m-0 rounded-2xl border-2 border-dashed border-leaf-400 bg-sunken p-5 text-sm leading-relaxed text-body md:col-span-2"
+    >
       Borang ini tidak mengirim data ke mana pun. PT Perkebunan Asap Emas
       Nusantara tidak ada, dan tidak ada kotak masuk yang menunggu pesan Anda.
     </p>

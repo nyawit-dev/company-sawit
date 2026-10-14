@@ -1,143 +1,86 @@
 <template>
   <!-- A theme switch as a physical toggle, because a select element would be
        the wrong object for something this decorative. The knob slides and the
-       sky and sun swap, which is the whole point of having two modes. -->
+       sun and moon swap, which is what tells you the choice took effect before
+       the palette has finished changing. -->
   <button
-    class="theme-switch"
     type="button"
-    :aria-pressed="isNight"
-    :aria-label="isNight ? 'Ganti ke mode siang (sakura)' : 'Ganti ke mode malam (yoru)'"
+    role="switch"
+    :aria-checked="dark"
+    :aria-label="dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap'"
+    class="group relative flex h-11 w-[4.75rem] shrink-0 cursor-pointer items-center rounded-full border-2 border-hair bg-card transition-colors duration-300 ease-out"
     @click="toggle"
   >
-    <span class="theme-switch__track" aria-hidden="true">
-      <span class="theme-switch__sky" />
-      <span class="theme-switch__sun" />
-      <span class="theme-switch__moon" />
-      <span class="theme-switch__knob" />
+    <!-- The sun: day mode. Scales away in dark, where the moon takes over. -->
+    <span
+      class="absolute left-1.5 grid size-7 place-items-center rounded-full bg-leaf-200 text-leaf-800 transition-all duration-300 ease-out group-aria-checked:scale-0 group-aria-checked:opacity-0"
+    >
+      <svg viewBox="0 0 24 24" class="size-4" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path
+            d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"
+          />
+        </g>
+      </svg>
     </span>
-    <span class="theme-switch__label">{{ isNight ? 'Yoru' : 'Sakura' }}</span>
+
+    <!-- The moon: night mode. Scales in over the sun's position. -->
+    <span
+      class="absolute right-1.5 grid size-7 scale-0 place-items-center rounded-full bg-leaf-800 text-leaf-100 opacity-0 transition-all duration-300 ease-out group-aria-checked:scale-100 group-aria-checked:opacity-100"
+    >
+      <svg viewBox="0 0 24 24" class="size-4" fill="currentColor" aria-hidden="true">
+        <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" />
+      </svg>
+    </span>
+
+    <!-- The knob. It is the one thing that physically moves, so it carries the
+         whole affordance: without motion this control reads as decoration. -->
+    <span
+      class="absolute top-1 left-1 size-7 rounded-full bg-leaf-600 shadow-[0_2px_6px_rgb(14_39_25/0.35)] transition-transform duration-300 ease-out group-aria-checked:translate-x-[2.25rem]"
+    ></span>
   </button>
 </template>
 
 <script setup lang="ts">
 // The theme lives in localStorage so the choice survives a reload, and the
 // initial value is read before paint to avoid a flash of the wrong mode.
-type Mode = 'sakura' | 'yoru'
-
+const LIGHT = 'hijau'
+const DARK = 'malam'
 const KEY = 'sawit-theme'
 
-const mode = ref<Mode>('sakura')
-const isNight = computed(() => mode.value === 'yoru')
+const dark = ref(false)
 
-function apply(next: Mode) {
-  mode.value = next
-  document.documentElement.dataset.theme = next
+function apply(value: boolean) {
+  dark.value = value
+  document.documentElement.dataset.theme = value ? DARK : LIGHT
   try {
-    localStorage.setItem(KEY, next)
+    localStorage.setItem(KEY, value ? DARK : LIGHT)
   } catch {
-    // Private browsing with storage disabled. The theme still applies for this
+    // Private browsing with storage blocked. The theme still applies for this
     // page view; it just will not persist, which is not worth an error.
   }
 }
 
 function toggle() {
-  apply(isNight.value ? 'sakura' : 'yoru')
+  apply(!dark.value)
 }
 
 onMounted(() => {
   // Read the stored choice here rather than in setup: this runs after Nuxt has
   // hydrated, and touching localStorage during SSR throws.
-  let stored: Mode | null = null
+  let stored: string | null = null
   try {
-    const raw = localStorage.getItem(KEY)
-    if (raw === 'sakura' || raw === 'yoru') stored = raw
+    stored = localStorage.getItem(KEY)
   } catch {
     stored = null
   }
-  if (stored) {
-    mode.value = stored
-    document.documentElement.dataset.theme = stored
+  if (stored === DARK || stored === LIGHT) {
+    apply(stored === DARK)
     return
   }
   // No stored choice: follow the system. A reader who has asked their OS for
-  // dark mode should not be handed a bright pink page.
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  apply(prefersDark ? 'yoru' : 'sakura')
+  // dark mode should not be handed a bright page.
+  apply(window.matchMedia('(prefers-color-scheme: dark)').matches)
 })
 </script>
-
-<style scoped>
-.theme-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  background: none;
-  border: 0;
-  padding: 0.375rem;
-  cursor: pointer;
-  border-radius: 999px;
-  min-height: 44px;
-}
-
-.theme-switch__track {
-  position: relative;
-  display: block;
-  width: 56px;
-  height: 30px;
-  border-radius: 999px;
-  border: 2px solid var(--control);
-  background: linear-gradient(180deg, var(--sky) 0%, var(--lavender) 100%);
-  overflow: hidden;
-  transition: background var(--dur) var(--ease);
-}
-
-.theme-switch[aria-pressed='true'] .theme-switch__track {
-  background: linear-gradient(180deg, #3B2E52 0%, var(--lavender-ink) 100%);
-}
-
-.theme-switch__knob {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  background: var(--sun);
-  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.7), 0 2px 6px rgb(0 0 0 / 0.25);
-  transition: transform var(--dur) var(--spring), background var(--dur) var(--ease);
-}
-
-.theme-switch[aria-pressed='true'] .theme-switch__knob {
-  transform: translateX(26px);
-  background: var(--card);
-}
-
-/* Tiny stars, only visible in the night mode. */
-.theme-switch__moon {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity var(--dur) var(--ease);
-  background-image:
-    radial-gradient(1.5px 1.5px at 12px 9px, #fff, transparent),
-    radial-gradient(1px 1px at 24px 18px, #fff, transparent),
-    radial-gradient(1.5px 1.5px at 38px 11px, #fff, transparent);
-}
-
-.theme-switch[aria-pressed='true'] .theme-switch__moon {
-  opacity: 0.9;
-}
-
-.theme-switch__label {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.theme-switch:hover .theme-switch__label {
-  color: var(--sakura-ink);
-}
-</style>

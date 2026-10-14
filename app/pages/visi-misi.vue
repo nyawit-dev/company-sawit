@@ -3,40 +3,54 @@
     <!-- Register A: the filing. This is the page where the corporate voice is
          least able to hide what it is saying, which is the point of putting it
          in the same clean register as the company's own history. -->
-    <section class="opening">
-      <div class="wrap">
-        <p class="opening__meta">Visi, misi, dan komitmen &middot; 2025</p>
-        <h1>
+    <header class="border-b-2 border-hair bg-sunken">
+      <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
+        <p
+          class="m-0 mb-3 font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
+        >
+          Visi, misi, dan komitmen &middot; 2025
+        </p>
+        <h1
+          class="m-0 max-w-3xl text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] font-extrabold tracking-tight text-body"
+        >
           Kami akan terus membuka lahan baru sampai tidak ada lahan yang tersisa
           untuk dibuka.
         </h1>
-        <p class="lede">
+        <p
+          class="m-0 mt-4 max-w-2xl text-[clamp(1rem,1.9vw,1.125rem)] leading-relaxed text-quiet"
+        >
           Pernyataan berikut disusun oleh bagian hubungan perusahaan, disetujui
           dewan direksi, dan diterbitkan tanpa perubahan oleh bagian
           keberlanjutan. Kami menuliskannya apa adanya, termasuk bagian yang
           paling jarang dibaca.
         </p>
-        <FictionNotice label="Halaman fiksi" />
       </div>
-    </section>
+    </header>
 
     <!-- The vision statement, set as the company wrote it. No paraphrase, no
          editorial gloss: the sentence carries the satire on its own. -->
-    <section id="visi">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">01</span>
-          <h2>Visi</h2>
-        </div>
-        <blockquote class="vision">
-          <p>
-            Menjadi perusahaan perkebunan kelapa sawit terdepan yang
-            mengubah seluruh hutan tropis yang tersisa menjadi kebun
-            produktif, dan menyebut proses perubahan itu pembangunan.
+    <section id="visi" class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="01" title="Visi" />
+
+        <blockquote
+          class="m-0 mt-8 max-w-3xl border-t-2 border-leaf-400 pt-6"
+        >
+          <p
+            class="m-0 mb-4 text-[clamp(1.25rem,2.6vw,1.625rem)] leading-[1.32] font-bold tracking-tight text-body italic"
+          >
+            Menjadi perusahaan perkebunan kelapa sawit terdepan yang mengubah
+            seluruh hutan tropis yang tersisa menjadi kebun produktif, dan
+            menyebut proses perubahan itu pembangunan.
           </p>
-          <footer>Bagian hubungan perusahaan, disetujui tanpa perubahan</footer>
+          <footer
+            class="p-0 font-mono text-[0.6875rem] tracking-wider text-quiet uppercase"
+          >
+            Bagian hubungan perusahaan, disetujui tanpa perubahan
+          </footer>
         </blockquote>
-        <p>
+
+        <p class="m-0 mt-6 max-w-3xl text-[1.0625rem] leading-relaxed text-quiet">
           Pernyataan di atas tidak disunting oleh bagian keberlanjutan. Kami
           menerbitkannya sebagaimana adanya karena versi yang sudah diperhalus
           tidak lagi mengatakan apa yang kami maksud.
@@ -47,96 +61,149 @@
     <!-- Mission, as a numbered list of the company's own commitments. Each one
          is a real corporate mission genre, and each one states what it
          actually commits to. -->
-    <section id="misi">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">02</span>
-          <h2>Misi</h2>
-        </div>
-        <div class="register">
-          <div class="register__row" v-for="(item, i) in missions" :key="i">
-            <span class="register__label">Misi {{ i + 1 }}</span>
-            <p class="register__claim">
+    <section id="misi" class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="02" title="Misi" />
+
+        <ol class="m-0 mt-8 grid list-none gap-4 p-0">
+          <li
+            v-for="(item, i) in missions"
+            :key="i"
+            class="flex flex-wrap items-start gap-4 rounded-2xl border-2 border-hair bg-card p-5 transition-transform duration-300 ease-out hover:-translate-y-0.5"
+          >
+            <span
+              class="grid size-8 shrink-0 place-items-center rounded-xl bg-leaf-600 font-mono text-xs font-bold text-white"
+              >{{ i + 1 }}</span
+            >
+            <p class="m-0 min-w-0 flex-1 text-[1.0625rem] leading-relaxed text-body">
               {{ item }}
             </p>
-          </div>
-        </div>
+          </li>
+        </ol>
       </div>
     </section>
 
     <!-- Values, set as a definition list rather than a card grid: the content
          is short and the contrast between the value's name and what it means
          in practice is the whole point (R-14, R-05). -->
-    <section id="nilai">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">03</span>
-          <h2>Nilai perusahaan</h2>
-        </div>
-        <div class="values">
-          <div class="values__row" v-for="v in values" :key="v.name">
-            <h3>{{ v.name }}</h3>
-            <p class="values__body">{{ v.body }}</p>
+    <section id="nilai" class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="03" title="Nilai perusahaan" />
+
+        <dl class="m-0 mt-8 border-t-2 border-leaf-400">
+          <div
+            v-for="v in values"
+            :key="v.name"
+            class="grid gap-1 border-b border-hair py-5 md:grid-cols-[14rem_1fr] md:gap-8"
+          >
+            <dt
+              class="m-0 text-[1.0625rem] font-extrabold tracking-tight text-body"
+            >
+              {{ v.name }}
+            </dt>
+            <dd class="m-0 max-w-3xl text-[1.0625rem] leading-relaxed text-quiet">
+              {{ v.body }}
+            </dd>
           </div>
-        </div>
+        </dl>
       </div>
     </section>
 
     <!-- Commitments with dates, as the company states them. The scope column
          is where each commitment quietly excludes the thing it names. -->
-    <section id="komitmen">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">04</span>
-          <h2>Komitmen bertahun</h2>
-        </div>
-        <p>
-          Komitmen berikut memiliki tahun target. Kami mencantumkan lingkup
-          yang tidak dicakup di kolom terakhir, karena tanpa kolom itu tabel ini
+    <section id="komitmen" class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="04" title="Komitmen bertahun">
+          Komitmen berikut memiliki tahun target. Kami mencantumkan lingkup yang
+          tidak dicakup di kolom terakhir, karena tanpa kolom itu tabel ini
           akan terbaca sebagai janji.
-        </p>
-        <div class="table-wrap" tabindex="0" role="region"
-             aria-label="Tabel, geser ke samping untuk melihat kolom lain">
-          <table>
-            <caption>Komitmen perusahaan dan lingkup pengecualiannya</caption>
-            <thead>
-              <tr>
-                <th scope="col">Komitmen</th>
-                <th scope="col">Tahun target</th>
-                <th scope="col">Yang tidak dicakup</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="c in commitments" :key="c.name">
-                <th scope="row">{{ c.name }}</th>
-                <td class="num">{{ c.year }}</td>
-                <td>{{ c.excluded }}</td>
-              </tr>
-            </tbody>
-          </table>
+        </SectionHead>
+
+        <div
+          class="mt-8 overflow-hidden rounded-2xl border-2 border-hair bg-card"
+        >
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-left text-sm">
+              <caption
+                class="border-b border-hair px-5 py-4 text-left font-mono text-[0.625rem] leading-relaxed tracking-wider text-quiet uppercase"
+              >
+                Komitmen perusahaan dan lingkup pengecualiannya
+              </caption>
+              <thead>
+                <tr class="border-b border-hair">
+                  <th
+                    scope="col"
+                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
+                  >
+                    Komitmen
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
+                  >
+                    Tahun target
+                  </th>
+                  <th
+                    scope="col"
+                    class="px-5 py-3 font-mono text-[0.625rem] tracking-wider text-quiet uppercase"
+                  >
+                    Yang tidak dicakup
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="c in commitments"
+                  :key="c.name"
+                  class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-sunken"
+                >
+                  <th
+                    scope="row"
+                    class="px-5 py-3 text-sm font-bold text-body"
+                  >
+                    {{ c.name }}
+                  </th>
+                  <td
+                    class="px-5 py-3 font-mono text-sm font-bold whitespace-nowrap text-leaf-700 dark:text-leaf-300"
+                  >
+                    {{ c.year }}
+                  </td>
+                  <td class="px-5 py-3 text-sm text-quiet">
+                    {{ c.excluded }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="tutup">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-head__num">05</span>
-          <h2>Cara kami mengukur kemajuan</h2>
-        </div>
-        <p>
+    <section id="tutup" class="border-b-2 border-hair">
+      <div class="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <SectionHead num="05" title="Cara kami mengukur kemajuan" />
+        <p class="m-0 mt-6 max-w-3xl text-[1.0625rem] leading-relaxed text-quiet">
           Kemajuan diukur dari luas yang sudah ditanami, bukan dari luas hutan
           yang tersisa. Dua angka itu tidak saling melengkapi dalam laporan ini,
           karena yang kedua tidak pernah kami hitung.
         </p>
-        <p>
+        <p class="m-0 mt-4 max-w-3xl text-[1.0625rem] leading-relaxed text-quiet">
           Latar belakang perusahaan dan riwayat konsesi ada di halaman
-          <NuxtLink to="/tentang">tentang</NuxtLink>. Praktik
-          operasional di lapangan ada di
-          <NuxtLink to="/">halaman utama</NuxtLink>.
+          <NuxtLink
+            to="/tentang"
+            class="font-bold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
+            >tentang</NuxtLink
+          >. Praktik operasional di lapangan ada di
+          <NuxtLink
+            to="/"
+            class="font-bold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
+            >halaman utama</NuxtLink
+          >.
         </p>
       </div>
     </section>
+
+    <FictionNotice label="Halaman fiksi" />
   </article>
 </template>
 
@@ -195,58 +262,3 @@ const commitments = [
   },
 ]
 </script>
-
-<style scoped>
-.vision {
-  margin: 0 0 1.5rem;
-  padding: 1.5rem 0 0;
-  border-top: 1px solid var(--rule-strong);
-  max-width: 44rem;
-}
-
-.vision p {
-  font-size: clamp(1.25rem, 2.6vw, 1.625rem);
-  line-height: 1.32;
-  letter-spacing: -0.02em;
-  margin: 0 0 1rem;
-  font-style: italic;
-  color: var(--ink);
-}
-
-.vision footer {
-  padding: 0;
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.values {
-  border-top: 1px solid var(--rule-strong);
-  max-width: 62rem;
-}
-
-.values__row {
-  padding-block: 1.375rem;
-  border-bottom: 1px solid var(--rule);
-  display: grid;
-  gap: 0.35rem 2rem;
-}
-
-.values__row h3 {
-  margin: 0;
-}
-
-.values__body {
-  margin: 0;
-  max-width: 46rem;
-}
-
-@media (min-width: 48rem) {
-  .values__row {
-    grid-template-columns: 14rem 1fr;
-    align-items: baseline;
-  }
-}
-</style>

@@ -1,0 +1,308 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Base layer.
+
+   Tailwind v4 sets the text colour on <body> but not a background, and a
+   transparent <body> resolves to the canvas, which is white in light mode and
+   black in dark mode regardless of the theme tokens. Without this the entire
+   dark mode has no background at all: every surface stays paper-white on a
+   black canvas and the contrast audit walks up past every transparent ancestor
+   to the wrong thing.
+   --------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    /* The theme attribute is what the dark: variant reads, so it must exist
+       before the first paint or the page flashes the wrong mode. */
+    color-scheme: light;
+  }
+
+  html[data-theme='malam'] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    /* Nunito's variable optical sizing only engages with this set. */
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The theme switch animates the whole page, so the transition belongs here
+     rather than on individual surfaces. */
+  body,
+  body * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body * {
+      transition-duration: 0.01ms;
+    }
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-leaf-500);
+    outline-offset: 3px;
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+   The ONLY CSS in this project besides Tailwind's own output.
+
+   Everything the site needs that is a design decision rather than a layout
+   utility lives here: the two themes, the green scale, the damage-coded
+   accents, the fonts, and the handful of keyframes the animations use. No
+   component stylesheets. If a rule could be a utility class in the markup, it
+   is a utility class in the markup.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  /* Typography. Nunito for everything readable, IBM Plex Mono for the numbers,
+     because proportional figures in a statistic stop reading as bookkeeping
+     and the entire satire rests on the numbers looking like bookkeeping. */
+  --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* A single green scale, shared by both themes. The primary is green-600:
+     white text on it measures 6.82:1, and as text on a light card it measures
+     6.82:1 the other way, so one value works for both jobs. */
+  --color-leaf-50: #f0f7f1;
+  --color-leaf-100: #dbebde;
+  --color-leaf-200: #b8d6bf;
+  --color-leaf-300: #8bbd97;
+  --color-leaf-400: #5c9e6e;
+  --color-leaf-500: #3b8053;
+  --color-leaf-600: #2a6642;
+  --color-leaf-700: #1f4f33;
+  --color-leaf-800: #163b26;
+  --color-leaf-900: #0e2719;
+}
+
+/* ---------------------------------------------------------------------------
+   Themes.
+
+   Tailwind's dark: variant is wired to data-theme rather than the media query,
+   so the switch is a real control and remembers the reader's choice. Every
+   semantic colour below is measured against every surface it lands on:
+   light mode minimum 5.26:1, dark mode minimum 6.03:1.
+   --------------------------------------------------------------------------- */
+
+@custom-variant dark (&:where([data-theme='malam'], [data-theme='malam'] *));
+
+:root,
+[data-theme='hijau'] {
+  color-scheme: light;
+
+  --color-paper: #f7f9f5;
+  --color-card: #ffffff;
+  --color-sunken: #edf2e9;
+
+  --color-body: #15251a;
+  --color-quiet: #4a5c50;
+
+  --color-hair: #d6e0d2;
+  --color-control: #b8d6bf;
+}
+
+[data-theme='malam'] {
+  color-scheme: dark;
+
+  --color-paper: #0d1410;
+  --color-card: #151f19;
+  --color-sunken: #0a110d;
+
+  --color-body: #eaf3ec;
+  --color-quiet: #a8beb0;
+
+  --color-hair: #2a3b31;
+  --color-control: #4f6b58;
+}
+
+/* Map the semantic tokens into Tailwind's namespace so `bg-paper`,
+   `text-body`, `border-hair` and friends exist as utilities. */
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-card: var(--color-card);
+  --color-sunken: var(--color-sunken);
+  --color-body: var(--color-body);
+  --color-quiet: var(--color-quiet);
+  --color-hair: var(--color-hair);
+  --color-control: var(--color-control);
+}
+
+/* ---------------------------------------------------------------------------
+   Damage accents.
+
+   The five harms each get a colour that survives both themes. Each pair is a
+   light-surface value and a dark-surface value for the same hue, so a chip
+   never has to be re-specified per theme.
+   --------------------------------------------------------------------------- */
+
+:root,
+[data-theme='hijau'] {
+  --harm-fire-bg: #fdeee8;
+  --harm-fire-fg: #8f2f14;
+  --harm-fire-br: #c9552f;
+  /* The block numeral is 12px, so it needs 4.5:1 and cannot reuse -br, which
+     is a border colour specified for 3:1. Each hue gets a numeral value. */
+  --harm-fire-num: #7a2810;
+
+  --harm-water-bg: #e8f1f8;
+  --harm-water-fg: #14486b;
+  --harm-water-br: #2f6d97;
+  --harm-water-num: #103c5b;
+
+  --harm-soil-bg: #f4eee4;
+  --harm-soil-fg: #6b4a1c;
+  --harm-soil-br: #9c7a3f;
+  --harm-soil-num: #593d16;
+
+  --harm-sick-bg: #eeeaf5;
+  --harm-sick-fg: #3d2a63;
+  --harm-sick-br: #6f5a9c;
+  --harm-sick-num: #332254;
+
+  --harm-leaf-bg: var(--color-leaf-100);
+  --harm-leaf-fg: var(--color-leaf-700);
+  --harm-leaf-br: var(--color-leaf-400);
+  --harm-leaf-num: var(--color-leaf-800);
+}
+
+[data-theme='malam'] {
+  --harm-fire-bg: #2e1509;
+  --harm-fire-fg: #f4b79c;
+  --harm-fire-br: #b04a26;
+  --harm-fire-num: #e8a582;
+
+  --harm-water-bg: #0b1e2b;
+  --harm-water-fg: #a3cde8;
+  --harm-water-br: #2a5f85;
+  --harm-water-num: #8fbdd8;
+
+  --harm-soil-bg: #241c0f;
+  --harm-soil-fg: #e0c795;
+  --harm-soil-br: #876834;
+  --harm-soil-num: #d0b683;
+
+  --harm-sick-bg: #1a1226;
+  --harm-sick-fg: #c4b3e0;
+  --harm-sick-br: #5b4a80;
+  --harm-sick-num: #b3a1d2;
+
+  --harm-leaf-bg: #12261a;
+  --harm-leaf-fg: #9ed3b1;
+  --harm-leaf-br: #3f7a55;
+  --harm-leaf-num: #8ccaa2;
+}
+
+/* ---------------------------------------------------------------------------
+   Fonts.
+   --------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/company-sawit/fonts/nunito-variable-latin.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/company-sawit/fonts/plex-mono-regular-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('/company-sawit/fonts/plex-mono-600-latin.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion.
+
+   Soft, not bouncy: the site is about slow institutional damage, and a spring
+   that overshoots reads as cheerful in a way that undercuts the point. These
+   are the only keyframes; everything else is a transition on a utility.
+   --------------------------------------------------------------------------- */
+
+@keyframes leaf-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes steam-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.96);
+  }
+  40% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px) scale(1.14);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+/* The scroll reveal is opt-in per element and always resolves, so a reader
+   whose browser never fires the observer still sees the content. */
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-in {
+  animation: rise-in 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-in {
+    animation: none;
+    opacity: 1;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
