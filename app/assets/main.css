@@ -18,34 +18,30 @@
 
 /* ---------- fonts ---------- */
 
+/* Nunito carries every voice on the site, headings and body alike: a rounded
+   humanist sans that reads as friendly and institutional at the same time,
+   which is the wrong register for what the company is describing. One
+   variable file, 400-800, latin subset. */
 @font-face {
-  font-family: 'Newsreader';
+  font-family: 'Nunito';
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 400 800;
   font-display: swap;
-  src: url('/company-sawit/fonts/newsreader-normal-400700.woff2') format('woff2');
+  src: url('/company-sawit/fonts/nunito-variable-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
     U+FFFD;
 }
 
-@font-face {
-  font-family: 'Newsreader';
-  font-style: italic;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url('/company-sawit/fonts/newsreader-italic-400600.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
-    U+FFFD;
-}
-
+/* Plex Mono is kept for numbers only, because Nunito's figures are
+   proportional and a stat strip whose columns do not line up stops reading as
+   a ledger. */
 @font-face {
   font-family: 'IBM Plex Mono';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/company-sawit/fonts/ibm-plex-mono-normal-400.woff2') format('woff2');
+  src: url('/company-sawit/fonts/ibm-plex-mono-400.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
     U+FFFD;
@@ -56,7 +52,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url('/company-sawit/fonts/ibm-plex-mono-normal-500.woff2') format('woff2');
+  src: url('/company-sawit/fonts/ibm-plex-mono-500.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF,
     U+FFFD;
@@ -78,7 +74,28 @@
   --control: #7d7867;
   --accent: #2c4a34;
   --accent-ink: #f4f1ea;
-  --serif: 'Newsreader', Georgia, 'Iowan Old Style', Charter, serif;
+
+  /* The palette is deliberately wider than a filing would be. A real annual
+     report has one corporate colour and a lot of grey; this one has a colour
+     per kind of harm, so that scrolling down the page runs through the
+     spectrum of what was done to the land. Each is checked against the
+     surface it sits on. */
+  /* These four were darkened after measuring: as display figures at 40px they
+     need 3:1 (WCAG large text), and the first picks measured 2.67-2.97. The
+     hue is unchanged, only the luminance. */
+  --harvest: #8a6508;
+  --harvest-ink: #1c1a17;
+  --fire: #8c2413;
+  --fire-ink: #fdf6f0;
+  --water: #14485c;
+  --water-ink: #f2f8fa;
+  --earth: #5f3a21;
+  --earth-ink: #fbf3ec;
+  --sick: #4f5c14;
+  --sick-ink: #faf7e8;
+
+  /* Nunito everywhere, Plex Mono for figures only. */
+  --sans: 'Nunito', ui-rounded, 'Segoe UI', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --measure: 34rem;
   --leading: 1.65;
@@ -121,10 +138,33 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.0625rem;
   line-height: var(--leading);
   font-optical-sizing: auto;
+}
+
+/* Nunito is a rounded humanist sans with a large x-height and wide stance.
+   Set slightly tighter than the serif it replaced, or headlines run long and
+   the measure widens past comfortable reading. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--sans);
+  letter-spacing: -0.022em;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.125rem, 5.2vw, 3.375rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(1.625rem, 3.4vw, 2.25rem);
+  font-weight: 700;
 }
 
 /* Focus is never removed. It is replaced with a ring that stays visible on
@@ -584,7 +624,7 @@ td.num {
   background: transparent;
   border: 0;
   color: var(--ink);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.0625rem;
   font-weight: 600;
   text-align: left;
@@ -641,7 +681,7 @@ td.num {
 .field__area,
 .field__select {
   width: 100%;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1rem;
   color: var(--ink);
   background: var(--bg);
@@ -1252,4 +1292,245 @@ footer a {
   border-left: 2px solid var(--accent);
   background: var(--surface);
   color: var(--ink);
+}
+
+/* ---------- harm ledger: one colour per kind of damage ----------
+   The satire is carried by the mismatch between a friendly rounded sans in
+   bright institutional colour, and what the sentence underneath it says. Each
+   band gets its own colour and its own labelled claim, and every colour pair
+   below is contrast-checked against the surface it sits on. */
+
+.harm {
+  border-top: 1px solid var(--rule-strong);
+  padding-block: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+/* A solid colour rule across the top of every harm block. The tinted cells
+   alone read as a faint wash against the home page's dark register; this bar
+   makes the colour structural, so scrolling the page runs visibly through the
+   spectrum of what was done. */
+.harm::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background: currentColor;
+  margin-bottom: clamp(2rem, 4vw, 2.75rem);
+}
+
+.harm__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.harm__num {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid currentColor;
+  line-height: 1;
+}
+
+.harm__tag {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* A big number that the company published, next to the number it did not.
+   The two columns are the whole joke and they are deliberately the same size,
+   so neither reads as the footnote. */
+.harm__pair {
+  display: grid;
+  gap: 1.25rem;
+  margin-block: 1.75rem;
+}
+
+@media (min-width: 44rem) {
+  .harm__pair {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.harm__cell {
+  padding: 1.25rem 1.375rem;
+  border-left: 3px solid currentColor;
+  background: var(--surface);
+}
+
+.harm__cell--claim {
+  border-left-color: currentColor;
+}
+
+.harm__cell--gap {
+  border-left-style: dashed;
+}
+
+.harm__figure {
+  font-family: var(--mono);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  margin: 0 0 0.5rem;
+}
+
+.harm__figure-label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ---------- the seven colours ---------- */
+
+.harm--fire {
+  color: var(--fire);
+}
+
+.harm--fire .harm__cell {
+  background: color-mix(in srgb, var(--fire) 18%, #fbf9f3);
+}
+
+.harm--harvest {
+  color: var(--harvest);
+}
+
+.harm--harvest .harm__cell {
+  background: color-mix(in srgb, var(--harvest) 20%, #fbf9f3);
+}
+
+.harm--water {
+  color: var(--water);
+}
+
+.harm--water .harm__cell {
+  background: color-mix(in srgb, var(--water) 16%, #fbf9f3);
+}
+
+.harm--earth {
+  color: var(--earth);
+}
+
+.harm--earth .harm__cell {
+  background: color-mix(in srgb, var(--earth) 18%, #fbf9f3);
+}
+
+.harm--sick {
+  color: var(--sick);
+}
+
+.harm--sick .harm__cell {
+  background: color-mix(in srgb, var(--sick) 17%, #fbf9f3);
+}
+
+/* Body copy inside a harm block stays readable ink, not the band colour:
+   coloured 16px text at 4.5:1 is not achievable for every one of these hues.
+   Colour marks the structure; ink carries the reading.
+
+   The harm ledger sits on the home page's dark land register, but its cells are
+   tinted paper, so the prose inside them has to be the filing's dark ink rather
+   than the register's bone. Hard-coded on purpose: `var(--ink)` here would
+   resolve to bone on this page and the text would be bone on paper. */
+.harm p,
+.harm li {
+  color: #1c1a17;
+}
+
+.harm .lede {
+  color: #1c1a17;
+}
+
+/* These selectors are deliberately kept BELOW the colour rules so that the
+   figure and label can re-claim currentColor afterwards — put a broad
+   `color:` rule after them and the numbers go flat, which is exactly the bug
+   this ordering prevents. */
+.harm p.harm__figure,
+.harm p.harm__figure-label {
+  color: currentColor;
+}
+
+/* Specificity, not luck: `.harm p` is one class plus one element, so the
+   figure needs the same shape to win. currentColor walks up to the band's own
+   colour, which is the point of the band. */
+.harm p.harm__figure,
+.harm p.harm__figure-label {
+  color: currentColor;
+}
+
+.harm__tag,
+.harm__num {
+  color: currentColor;
+}
+
+/* ---------- legal page ---------- */
+
+.legal {
+  max-width: 44rem;
+}
+
+.legal p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  margin-block: 1.125rem;
+  padding-left: 1.125rem;
+  border-left: 2px solid var(--rule-strong);
+}
+
+.legal strong {
+  font-weight: 700;
+}
+
+.legal-quote {
+  max-width: 44rem;
+  margin: 0;
+  padding: 1.5rem 1.75rem;
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.notice-section {
+  border-top: 1px solid var(--rule-strong);
+  padding-block: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+/* The harm blocks sit on the home page's dark register for the first band and
+   on paper for the rest, so the ink token has to hold in both. */
+.reg-lahan .harm {
+  border-top-color: var(--rule-strong);
+}
+
+/* Colour-mix has no support in older engines; fall back to a flat surface so
+   the blocks still read as separate bands. */
+@supports not (background: color-mix(in srgb, red 5%, white)) {
+  .harm__cell {
+    background: var(--surface);
+  }
+}
+
+.notice__link {
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.notice__link a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.reg-lahan .notice__link a {
+  color: var(--accent);
 }

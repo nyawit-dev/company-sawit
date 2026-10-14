@@ -9,7 +9,7 @@
           :src="'/company-sawit/logo.svg'"
         />
         <p class="page-head__meta">
-          Identitas perusahaan &middot; NIB 812.000.XXX.XX &middot; Kalimantan
+          Identitas perusahaan &middot; Nomor Registrasi Desa 812.000.XXX &middot; Konoha
         </p>
         <h1>Perusahaan yang kami tulis untuk diri kami sendiri.</h1>
         <p class="lede">
@@ -68,7 +68,7 @@
                 </tr>
                 <tr>
                   <th scope="row">2013</th>
-                  <td>Terdaftar di bursa efek Indonesia</td>
+                  <td>Terdaftar di bursa efek Negeri Api</td>
                   <td>Prospektus tidak memuat risiko kebakaran gambut</td>
                 </tr>
                 <tr>

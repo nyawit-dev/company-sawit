@@ -85,6 +85,7 @@ const nav = [
   { label: 'Beranda', to: '/' },
   { label: 'Tentang', to: '/tentang' },
   { label: 'Visi & Misi', to: '/visi-misi' },
+  { label: 'Legal', to: '/legal' },
 ]
 
 const navOpen = ref(false)
