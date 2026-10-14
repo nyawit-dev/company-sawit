@@ -1,176 +1,202 @@
 <template>
   <article>
-    <!-- Register A: the filing. The company talking about itself, in its own
-         institutional register. -->
-    <section class="opening">
+    <!-- Register A: the filing. The company talking about itself, in the
+         institutional register, with the emblem it would use to do it. -->
+    <section class="page-head">
       <div class="wrap">
-        <p class="opening__meta">
-          Profil perusahaan &middot; laporan tahunan ke-27
+        <img
+          class="page-head__seal"
+          :src="'/company-sawit/logo.svg'"
+        />
+        <p class="page-head__meta">
+          Identitas perusahaan &middot; NIB 812.000.XXX.XX &middot; Kalimantan
         </p>
-        <h1>Perusahaan kami didirikan untuk mengubah hutan menjadi komoditas.</h1>
+        <h1>Perusahaan yang kami tulis untuk diri kami sendiri.</h1>
         <p class="lede">
-          Asap Emas beroperasi sejak 1998. Kami mengelola 412.000 hektare lahan
-          konsesi, mempekerjakan 14.000 orang, dan menerbitkan laporan
-          keberlanjutan setiap tahun. Halaman ini menyajikan perusahaan seperti
-          yang kami gambarkan diri kami sendiri.
+          Halaman ini memuat apa yang PT Perkebunan Asap Emas Nusantara katakan
+          tentang dirinya: sejarahnya, sertifikat yang dikantungnya, dan susunan
+          dewan komisarisnya. Tidak ada bagian dari halaman ini yang ditulis
+          oleh pihak yang dirugikan.
         </p>
-        <FictionNotice label="Halaman fiksi" />
       </div>
     </section>
 
-    <!-- Identity, as the company files it. Numbers are its own claims, and the
-         table says so in the caption rather than pretending to be audited. -->
-    <section id="identitas">
+    <section class="split split--wide-text">
+      <div class="wrap">
+        <div>
+          <div class="section-head">
+            <span class="section-head__num">01</span>
+            <div>
+              <h2>Sejarah</h2>
+              <p>
+                Berikut riwayat perusahaan sebagaimana dicatat dalam prospektus
+                penawaran umum saham kami tahun 2019. Riwayat yang sama, dibaca
+                dari sisi yang berbeda, adalah catatan penggusuran.
+              </p>
+            </div>
+          </div>
+
+          <div class="table-wrap" tabindex="0" role="region"
+             aria-label="Tabel, geser ke samping untuk melihat kolom lain">
+  <table class="table">
+              <caption class="table__caption">
+                Tonggak perusahaan 1998&ndash;2024, menurut dokumen resmi
+                perusahaan.
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Tahun</th>
+                  <th scope="col">Peristiwa menurut perusahaan</th>
+                  <th scope="col">Yang tidak dicakup</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1998</th>
+                  <td>Perusahaan didirikan dengan izin lokasi 12.000 ha</td>
+                  <td>Izin diterbitkan 4 bulan setelah kebakaran besar meratakan lokasi</td>
+                </tr>
+                <tr>
+                  <th scope="row">2004</th>
+                  <td>Ekspansi ke blok timur, tambahan 48.000 ha</td>
+                  <td>21 keluarga di blok timur belum menerima ganti rugi</td>
+                </tr>
+                <tr>
+                  <th scope="row">2009</th>
+                  <td>Pabrik blok tengah beroperasi</td>
+                  <td>Limbah cair dialirkan ke sungai tanpa IPAL</td>
+                </tr>
+                <tr>
+                  <th scope="row">2013</th>
+                  <td>Terdaftar di bursa efek Indonesia</td>
+                  <td>Prospektus tidak memuat risiko kebakaran gambut</td>
+                </tr>
+                <tr>
+                  <th scope="row">2015</th>
+                  <td>Kabut asap melintasi perbatasan negara</td>
+                  <td>Tercatat sebagai bencana alam, tanpa penyelidikan internal</td>
+                </tr>
+                <tr>
+                  <th scope="row">2018</th>
+                  <td>Komitmen tanpa pembalakan dan tanpa gambut baru</td>
+                  <td>Tidak berlaku surut untuk 391.000 ha yang sudah ditanami</td>
+                </tr>
+                <tr>
+                  <th scope="row">2024</th>
+                  <td>412.000 ha konsesi, 1,4 juta ton TBS</td>
+                  <td>Audit keberlanjutan ditunda ke 2026</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        </div>
+
+        <figure class="figure">
+          <img
+            :src="'/company-sawit/img/mill.jpg'"
+          />
+          <figcaption>
+            Pabrik blok tengah, beroperasi sejak 2009. Gambar dibuat dengan
+            model generatif untuk laman ini; bukan foto bangunan yang ada.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="badges-section">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-no">01</span>
-          <h2>Identitas perusahaan</h2>
+          <span class="section-head__num">02</span>
+          <div>
+            <h2>Sertifikasi</h2>
+            <p>
+              Kami tidak menyebut nama lembaga penerbit, karena tidak ada
+              lembaga yang menerbitkannya. Nama sertifikat di bawah adalah
+              nama yang kami pakai sendiri.
+            </p>
+          </div>
         </div>
-        <div class="table-wrap">
-          <table>
-            <caption>
-              Data di bawah adalah klaim perusahaan sendiri, bukan hasil audit
+        <div class="badges">
+          <div class="badge">
+            <img class="badge__seal" :src="'/company-sawit/logo-mark.svg'" />
+            <div>
+              <p class="badge__name">Keberlanjutan perkebunan</p>
+              <p class="badge__scope">Diklaim sejak 2019 &middot; belum diaudit</p>
+            </div>
+          </div>
+          <div class="badge">
+            <img class="badge__seal" :src="'/company-sawit/logo-mark.svg'" />
+            <div>
+              <p class="badge__name">Pratik kebun terbaik</p>
+              <p class="badge__scope">Diberikan oleh asosiasi yang kami ketuai</p>
+            </div>
+          </div>
+          <div class="badge">
+            <img class="badge__seal" :src="'/company-sawit/logo-mark.svg'" />
+            <div>
+              <p class="badge__name">Perusahaan hijau</p>
+              <p class="badge__scope">Kriteria kelayakan tidak dipublikasikan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The board: the table every listed company publishes. Rows carry no
+         names, because naming fictional people is the one thing a satire
+         cannot do honestly. -->
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="section-head__num">03</span>
+          <div>
+            <h2>Dewan komisaris dan direksi</h2>
+            <p>
+              Susunan pengurus sesuai anggaran dasar. Nama tidak dicantumkan:
+              orang dalam rekaan ini tidak punya nama, dan menamai mereka akan
+              membuatnya tampak nyata.
+            </p>
+          </div>
+        </div>
+
+        <div class="table-wrap" tabindex="0" role="region"
+             aria-label="Tabel, geser ke samping untuk melihat kolom lain">
+  <table class="table">
+            <caption class="table__caption">
+              Susunan pengurus dan masa jabatan, menurut anggaran dasar.
             </caption>
-            <tbody>
-              <tr>
-                <th scope="row">Nama badan hukum</th>
-                <td>PT Perkebunan Asap Emas Nusantara Tbk</td>
-              </tr>
-              <tr>
-                <th scope="row">Tahun berdiri</th>
-                <td class="num">1998</td>
-              </tr>
-              <tr>
-                <th scope="row">Kantor pusat</th>
-                <td>Kota Balikpapan, Kalimantan Timur</td>
-              </tr>
-              <tr>
-                <th scope="row">Bidang usaha</th>
-                <td>
-                  Perkebunan kelapa sawit, penggilingan, perdagangan biji
-                  sawit
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">Luas konsesi</th>
-                <td class="num">412.000 hektare</td>
-              </tr>
-              <tr>
-                <th scope="row">Jumlah karyawan</th>
-                <td class="num">14.000 orang</td>
-              </tr>
-              <tr>
-                <th scope="row">Dewan komisaris</th>
-                <td>
-                  Lima orang. Nama dan jabatan tidak dimuat pada halaman ini.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- History as the company tells it: every entry is a real corporate
-         genre, and the dates are the company's own. -->
-    <section id="sejarah">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-no">02</span>
-          <h2>Sejarah singkat menurut kami</h2>
-        </div>
-        <div class="prose">
-          <p>
-            Perusahaan ini dimulai pada 1998 dengan satu konsesi seluas 8.400
-            hektare di Kalimantan Timur. Dua puluh tujuh tahun kemudian luasnya
-            menjadi 412.000 hektare. Kami menyebut pertumbuhan itu ekspansi.
-            Warga yang tinggal di lahan sebelum 1998 menyebutnya dengan kata
-            lain, dan kata itu tidak masuk ke dokumen ini.
-          </p>
-          <h3>2003: konsesi kedua dibuka</h3>
-          <p>
-            Kami memperoleh konsesi kedua melalui izin yang diterbitkan tanpa
-            konsultasi publik. Dokumen konsultasi ada, tetapi ditandatangani
-            setelah penanaman dimulai.
-          </p>
-          <h3>2011: penggilingan internal</h3>
-          <p>
-            Kami membangun pabrik penggilingan sendiri agar tidak bergantung
-            pada pihak ketiga. Pabrik itu beroperasi dua puluh empat jam, dan
-            air limbahnya dialirkan ke sungai yang dilintasi jalan akses menuju
-            pemukiman warga.
-          </p>
-          <h3>2015: kabut asap lintas batas</h3>
-          <p>
-            Pada tahun itu kabut asap dari kebakaran lahan mencapai Malaysia
-            dan Singapura. Kami menerbitkan pernyataan yang menyebut perubahan
-            iklim dan cuaca ekstrem. Pernyataan itu tidak menyebutkan kebakaran
-            di konsesi kami, dan tidak ada satu pun kata kami di dalamnya yang
-            menyebut kami.
-          </p>
-          <h3>2019: sertifikasi keberlanjutan</h3>
-          <p>
-            Kami memperoleh sertifikasi dari lembaga yang namanya tidak kami
-            cantumkan. Audit dilakukan oleh konsultan yang kami bayar, dan
-            lingkup auditnya tidak mencakup wilayah yang dibakar pada tahun
-            2015.
-          </p>
-          <h3>2024: komitmen deforestasi</h3>
-          <p>
-            Kami mengumumkan komitmen untuk tidak membuka lahan gambut baru
-            setelah tahun 2025. Lahan gambut yang sudah dibuka sebelum tahun
-            tersebut tetap ditanami, dan tidak dihitung sebagai pelanggaran
-            komitmen.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Certifications: the one section where the gap between the corporate
-         voice and the content is widest. Presented as the company's own claim
-         with the scope of each audit stated, because that is what makes it
-         legible as satire rather than as a real claim (R-17, R-36). -->
-    <section id="sertifikasi">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-no">03</span>
-          <h2>Sertifikasi yang kami klaim</h2>
-        </div>
-        <p>
-          Tabel di bawah memuat klaim sertifikasi perusahaan beserta lingkup
-          yang kami nyatakan sendiri. Nama lembaga, tanggal audit, dan
-          pemeriksa tidak dicantumkan karena dokumennya tidak tersedia untuk
-          publik.
-        </p>
-        <div class="table-wrap">
-          <table>
-            <caption>Klaim sertifikasi, lingkup menurut perusahaan</caption>
             <thead>
               <tr>
-                <th scope="col">Sertifikasi</th>
-                <th scope="col">Tahun klaim</th>
-                <th scope="col">Lingkup yang kami nyatakan</th>
+                <th scope="col">Jabatan</th>
+                <th scope="col">Masa jabatan</th>
+                <th scope="col">Latar belakang</th>
                 <th scope="col">Yang tidak dicakup</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">Keberlanjutan perkebunan</th>
-                <td class="num">2019</td>
-                <td>Tiga pabrik penggilingan</td>
-                <td>Wilayah konsesi yang terbakar</td>
+                <th scope="row">Komisaris utama</th>
+                <td>2013&ndash;sekarang</td>
+                <td>Kehutanan industri</td>
+                <td>Mantan penerbit izin lokasi 1998</td>
               </tr>
               <tr>
-                <th scope="row">Manajemen lingkungan</th>
-                <td class="num">2021</td>
-                <td>Kantor pusat dan kebun inti</td>
-                <td>Kebun plasma dan lahan rakyat</td>
+                <th scope="row">Direktur utama</th>
+                <td>2018&ndash;sekarang</td>
+                <td>Keuangan korporasi</td>
+                <td>Menandatangani komitmen tanpa pembakaran 2018</td>
               </tr>
               <tr>
-                <th scope="row">Bebas deforestasi</th>
-                <td class="num">2024</td>
-                <td>Komitmen ke depan</td>
-                <td>Lahan yang sudah dibuka</td>
+                <th scope="row">Direktur operasional</th>
+                <td>2015&ndash;sekarang</td>
+                <td>Teknik perkebunan</td>
+                <td>Bertanggung jawab atas pembukaan lahan</td>
+              </tr>
+              <tr>
+                <th scope="row">Direktur keberlanjutan</th>
+                <td>2021&ndash;sekarang</td>
+                <td>Hubungan perusahaan</td>
+                <td>Jabatan dibentuk setelah kabut asap 2015</td>
               </tr>
             </tbody>
           </table>
@@ -178,24 +204,37 @@
       </div>
     </section>
 
-    <section id="tutup">
+    <section class="split split--wide-photo">
       <div class="wrap">
-        <div class="section-head">
-          <span class="section-no">04</span>
-          <h2>Di mana kami tidak beroperasi</h2>
+        <figure class="figure">
+          <img
+            :src="'/company-sawit/img/clear-cut.jpg'"
+          />
+          <figcaption>
+            Blok barat, tahun tanam 2023. Gambar dibuat dengan model generatif
+            untuk laman ini.
+          </figcaption>
+        </figure>
+        <div>
+          <div class="section-head">
+            <span class="section-head__num\'">04</span>
+            <div>
+              <h2>Lahan</h2>
+              <p>
+                412.000 hektare konsesi kami membentang di tiga kabupaten.
+                Sebanyak 391.000 hektare ditanami sebelum komitmen 2018 kami
+                berlaku, sehingga tercatat sebagai lahan historis.
+              </p>
+            </div>
+          </div>
+          <p>
+            Kami tidak memublikasikan peta konsesi. Kami menerbitkan peta
+            lokasi pabrik, yang tidak membingungkan siapa pun.
+          </p>
         </div>
-        <p>
-          Halaman ini tidak memuat daftar anak perusahaan, nama pemegang
-          saham, alamat kebun per blok, atau data gaji. Semuanya tersedia
-          diminta, dan tidak ada yang pernah diminta.
-        </p>
-        <p>
-          Untuk praktik lingkungan kami yang bersifat operasional, lihat
-          <NuxtLink to="/">halaman utama</NuxtLink>. Untuk
-          komitmen perusahaan ke depan, lihat
-          <NuxtLink to="/visi-misi">visi dan misi</NuxtLink>.
-        </p>
       </div>
     </section>
+
+    <FictionNotice />
   </article>
 </template>

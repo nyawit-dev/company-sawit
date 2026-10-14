@@ -25,7 +25,7 @@
     <section id="visi">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-no">01</span>
+          <span class="section-head__num">01</span>
           <h2>Visi</h2>
         </div>
         <blockquote class="vision">
@@ -50,7 +50,7 @@
     <section id="misi">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-no">02</span>
+          <span class="section-head__num">02</span>
           <h2>Misi</h2>
         </div>
         <div class="register">
@@ -70,7 +70,7 @@
     <section id="nilai">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-no">03</span>
+          <span class="section-head__num">03</span>
           <h2>Nilai perusahaan</h2>
         </div>
         <div class="values">
@@ -87,7 +87,7 @@
     <section id="komitmen">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-no">04</span>
+          <span class="section-head__num">04</span>
           <h2>Komitmen bertahun</h2>
         </div>
         <p>
@@ -95,7 +95,8 @@
           yang tidak dicakup di kolom terakhir, karena tanpa kolom itu tabel ini
           akan terbaca sebagai janji.
         </p>
-        <div class="table-wrap">
+        <div class="table-wrap" tabindex="0" role="region"
+             aria-label="Tabel, geser ke samping untuk melihat kolom lain">
           <table>
             <caption>Komitmen perusahaan dan lingkup pengecualiannya</caption>
             <thead>
@@ -120,7 +121,7 @@
     <section id="tutup">
       <div class="wrap">
         <div class="section-head">
-          <span class="section-no">05</span>
+          <span class="section-head__num">05</span>
           <h2>Cara kami mengukur kemajuan</h2>
         </div>
         <p>

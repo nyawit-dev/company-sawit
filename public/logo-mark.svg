@@ -1,0 +1,38 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  role="img"
+  aria-label="PT Perkebunan Asap Emas Nusantara"
+>
+  <title>PT Perkebunan Asap Emas Nusantara</title>
+
+  <!-- The small mark. The full seal loses its ring text and its frond detail
+       below roughly 96px, so below that the site uses this instead: the same
+       trunk, fruit bunch, and five fronds, on the same field, with the ring
+       text dropped rather than shrunk into illegibility. -->
+
+  <circle cx="32" cy="32" r="31" fill="#2c4a34" />
+  <circle cx="32" cy="32" r="27.5" fill="none" stroke="#c9a227" stroke-width="1.6" />
+
+  <g transform="translate(32 36)">
+    <!-- trunk -->
+    <path d="M 0,9 C -0.6,5 -0.8,1.5 -1,-2 L 1,-2 C 0.8,1.5 0.6,5 0,9 Z" fill="#e8dcc0" />
+
+    <!-- fruit bunch -->
+    <g fill="#c1552b">
+      <ellipse cx="-1.8" cy="0.6" rx="1.5" ry="1.9" />
+      <ellipse cx="1.8" cy="0.6" rx="1.5" ry="1.9" />
+      <ellipse cx="0" cy="1.8" rx="1.6" ry="1.7" />
+    </g>
+
+    <!-- fronds: five swept strokes, heavier than the seal's so they hold at
+         32px -->
+    <g fill="none" stroke="#e8dcc0" stroke-width="2.1" stroke-linecap="round">
+      <path d="M -0.4,-2.5 C -5.4,-6 -10,-5.6 -13.4,-2.8" />
+      <path d="M 0.4,-2.5 C 5.4,-6 10,-5.6 13.4,-2.8" />
+      <path d="M -0.4,-2.8 C -4,-7.6 -7.4,-9.6 -10.8,-9.8" />
+      <path d="M 0.4,-2.8 C 4,-7.6 7.4,-9.6 10.8,-9.8" />
+      <path d="M 0,-3 C -0.4,-7.6 0,-10.2 0,-12.6" />
+    </g>
+  </g>
+</svg>

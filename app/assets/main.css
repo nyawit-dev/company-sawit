@@ -157,6 +157,8 @@ body {
   max-width: 68rem;
   margin-inline: auto;
   padding-inline: 1.5rem;
+  /* Belt and braces alongside .split > *: no wrapper may exceed its parent. */
+  min-width: 0;
 }
 
 .reg-lahan {
@@ -299,7 +301,7 @@ section {
   max-width: 56rem;
 }
 
-.section-no {
+.section-head__num {
   font-family: var(--mono);
   font-size: 0.75rem;
   font-variant-numeric: tabular-nums;
@@ -499,6 +501,22 @@ p:last-child {
   overflow-x: auto;
   border: 1px solid var(--rule-strong);
   background: var(--surface);
+  /* A scrollable region must be reachable by keyboard, or the columns past
+     the fold are unreachable without a mouse (WCAG 2.1.1). */
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrap:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Below the tablet breakpoint the tables scroll, so say so rather than
+   leaving the reader to discover it. */
+@media (max-width: 47.99rem) {
+  .table-wrap {
+    position: relative;
+  }
 }
 
 table {
@@ -757,4 +775,481 @@ footer a {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ---------- masthead with the emblem ---------- */
+
+.masthead__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.masthead__seal {
+  width: 44px;
+  height: 44px;
+  flex: none;
+}
+
+/* The full seal stops being legible below roughly 96px, so the nav switches
+   to the small mark instead of shrinking the ring text into a gold smear. */
+.masthead__seal--small {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  .masthead__seal--full {
+    display: none;
+  }
+
+  .masthead__seal--small {
+    display: block;
+  }
+}
+
+.masthead__name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.masthead__name span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+/* ---------- hero: full-bleed photograph ---------- */
+
+.hero {
+  position: relative;
+  border-bottom: 1px solid var(--rule-strong);
+  /* The land register, always, whatever page the hero sits on: the hero is a
+     photograph of the land, so it is char regardless of the filing. */
+  background: #12110d;
+  color: #ede9dc;
+  --ink: #ede9dc;
+  --muted: #9a9689;
+  --accent: #e07a4a;
+}
+
+.hero__media {
+  display: block;
+  width: 100%;
+  height: clamp(20rem, 52vw, 34rem);
+  object-fit: cover;
+  object-position: center 60%;
+}
+
+/* A scrim, not a flat overlay: text sits on the lower half where the canopy
+   is dark, and the gradient keeps the headline legible without dimming the
+   whole photograph (R-25 checked against the darkest and lightest bands). */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(18 17 13 / 0.15) 0%,
+    rgb(18 17 13 / 0.35) 45%,
+    rgb(18 17 13 / 0.86) 100%
+  );
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  margin-top: clamp(-9rem, -14vw, -6rem);
+}
+
+.hero__eyebrow {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d8d2c2;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hero__eyebrow img {
+  width: 28px;
+  height: 28px;
+}
+
+.hero h1 {
+  margin: 0 0 1.25rem;
+  max-width: 22ch;
+  text-shadow: 0 1px 24px rgb(18 17 13 / 0.55);
+}
+
+.hero__lede {
+  font-size: clamp(1.0625rem, 1.9vw, 1.25rem);
+  line-height: 1.5;
+  max-width: 36rem;
+  margin: 0;
+  color: #ede9dc;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero__actions .button {
+  background: #e07a4a;
+  color: #12110d;
+  border-color: #e07a4a;
+}
+
+.hero__actions .button--ghost {
+  background: transparent;
+  color: #ede9dc;
+  border-color: rgb(237 233 220 / 0.45);
+}
+
+.hero__actions .button--ghost:hover {
+  border-color: #ede9dc;
+}
+
+/* ---------- stat strip ---------- */
+
+.stats {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 48rem) {
+  .stats__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stats__item {
+  padding: 1.5rem 1.25rem;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.stats__item:nth-child(2n) {
+  border-right: 0;
+}
+
+@media (min-width: 48rem) {
+  .stats__item {
+    border-bottom: 0;
+  }
+
+  .stats__item:last-child {
+    border-right: 0;
+  }
+}
+
+.stats__value {
+  font-family: var(--mono);
+  font-size: clamp(1.375rem, 3vw, 1.875rem);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 0.375rem;
+  color: var(--ink);
+}
+
+.stats__label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.stats__note {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  color: var(--muted);
+  margin: 0.5rem 0 0;
+  padding-block: 0.75rem;
+  border-top: 1px solid var(--rule);
+  grid-column: 1 / -1;
+}
+
+/* ---------- badge row (certifications) ---------- */
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block: 1.75rem;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+  padding: 0.75rem 1rem;
+  flex: 1 1 15rem;
+}
+
+.badge__seal {
+  width: 40px;
+  height: 40px;
+  flex: none;
+}
+
+.badge__name {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.badge__scope {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  color: var(--muted);
+  margin: 0.2rem 0 0;
+  line-height: 1.45;
+}
+
+/* ---------- photo figures ---------- */
+
+.figure {
+  margin: 0;
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule-strong);
+}
+
+.figure figcaption {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 0.625rem;
+  max-width: 34rem;
+}
+
+/* ---------- split: text beside a photograph ---------- */
+
+.split {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* A grid item defaults to min-width:auto, which means it refuses to shrink
+   below the width of its widest child. Inside a split that child is often a
+   table, so the whole column would blow past the viewport on a phone. Let the
+   columns shrink; the table's own scroll box handles the overflow. */
+.split > * {
+  min-width: 0;
+}
+
+@media (min-width: 56rem) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .split--wide-text {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  .split--wide-photo {
+    grid-template-columns: 1fr 1.4fr;
+  }
+}
+
+/* ---------- the land: a full-bleed photograph with a line of copy ---------- */
+
+.landscape {
+  position: relative;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.landscape img {
+  display: block;
+  width: 100%;
+  height: clamp(16rem, 38vw, 26rem);
+  object-fit: cover;
+  object-position: center 55%;
+}
+
+.landscape__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgb(18 17 13 / 0.88) 0%,
+    rgb(18 17 13 / 0.55) 45%,
+    rgb(18 17 13 / 0.2) 100%
+  );
+}
+
+.landscape__inner {
+  position: relative;
+  margin-top: clamp(-13rem, -22vw, -9rem);
+  padding-bottom: 2.5rem;
+}
+
+.landscape h2 {
+  max-width: 20ch;
+  color: #ede9dc;
+}
+
+.landscape p {
+  color: #ede9dc;
+  max-width: 32rem;
+}
+
+.landscape .figure figcaption {
+  color: #cdc7b7;
+}
+
+@media (max-width: 47.99rem) {
+  .landscape__scrim {
+    background: linear-gradient(
+      to bottom,
+      rgb(18 17 13 / 0.3) 0%,
+      rgb(18 17 13 / 0.9) 60%
+    );
+  }
+}
+
+/* ---------- page header for the filing pages ---------- */
+
+.page-head {
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.page-head__seal {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1.5rem;
+}
+
+.page-head h1 {
+  margin: 0 0 1.25rem;
+}
+
+.page-head__meta {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+}
+
+/* ---------- contact form ---------- */
+
+.form {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 40rem;
+  margin-top: 2rem;
+}
+
+.form__row {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+  .form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.field {
+  display: block;
+}
+
+.field__label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.field__input {
+  display: block;
+  width: 100%;
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--control-border);
+  border-radius: 0;
+  padding: 0.75rem 0.875rem;
+  min-height: 2.875rem;
+}
+
+.field__input--area {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.field__input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+.form__note {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+  flex: 1 1 16rem;
+}
+
+.form__sent {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  margin: 0;
+  padding: 1rem 1.125rem;
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+  color: var(--ink);
 }

@@ -7,9 +7,22 @@
         <!-- The mark is not a nav item, so it must not carry aria-current:
              NuxtLink to="/" matches the home route and would announce the logo
              as the current page to a screen reader. -->
-        <NuxtLink class="mark" to="/" :aria-current="undefined">
-          PT Perkebunan Asap Emas Nusantara
-          <span class="mark__sub">Tbk &middot; fiksi, bukan perusahaan nyata</span>
+        <NuxtLink class="masthead__brand" to="/" :aria-current="undefined">
+          <!-- The engraved seal. Below ~96px its ring text and frond detail
+               stop being legible, so the small mark is swapped in for mobile
+               rather than shrinking the seal into a gold smear. -->
+          <img
+            class="masthead__seal masthead__seal--full"
+            :src="'/company-sawit/logo.svg'"
+          />
+          <img
+            class="masthead__seal masthead__seal--small"
+            :src="'/company-sawit/logo-mark.svg'"
+          />
+          <span class="masthead__name">
+            PT Perkebunan Asap Emas Nusantara
+            <span>Tbk &middot; perusahaan rekaan</span>
+          </span>
         </NuxtLink>
 
         <button
