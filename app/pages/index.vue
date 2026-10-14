@@ -1,33 +1,28 @@
 <template>
   <article>
-    <!-- Opening: one focal point, the claim itself. No pill above the H1 (R-09). -->
+    <!-- Register B: the land. One focal point, the claim itself, and no pill
+         above the H1 (R-09). -->
     <section class="opening">
       <div class="wrap">
         <p class="opening__meta">
-          Laporan tahunan ke-27 &middot; tahun buku 2025
+          Laporan tahunan ke-27 &middot; tahun buku 2025 &middot; Kalimantan
         </p>
         <h1>
           Kami menebang hutan, membakarnya, dan menyebutnya pembangunan.
         </h1>
         <p class="lede">
-          Selama dua puluh tujuh tahun, Asap Emas mengubah hutan primer Kalimantan
-          menjadi kebun kelapa sawit. Prosesnya melibatkan api, alat berat, dan
-          warga yang menolak pindah. Laporan ini menyajikan ketiga hal itu sebagai
-          capaian operasional.
+          Selama dua puluh tujuh tahun, Asap Emas mengubah hutan primer
+          Kalimantan menjadi kebun kelapa sawit. Prosesnya melibatkan api, alat
+          berat, dan warga yang menolak pindah. Laporan ini menyajikan ketiga
+          hal itu sebagai capaian operasional.
         </p>
-        <div class="notice" role="note">
-          <strong>Situs fiksi</strong>
-          PT Perkebunan Asap Emas Nusantara adalah rekaan. Seluruh angka,
-          peristiwa, dan klaim di bawah ini bagian dari karya satire dan tidak
-          mengacu pada perusahaan nyata. Tidak ada sumber di baliknya karena
-          tidak ada yang terjadi.
-        </div>
+        <FictionNotice />
       </div>
     </section>
 
     <!-- The register: the company's own claims, labelled as its own. Numbers
          are presented as self-reported, never as sourced fact (R-17, R-36). -->
-    <section id="register">
+    <section id="angka">
       <div class="wrap">
         <div class="section-head">
           <span class="section-no">01</span>
@@ -40,47 +35,18 @@
           laporan tahunan mewajibkan ada angka.
         </p>
         <div class="register">
-          <div class="register__row">
-            <span class="register__label">Luas konsesi</span>
+          <div class="register__row" v-for="row in numbers" :key="row.label">
+            <span class="register__label">{{ row.label }}</span>
             <p class="register__claim">
-              Klaim kami: <mark>412.000 hektare</mark>. Angka ini diukur dari
-              garis batas yang kami gambar sendiri, dan meliputi daerah yang
-              masih dihuni warga hingga hari ini.
-            </p>
-          </div>
-          <div class="register__row">
-            <span class="register__label">Kejadian kabut asap</span>
-            <p class="register__claim">
-              Klaim kami: <mark>1.847 titik api terlacak</mark>. Kami
-              mengklasifikasikan angka ini sebagai &ldquo;tidak dapat
-              diatribusikan&rdquo;, sehingga tanggung jawab atasnya tidak jatuh
-              pada pihak mana pun dalam dokumen ini.
-            </p>
-          </div>
-          <div class="register__row">
-            <span class="register__label">Kepindahan warga</span>
-            <p class="register__claim">
-              Klaim kami: <mark>6.200 keluarga direlokasi</mark>. Kami
-              menggunakan kata &ldquo;relokasi&rdquo;. Warga yang terpengaruh
-              menggunakan kata lain, dan perbedaan itu tidak tercatat di mana
-              pun dalam laporan ini.
-            </p>
-          </div>
-          <div class="register__row">
-            <span class="register__label">Sertifikasi berkelanjutan</span>
-            <p class="register__claim">
-              Klaim kami: <mark>sertifikasi diperoleh</mark>. Kami tidak
-              menyebutkan nama lembaga sertifikasi, tanggal audit, atau ruang
-              lingkupnya, karena dokumen sertifikatnya dikeluarkan oleh
-              konsultan yang kami bayar sendiri.
+              Klaim kami: <mark>{{ row.claim }}</mark>. {{ row.note }}
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- The ledger: how the clearing actually happened, as a sequence, not
-         three rounded steps with icons (R-05). -->
+    <!-- The ledger: how the clearing actually happened, as a sequence in the
+         order it occurred, not three rounded steps with icons (R-05). -->
     <section id="proses">
       <div class="wrap">
         <div class="section-head">
@@ -93,42 +59,10 @@
           lebih dahulu.
         </p>
         <div class="ledger">
-          <div class="ledger__item">
-            <h3>Pemetaan ulang</h3>
-            <p class="ledger__where">Tahap 1, berlangsung sepanjang tahun</p>
-            <p class="ledger__body">
-              Tim survei kami menandai batas konsesi. Batas itu diperbarui
-              berkala, dan setiap pembaruan menggeser garis keluar. Warga yang
-              kemarin berada di luar garis hari ini berada di dalamnya.
-            </p>
-          </div>
-          <div class="ledger__item">
-            <h3>Pembakaran</h3>
-            <p class="ledger__where">Tahap 2, musim kemarau</p>
-            <p class="ledger__body">
-              Sisa tebangan dibakar karena lebih murah daripada diangkut. Saat
-              kabut asap mencapai daratan, kami menerbitkan pernyataan yang
-              menyebutkan perubahan iklim, dan tidak menyebutkan kami.
-            </p>
-          </div>
-          <div class="ledger__item">
-            <h3>Penanaman</h3>
-            <p class="ledger__where">Tahap 3, satu tahun setelah pembakaran</p>
-            <p class="ledger__body">
-              Bibit ditanam pada tanah yang kehilangan lapisan humusnya. Produksi
-              tahap awal tinggi, lalu turun seiring tanah menipis. Blok berikutnya
-              dibuka untuk menggantikannya, dan prosesnya dimulai lagi dari tahap
-              satu.
-            </p>
-          </div>
-          <div class="ledger__item">
-            <h3>Pelaporan</h3>
-            <p class="ledger__where">Berjalan terus, sepanjang tahun</p>
-            <p class="ledger__body">
-              Setiap tahap didokumentasikan, difoto, dan dimasukkan ke laporan
-              keberlanjutan. Foto yang dipakai adalah foto tanam bibit. Foto
-              pembakaran tidak dipakai karena kualitas gambarnya kurang baik.
-            </p>
+          <div class="ledger__item" v-for="step in process" :key="step.title">
+            <h3>{{ step.title }}</h3>
+            <p class="ledger__where">{{ step.when }}</p>
+            <p class="ledger__body">{{ step.body }}</p>
           </div>
         </div>
       </div>
@@ -175,7 +109,7 @@
           Pertanyaan yang masuk akan diteruskan ke bagian yang sama yang
           menyusun laporan tahunan.
         </p>
-        <form novalidate @submit.prevent="submit">
+        <form class="form" novalidate @submit.prevent="submit">
           <label class="field" for="nama">
             <span class="field__label">Nama</span>
             <input
@@ -186,7 +120,9 @@
               autocomplete="name"
               aria-describedby="nama-hint"
             />
-            <span class="field__hint" id="nama-hint">Nama Anda, bukan nama perusahaan.</span>
+            <span class="field__hint" id="nama-hint">
+              Nama Anda, bukan nama perusahaan.
+            </span>
           </label>
 
           <label class="field" for="surel">
@@ -200,9 +136,9 @@
               :aria-invalid="errors.surel ? 'true' : undefined"
               aria-describedby="surel-error"
             />
-            <span class="field__error" id="surel-error" v-if="errors.surel">{{
-              errors.surel
-            }}</span>
+            <span class="field__error" id="surel-error" v-if="errors.surel">
+              {{ errors.surel }}
+            </span>
           </label>
 
           <label class="field" for="pesan">
@@ -224,13 +160,11 @@
           </button>
 
           <p class="form-status" :data-state="state" role="status">
-            <template v-if="state === 'idle'">
-              Belum ada yang dikirim.
+            <template v-if="state === 'idle'">Belum ada yang dikirim.</template>
+            <template v-else-if="state === 'sending'">
+              Sedang memeriksa isian.
             </template>
-            <template v-else-if="state === 'sending'">Sedang memeriksa isian.</template>
-            <template v-else-if="state === 'error'">
-              {{ errors.form }}
-            </template>
+            <template v-else-if="state === 'error'">{{ errors.form }}</template>
             <template v-else-if="state === 'sent'">
               Terkirim ke folder tempat surat tidak pernah dibalas. Pesan Anda
               tersimpan di peramban ini saja.
@@ -243,6 +177,52 @@
 </template>
 
 <script setup lang="ts">
+const numbers = [
+  {
+    label: 'Luas konsesi',
+    claim: '412.000 hektare',
+    note: 'Angka ini diukur dari garis batas yang kami gambar sendiri, dan meliputi daerah yang masih dihuni warga hingga hari ini.',
+  },
+  {
+    label: 'Kejadian kabut asap',
+    claim: '1.847 titik api terlacak',
+    note: 'Kami mengklasifikasikan angka ini sebagai tidak dapat diatribusikan, sehingga tanggung jawab atasnya tidak jatuh pada pihak mana pun dalam dokumen ini.',
+  },
+  {
+    label: 'Kepindahan warga',
+    claim: '6.200 keluarga direlokasi',
+    note: 'Kami menggunakan kata relokasi. Warga yang terpengaruh menggunakan kata lain, dan perbedaan itu tidak tercatat di mana pun dalam laporan ini.',
+  },
+  {
+    label: 'Sertifikasi berkelanjutan',
+    claim: 'sertifikasi diperoleh',
+    note: 'Kami tidak menyebutkan nama lembaga sertifikasi, tanggal audit, atau ruang lingkupnya, karena dokumen sertifikatnya dikeluarkan oleh konsultan yang kami bayar sendiri.',
+  },
+]
+
+const process = [
+  {
+    title: 'Pemetaan ulang',
+    when: 'Tahap 1, berlangsung sepanjang tahun',
+    body: 'Tim survei kami menandai batas konsesi. Batas itu diperbarui berkala, dan setiap pembaruan menggeser garis keluar. Warga yang kemarin berada di luar garis hari ini berada di dalamnya.',
+  },
+  {
+    title: 'Pembakaran',
+    when: 'Tahap 2, musim kemarau',
+    body: 'Sisa tebangan dibakar karena lebih murah daripada diangkut. Saat kabut asap mencapai daratan, kami menerbitkan pernyataan yang menyebutkan perubahan iklim, dan tidak menyebutkan kami.',
+  },
+  {
+    title: 'Penanaman',
+    when: 'Tahap 3, satu tahun setelah pembakaran',
+    body: 'Bibit ditanam pada tanah yang kehilangan lapisan humusnya. Produksi tahap awal tinggi, lalu turun seiring tanah menipis. Blok berikutnya dibuka untuk menggantikannya, dan prosesnya dimulai lagi dari tahap satu.',
+  },
+  {
+    title: 'Pelaporan',
+    when: 'Berjalan terus, sepanjang tahun',
+    body: 'Setiap tahap didokumentasikan, difoto, dan dimasukkan ke laporan keberlanjutan. Foto yang dipakai adalah foto tanam bibit. Foto pembakaran tidak dipakai karena kualitas gambarnya kurang baik.',
+  },
+]
+
 const faq = [
   {
     q: 'Apakah kebakaran itu disengaja?',

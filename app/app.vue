@@ -1,20 +1,43 @@
 <template>
   <div>
     <a class="skip-link" href="#konten">Lompat ke konten</a>
+
     <header class="masthead">
       <div class="wrap masthead__row">
-        <a class="mark" href="/company-sawit/">
+        <!-- The mark is not a nav item, so it must not carry aria-current:
+             NuxtLink to="/" matches the home route and would announce the logo
+             as the current page to a screen reader. -->
+        <NuxtLink class="mark" to="/" :aria-current="undefined">
           PT Perkebunan Asap Emas Nusantara
           <span class="mark__sub">Tbk &middot; fiksi, bukan perusahaan nyata</span>
-        </a>
+        </NuxtLink>
+
         <button
-          class="theme-toggle"
+          class="nav-toggle"
           type="button"
-          :aria-pressed="isDark"
-          @click="toggleTheme"
+          :aria-expanded="navOpen"
+          aria-controls="nav-utama"
+          @click="navOpen = !navOpen"
         >
-          {{ isDark ? 'Mode terang' : 'Mode gelap' }}
+          {{ navOpen ? 'Tutup' : 'Menu' }}
         </button>
+
+        <nav
+          id="nav-utama"
+          class="nav"
+          :data-open="navOpen ? 'true' : 'false'"
+          aria-label="Navigasi utama"
+        >
+          <NuxtLink
+            v-for="item in nav"
+            :key="item.to"
+            class="nav__link"
+            :to="item.to"
+            @click="navOpen = false"
+          >
+            {{ item.label }}
+          </NuxtLink>
+        </nav>
       </div>
     </header>
 
@@ -24,40 +47,70 @@
 
     <footer>
       <div class="wrap">
+        <nav class="footer-nav" aria-label="Navigasi bawah">
+          <NuxtLink v-for="item in nav" :key="item.to" :to="item.to">
+            {{ item.label }}
+          </NuxtLink>
+        </nav>
         <p>
           PT Perkebunan Asap Emas Nusantara tidak ada. Seluruh nama, angka,
           klaim, dan peristiwa di situs ini adalah rekaan untuk karya satire,
           dan tidak mengacu pada perusahaan, orang, atau lokasi nyata.
         </p>
-        <p>Dibangun dengan Nuxt 4. Kode sumber tersedia di repositori yang sama.</p>
+        <p>
+          Dibangun dengan Nuxt 4. Kode sumber tersedia di repositori yang sama.
+        </p>
       </div>
     </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-const isDark = ref(false)
+// Every item leads to a page that exists (R-24). Nothing is marked coming
+// soon, so nothing in this list is a dead link.
+const nav = [
+  { label: 'Beranda', to: '/' },
+  { label: 'Tentang', to: '/tentang' },
+  { label: 'Visi & Misi', to: '/visi-misi' },
+]
 
-function readTheme(): 'light' | 'dark' {
-  const stored = localStorage.getItem('theme')
-  if (stored === 'light' || stored === 'dark') return stored
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light'
+const navOpen = ref(false)
+
+// Escape closes the mobile menu, and a click outside it does too (R-32).
+function onKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') navOpen.value = false
 }
 
-function applyTheme(theme: 'light' | 'dark') {
-  document.documentElement.dataset.theme = theme
-  isDark.value = theme === 'dark'
-}
-
-function toggleTheme() {
-  const next = isDark.value ? 'light' : 'dark'
-  localStorage.setItem('theme', next)
-  applyTheme(next)
+function onClickOutside(event: MouseEvent) {
+  const target = event.target as HTMLElement | null
+  if (!target?.closest('.masthead')) navOpen.value = false
 }
 
 onMounted(() => {
-  applyTheme(readTheme())
+  window.addEventListener('keydown', onKeydown)
+  window.addEventListener('click', onClickOutside)
 })
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('click', onClickOutside)
+})
+
+// The register follows the route, not a stored preference: the land is dark
+// because of what it describes, the filing is light because the company is
+// talking about itself.
+//
+// This touches `document`, so it must never run during SSR: a watchEffect
+// alone fires synchronously inside setup, which is exactly what Nitro's
+// prerenderer does, and it 500s the whole build. The guard is the fix.
+const route = useRoute()
+
+function syncRegister() {
+  const onLand =
+    route.path === '/'
+  document.documentElement.classList.toggle('reg-lahan', onLand)
+}
+
+watch(route, syncRegister)
+onMounted(syncRegister)
 </script>
