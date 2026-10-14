@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   // GitHub Pages project site serves from /company-sawit/, so every asset and
   // route must be generated under that base. Nitro's static output is
   // committed by the workflow; no Node process serves it.
-  css: ['~/assets/main.css'],
+  css: ['~/assets/theme.css'],
 
   nitro: {
     preset: 'github-pages',
@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/company-sawit/',
     head: {
-      htmlAttrs: { lang: 'id' },
+      htmlAttrs: { lang: 'id', 'data-theme': 'sakura' },
       title: 'PT Perkebunan Asap Emas Nusantara',
       meta: [
         { charset: 'utf-8' },

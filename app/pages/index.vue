@@ -15,7 +15,7 @@
 
       <div class="wrap hero__inner">
         <p class="hero__eyebrow">
-          <img :src="'/company-sawit/logo-mark.svg'" alt="" width="28" height="28" />
+          <Mascot size="sm" />
           Laporan Tahunan 2024
           <span>&middot;</span>
           PT Perkebunan Asap Emas Nusantara Tbk
@@ -88,11 +88,11 @@
       </div>
 
       <!-- 1. FIRE -->
-      <section class="harm harm--fire">
+      <section class="harm harm--sakura">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">01</span>
-            <span class="harm__tag">Pembakaran</span>
+            <span class="harm__tag chip chip--sakura">Pembakaran</span>
           </div>
           <h3>Kabut asap 41 hari, dicatat sebagai bencana alam.</h3>
           <div class="harm__pair">
@@ -129,11 +129,11 @@
       </section>
 
       <!-- 2. WATER -->
-      <section class="harm harm--water">
+      <section class="harm harm--sky">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">02</span>
-            <span class="harm__tag">Air</span>
+            <span class="harm__tag chip chip--sky">Air</span>
           </div>
           <h3>Sungai tempat desa mencuci, sekarang warnanya teh.</h3>
           <div class="harm__pair">
@@ -158,11 +158,11 @@
       </section>
 
       <!-- 3. EARTH: eviction -->
-      <section class="harm harm--earth">
+      <section class="harm harm--sun">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">03</span>
-            <span class="harm__tag">Penggusuran</span>
+            <span class="harm__tag chip chip--sun">Penggusuran</span>
           </div>
           <h3>21 keluarga menunggu ganti rugi sejak 2004.</h3>
           <div class="harm__pair">
@@ -199,11 +199,11 @@
       </section>
 
       <!-- 4. SICK: peat and carbon -->
-      <section class="harm harm--sick">
+      <section class="harm harm--mint">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">04</span>
-            <span class="harm__tag">Gambut</span>
+            <span class="harm__tag chip chip--mint">Gambut</span>
           </div>
           <h3>4.100 hektare gambut dikeringkan, lalu disebut penyimpan karbon.</h3>
           <div class="harm__pair">
@@ -226,11 +226,11 @@
       </section>
 
       <!-- 5. HARVEST: the numbers themselves -->
-      <section class="harm harm--harvest">
+      <section class="harm harm--lavender">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">05</span>
-            <span class="harm__tag">Angka</span>
+            <span class="harm__tag chip chip--lavender">Angka</span>
           </div>
           <h3>Luas turun, produksi naik, penjelasan tidak diberikan.</h3>
           <div class="harm__pair">
@@ -309,11 +309,11 @@
       </section>
 
       <!-- 6. REGISTER A: the counter-programme, in the friendly register -->
-      <section class="harm harm--harvest">
+      <section class="harm harm--lavender">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">06</span>
-            <span class="harm__tag">Program</span>
+            <span class="harm__tag chip chip--lavender">Program</span>
           </div>
           <h3>Kebun bibit, penanaman kembali, dan satu hutan yang tidak kami sentuh.</h3>
           <div class="split split--wide-text">
@@ -376,11 +376,11 @@
       </section>
 
       <!-- 7. THE MILL AND THE PORT -->
-      <section class="harm harm--water">
+      <section class="harm harm--sky">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">07</span>
-            <span class="harm__tag">Rantai pasok</span>
+            <span class="harm__tag chip chip--sky">Rantai pasok</span>
           </div>
           <h3>Kami tidak mengaudit pembeli kami. Mereka tidak mengaudit kami.</h3>
           <div class="split split--wide-text">
@@ -430,11 +430,11 @@
       </section>
 
       <!-- 8. THE QUESTION THE COMPANY WILL NOT ANSWER -->
-      <section class="harm harm--fire">
+      <section class="harm harm--sakura">
         <div class="wrap">
           <div class="harm__head">
             <span class="harm__num">08</span>
-            <span class="harm__tag">Pertanyaan</span>
+            <span class="harm__tag chip chip--sakura">Pertanyaan</span>
           </div>
           <h3>Satu pertanyaan yang tidak terjawab dalam dua puluh enam tahun.</h3>
           <p class="lede">
