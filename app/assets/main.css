@@ -15,7 +15,14 @@
   --paper-sunken: #e4dfd1;
   --ink: #1c1a17;
   --ink-muted: #5c5a52;
+  /* Two rules, not one. --rule is the register's ruled lines, which are
+     decoration and carry no state, so they stay quiet at 1.5:1. --control is
+     the border of anything the user operates: inputs, buttons, the theme
+     toggle. WCAG 1.4.11 wants 3:1 against the surface it sits on, so this
+     one is checked at 3.27:1 light and 3.46:1 dark, including against the
+     raised surface. */
   --rule: #cdc7b7;
+  --control: #7d7867;
   --forest: #2c4a34;
   --ember: #ab3f19;
   --ember-ink: #f4f1ea;
@@ -31,6 +38,7 @@
   --ink: #f4f1ea;
   --ink-muted: #9a9689;
   --rule: #33312a;
+  --control: #6e6b57;
   --forest: #7fa98a;
   --ember: #e07a4a;
   --ember-ink: #14130f;
@@ -125,7 +133,7 @@ body {
   font-size: 0.8125rem;
   background: transparent;
   color: var(--ink);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--control);
   border-radius: 3px;
   padding: 0.4rem 0.8rem;
   cursor: pointer;
@@ -133,7 +141,7 @@ body {
 }
 
 .theme-toggle:hover {
-  border-color: var(--ink-muted);
+  border-color: var(--ink);
 }
 
 /* ---------- sections ---------- */
@@ -376,7 +384,7 @@ p:last-child {
   font-size: 1rem;
   color: var(--ink);
   background: var(--paper);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--control);
   border-radius: 3px;
   padding: 0.7rem 0.8rem;
   min-height: 44px;
@@ -389,7 +397,7 @@ p:last-child {
 
 .field__input:hover,
 .field__area:hover {
-  border-color: var(--ink-muted);
+  border-color: var(--ink);
 }
 
 .field__hint {
