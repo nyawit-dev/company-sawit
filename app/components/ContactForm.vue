@@ -72,10 +72,14 @@
     <div
       class="flex flex-wrap items-center gap-4 md:col-span-2"
     >
+      <!-- NEFA's button geometry, same as the hero pair: pill radius, 32px
+           padding, 14px at weight 400. It was still at 16px/600 after the sweep,
+           which made this button visibly heavier than the two in the hero that
+           it shares a page with. -->
       <button
         type="submit"
         :disabled="sent"
-        class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-leaf-600 bg-leaf-600 px-6 py-3 text-base font-semibold text-white shadow-[0_3px_0_var(--color-leaf-800)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-800)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-800)] disabled:cursor-not-allowed disabled:opacity-70"
+        class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-leaf-600 bg-leaf-600 px-8 py-4 text-sm font-normal text-white shadow-[0_3px_0_var(--color-leaf-800)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-800)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-800)] disabled:cursor-not-allowed disabled:opacity-70"
       >
         {{ sent ? 'Terkirim' : 'Kirim' }}
       </button>

@@ -9,7 +9,7 @@
     >
     <div class="min-w-0 flex-1">
       <h2
-        class="m-0 text-[clamp(1.375rem,3vw,2rem)] leading-tight font-semibold tracking-tight text-body"
+        class="m-0 text-display tracking-tight text-body"
       >
         {{ title }}
       </h2>

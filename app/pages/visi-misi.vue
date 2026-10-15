@@ -17,7 +17,7 @@
           untuk dibuka.
         </h1>
         <p
-          class="m-0 mt-4 max-w-2xl text-[clamp(1rem,1.9vw,1.125rem)] leading-relaxed text-quiet"
+          class="m-0 mt-4 max-w-2xl text-[1.0625rem] leading-relaxed text-quiet"
         >
           Pernyataan berikut disusun oleh bagian hubungan perusahaan, disetujui
           dewan direksi, dan diterbitkan tanpa perubahan oleh bagian
