@@ -218,6 +218,7 @@
             <Figure
               v-if="harm.photo"
               class="mt-8"
+              ratio="4/3"
               :src="`/company-sawit/img/${harm.photo.file}`"
               :alt="harm.photo.alt"
               :caption="harm.photo.caption"
@@ -254,10 +255,11 @@
               </div>
               <Figure
                 v-if="harm.photo"
+                ratio="5/4"
                 :src="`/company-sawit/img/${harm.photo.file}`"
                 :alt="harm.photo.alt"
                 :caption="harm.photo.caption"
-               class="lg:col-span-7" />
+                class="lg:col-span-7" />
             </div>
           </template>
 
@@ -281,6 +283,7 @@
             <Figure
               v-if="harm.photo"
               class="mt-10"
+              ratio="16/9"
               :src="`/company-sawit/img/${harm.photo.file}`"
               :alt="harm.photo.alt"
               :caption="harm.photo.caption"
@@ -334,6 +337,7 @@
               <Figure
                 v-for="shot in harm.gallery"
                 :key="shot.file"
+                ratio="1/1"
                 :src="`/company-sawit/img/${shot.file}`"
                 :alt="shot.alt"
                 :caption="shot.caption"
@@ -592,10 +596,10 @@ const harms = [
       label: 'Belum menerima apa pun, 20 tahun kemudian',
     },
     photo: {
-      file: 'replanting.jpg',
-      alt: 'Area penanaman kembali dengan barisan bibit kelapa sawit muda tersusun geometris di tanah yang baru dibersihkan',
+      file: 'mill.jpg',
+      alt: 'Pabrik pengolahan kelapa sawit dengan kawasan penanaman baru di sekitarnya',
       caption:
-        'Lahan yang baru dibersihkan, blok timur, sesudah ganti rugi tercatat "dalam proses" sejak 2004. Gambar dibuat dengan model generatif untuk laman ini.',
+        'Lahan yang baru dibersihkan di sekitar pabrik, blok timur, sesudah ganti rugi tercatat "dalam proses" sejak 2004. Gambar dibuat dengan model generatif untuk laman ini.',
     },
   },
   {
@@ -729,10 +733,16 @@ const harms = [
       'Pabrik bekerja dua puluh empat jam. Buah yang tiba dipanen paling lambat delapan belas jam sebelumnya; setelah itu kadar minyaknya turun dan muatannya ditolak. Penolakan dicatat sebagai ketidakpatutan mitra, bukan kesalahan penjadwalan. Pada 2024 tercatat 1.840 muatan ditolak dari 41.000, atau 4,5%. Angka tersebut tidak pernah muncul dalam laporan tahunan kami.',
     ],
     photo: {
-      file: 'ffb.jpg',
-      alt: 'Tandan buah kelapa sawit hasil panen siap diangkut ke pabrik',
+      // ffb.jpg is a 1400x1400 square. Setting it in the `wide` overlay forces a
+      // 0.406 letterbox, so `object-fit: cover` discards roughly 60% of the frame
+      // and the fruit is cut out of its own photograph. port.jpg is a 0.563
+      // landscape of the same width, which loses far less to the crop. The
+      // square image stays unused rather than being cropped into something the
+      // caption cannot honestly describe.
+      file: 'port.jpg',
+      alt: 'Pelabuhan muat CPO dan PK dengan kapal kargo dan deretan tandan buah menunggu angkutan',
       caption:
-        'Tandan buah hasil panen menunggu angkutan, blok tengah. Gambar dibuat dengan model generatif untuk laman ini.',
+        'Tandan buah hasil panen menunggu angkutan di pelabuhan, blok tengah. Gambar dibuat dengan model generatif untuk laman ini.',
     },
   },
   {

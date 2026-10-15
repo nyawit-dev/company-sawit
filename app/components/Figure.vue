@@ -21,7 +21,8 @@
         :alt="alt"
         loading="lazy"
         decoding="async"
-        class="block aspect-[3/2] w-full object-cover transition-transform duration-700 ease-out group-hover/figure:scale-105"
+        :style="{ aspectRatio: ratio }"
+        class="block w-full object-cover transition-transform duration-700 ease-out group-hover/figure:scale-105"
       />
     </div>
     <figcaption class="border-t-2 border-hair px-5 py-4">
@@ -42,7 +43,16 @@ withDefaults(
     alt: string
     caption: string
     attribution?: string
+    // The frame ratio. Every figure was locked to 3/2, which made nine
+    // photographs the same height whatever the block needed: a 0.406 overlay,
+    // a 0.563 landscape and a card thumbnail all resolved to the same band.
+    // The layout now chooses per use, so the page rhythm carries through to the
+    // photographs instead of flattening back to one repeated shape.
+    ratio?: string
   }>(),
-  { attribution: 'Gambar dibuat dengan model generatif untuk laman ini.' },
+  {
+    attribution: 'Gambar dibuat dengan model generatif untuk laman ini.',
+    ratio: '3/2',
+  },
 )
 </script>
