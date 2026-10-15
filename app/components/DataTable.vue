@@ -16,7 +16,7 @@
   -->
   <div
     data-table-scroll
-    class="rounded-3xl border-2 border-hair bg-card shadow-[var(--shadow-card)]"
+    class="rounded-lg border-2 border-hair bg-card shadow-[var(--shadow-card)]"
   >
     <table class="w-full border-collapse text-left text-[0.9375rem]">
       <!-- Column widths live here rather than in a stylesheet.
@@ -54,17 +54,25 @@
       </colgroup>
       <caption
         v-if="caption"
-        class="border-b-2 border-hair bg-sunken px-5 py-4 text-left font-mono text-[0.6875rem] font-bold tracking-wider text-quiet uppercase"
+        class="border-b-2 border-hair bg-sunken px-5 py-4 text-left font-mono text-[0.6875rem] font-semibold tracking-wider text-quiet uppercase"
       >
         {{ caption }}
       </caption>
       <thead>
-        <tr class="border-b-2 border-hair">
+        <!-- NEFA's table language: no rules at all between rows, and a header
+             that is grey, smaller and lighter than the body rather than a
+             green banner. The reference runs `th` at 14px/500 in grey-500 and
+             `td` at 16px in grey-800, with separation carried entirely by
+             whitespace. That reads as a data table rather than a grid.
+
+             The left border on the omission column is kept — it is not
+             decoration, it marks the column the satire depends on. -->
+        <tr>
           <th
             v-for="(col, i) in columns"
             :key="i"
             scope="col"
-            class="px-4 py-3.5 font-mono text-[0.625rem] font-bold tracking-wider break-words text-leaf-700 uppercase sm:whitespace-nowrap sm:px-5 dark:text-leaf-300"
+            class="px-4 pb-3 font-sans text-sm font-medium text-quiet sm:px-5"
             :class="col.omit ? 'border-l-2 border-leaf-400 dark:border-leaf-500' : ''"
           >
             {{ col.label }}
@@ -75,19 +83,19 @@
         <tr
           v-for="(row, r) in rows"
           :key="r"
-          class="border-b border-hair transition-colors duration-150 ease-out last:border-b-0 hover:bg-leaf-100 dark:hover:bg-leaf-900/60"
+          class="transition-colors duration-150 ease-out hover:bg-leaf-100 dark:hover:bg-leaf-900/60"
           :class="r % 2 === 1 ? 'bg-sunken' : ''"
         >
           <th
             scope="row"
-            class="px-4 py-3.5 text-left font-mono text-sm font-bold break-words text-body sm:whitespace-nowrap sm:px-5"
+            class="px-4 py-4 text-left font-mono text-sm font-medium break-words text-body sm:whitespace-nowrap sm:px-5"
           >
             {{ row[0] }}
           </th>
           <td
             v-for="(cell, c) in row.slice(1)"
             :key="c"
-            class="px-4 py-3.5 align-top break-words text-body sm:px-5"
+            class="px-4 py-4 align-top break-words text-body sm:px-5"
             :class="
               isOmitColumn(c) ? 'border-l-2 border-leaf-400 dark:border-leaf-500' : ''
             "

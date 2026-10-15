@@ -4,12 +4,12 @@
        as one filing rather than as a website. -->
   <div class="flex flex-wrap items-start gap-4">
     <span
-      class="grid size-12 shrink-0 place-items-center rounded-2xl border-2 border-leaf-400 bg-leaf-100 font-mono text-sm font-bold text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
+      class="grid size-12 shrink-0 place-items-center rounded-lg border-2 border-leaf-400 bg-leaf-100 font-mono text-sm font-semibold text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
       >{{ num }}</span
     >
     <div class="min-w-0 flex-1">
       <h2
-        class="m-0 text-[clamp(1.375rem,3vw,2rem)] leading-tight font-extrabold tracking-tight text-body"
+        class="m-0 text-[clamp(1.375rem,3vw,2rem)] leading-tight font-semibold tracking-tight text-body"
       >
         {{ title }}
       </h2>

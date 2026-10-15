@@ -26,14 +26,14 @@
       "
     >
       <dt
-        class="m-0 font-mono text-[0.625rem] font-bold tracking-wider uppercase"
+        class="m-0 font-mono text-[0.625rem] font-semibold tracking-wider uppercase"
         :style="{ color: tone ? `var(--harm-${tone}-num)` : undefined }"
         :class="tone ? '' : 'text-quiet'"
       >
         {{ side.label }}
       </dt>
       <dd
-        class="m-0 mt-1.5 text-figure leading-none font-extrabold tracking-tight"
+        class="m-0 mt-1.5 text-figure leading-none font-semibold tracking-tight"
         :class="[tone ? 'text-body' : i === 0 ? 'text-body' : 'text-leaf-700 dark:text-leaf-300']"
       >
         {{ side.value }}

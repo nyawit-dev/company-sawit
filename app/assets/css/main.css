@@ -70,11 +70,18 @@
   --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
-  /* The heading scale. Every level is a clamp so it stays proportional from
-     320px up, and every line-height is set explicitly: an unset ratio collapses
-     to ~1.10 on a 3-line heading, which makes the lines touch. The reference
-     sites sit at 1.25 for body-adjacent headings and 1.20 for the hero, and
-     that slack is what stops a long Indonesian headline from crowding.
+  /* The heading scale, merged from both references rather than picked from one.
+
+     NEFA contributes the structure: H2 36/40, H3 24/32, weight 600 not 700, and
+     no letter-spacing — a slightly smaller, tighter, less shouty hierarchy than
+     Happy Paws. Happy Paws contributes the hero: 60px at desktop with a 1.20
+     ratio, because a full-width H1 over a photograph needs the size to carry it
+     across the image. The two do not conflict once you notice they disagree only
+     below H2, which is where NEFA is clearly the better proportioned of the two.
+
+     Every level is a clamp so it stays proportional from 320px up, and every
+     line-height is set explicitly: an unset ratio collapses to ~1.10 on a
+     3-line heading, which makes the lines touch.
 
      Both ends are SOLVED, not eyeballed, because the two ends fight each other
      and guessing gets one of them wrong. The floor comes from 320px: a 44px hero
@@ -90,18 +97,34 @@
      never binds and the narrow viewport gets a heading 8px too large — which is
      exactly the 29px overflow this file carries the scar from.
 
-     hero    28px @320 → 60px @1280, ratio 1.20
-     display 22 → 48, ratio 1.17
-     title   20 → 32, ratio 1.25
-     figure  26 → 48, ratio 1.00  (the report's headline numbers) */
+     hero    28px @320 → 60px @1280, ratio 1.20  (Happy Paws)
+     display 22 → 36, ratio 1.11                  (NEFA H2)
+     title   18 → 24, ratio 1.33                  (NEFA H3)
+     figure  26 → 48, ratio 1.00                  (the report's headline numbers) */
   --text-hero: clamp(1.75rem, 1.0833rem + 3.3333vw, 3.75rem);
   --text-hero--line-height: 1.2;
-  --text-display: clamp(1.375rem, 0.8333rem + 2.7083vw, 3rem);
-  --text-display--line-height: 1.17;
-  --text-title: clamp(1.25rem, 1rem + 1.25vw, 2rem);
-  --text-title--line-height: 1.25;
+  --text-hero--font-weight: 600;
+  --text-display: clamp(1.375rem, 0.9792rem + 1.9792vw, 2.25rem);
+  --text-display--line-height: 1.11;
+  --text-display--font-weight: 600;
+  --text-title: clamp(1.125rem, 0.9167rem + 1.0417vw, 1.5rem);
+  --text-title--line-height: 1.33;
+  --text-title--font-weight: 600;
   --text-figure: clamp(1.625rem, 1.1667rem + 2.2917vw, 3rem);
   --text-figure--line-height: 1;
+
+  /* Radii, taken from NEFA. The reference uses 8px on cards and containers and
+     9999px on buttons — a crisp, near-flat edge rather than the 24px soft card
+     Happy Paws uses. The 24px value was already in this file and it made every
+     card read as a friendly blob; at 8px the satire stops apologising for
+     itself, which suits a company that files a fire as a weather event.
+
+     The tokens exist so the choice is stated once. Tailwind's own `rounded-lg`
+     is 0.5rem and `rounded-2xl` is 1rem, neither of which is 8px, so the
+     component classes below reference these directly. */
+  --radius-card: 8px;
+  --radius-panel: 8px;
+  --radius-pill: 9999px;
 
   /* A single green scale, shared by both themes. The primary is green-600:
      white text on it measures 6.82:1, and as text on a light card it measures

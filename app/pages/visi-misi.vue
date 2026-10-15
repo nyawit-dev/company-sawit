@@ -11,7 +11,7 @@
           Visi, misi, dan komitmen &middot; 2025
         </p>
         <h1
-          class="m-0 max-w-3xl text-hero font-extrabold tracking-tight text-body"
+          class="m-0 max-w-3xl text-hero font-semibold tracking-tight text-body"
         >
           Kami akan terus membuka lahan baru sampai tidak ada lahan yang tersisa
           untuk dibuka.
@@ -37,7 +37,7 @@
           class="m-0 mt-8 max-w-3xl border-t-2 border-leaf-400 pt-6"
         >
           <p
-            class="m-0 mb-4 text-title font-bold tracking-tight text-body italic"
+            class="m-0 mb-4 text-title font-semibold tracking-tight text-body italic"
           >
             Menjadi perusahaan perkebunan kelapa sawit terdepan yang mengubah
             seluruh hutan tropis yang tersisa menjadi kebun produktif, dan
@@ -69,10 +69,10 @@
           <li
             v-for="(item, i) in missions"
             :key="i"
-            class="flex flex-wrap items-start gap-4 rounded-2xl border-2 border-hair bg-card p-5 transition-transform duration-300 ease-out hover:-translate-y-0.5"
+            class="flex flex-wrap items-start gap-4 rounded-lg border-2 border-hair bg-card p-5 transition-transform duration-300 ease-out hover:-translate-y-0.5"
           >
             <span
-              class="grid size-8 shrink-0 place-items-center rounded-xl bg-leaf-600 font-mono text-xs font-bold text-white"
+              class="grid size-8 shrink-0 place-items-center rounded-lg bg-leaf-600 font-mono text-xs font-semibold text-white"
               >{{ i + 1 }}</span
             >
             <p class="m-0 min-w-0 flex-1 text-[1.0625rem] leading-relaxed text-body">
@@ -97,7 +97,7 @@
             class="grid gap-1 border-b border-hair py-5 md:grid-cols-[14rem_1fr] md:gap-8"
           >
             <dt
-              class="m-0 text-[1.0625rem] font-extrabold tracking-tight text-body"
+              class="m-0 text-[1.0625rem] font-semibold tracking-tight text-body"
             >
               {{ v.name }}
             </dt>
@@ -139,12 +139,12 @@
           Latar belakang perusahaan dan riwayat konsesi ada di halaman
           <NuxtLink
             to="/tentang"
-            class="font-bold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
+            class="font-semibold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
             >tentang</NuxtLink
           >. Praktik operasional di lapangan ada di
           <NuxtLink
             to="/"
-            class="font-bold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
+            class="font-semibold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
             >halaman utama</NuxtLink
           >.
         </p>

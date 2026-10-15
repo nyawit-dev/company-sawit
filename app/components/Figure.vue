@@ -13,7 +13,7 @@
     the frame, not only on the legal page.
   -->
   <figure
-    class="group/figure m-0 overflow-hidden rounded-3xl border-2 border-hair bg-card shadow-[var(--shadow-card)]"
+    class="group/figure m-0 overflow-hidden rounded-lg border-2 border-hair bg-card shadow-[var(--shadow-card)]"
   >
     <div class="overflow-hidden">
       <img

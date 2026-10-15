@@ -2,7 +2,7 @@
   <div>
     <a
       href="#konten"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-full focus:bg-leaf-700 focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-white focus:no-underline"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-100 focus:rounded-full focus:bg-leaf-700 focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-white focus:no-underline"
       >Lompat ke konten</a
     >
 
@@ -30,7 +30,7 @@
             height="44"
             class="w-11 shrink-0 transition-transform duration-300 ease-out hover:-rotate-12 hover:scale-108"
           />
-          <span class="min-w-0 text-[0.9375rem] leading-tight font-bold">
+          <span class="min-w-0 text-[0.9375rem] leading-tight font-semibold">
             PT Perkebunan Asap Emas Nusantara
             <span
               class="mt-0.5 block font-mono text-[0.625rem] font-normal tracking-wide text-quiet"
@@ -46,7 +46,7 @@
             type="button"
             :aria-expanded="navOpen"
             aria-controls="nav-utama"
-            class="min-h-11 cursor-pointer rounded-full border-2 border-leaf-400 bg-leaf-100 px-4 py-2.5 text-[0.8125rem] font-bold text-leaf-700 transition-transform duration-150 ease-out hover:-translate-y-0.5 active:scale-94 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200 lg:hidden"
+            class="min-h-11 cursor-pointer rounded-full border-2 border-leaf-400 bg-leaf-100 px-4 py-2.5 text-[0.8125rem] font-semibold text-leaf-700 transition-transform duration-150 ease-out hover:-translate-y-0.5 active:scale-94 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200 lg:hidden"
             @click="navOpen = !navOpen"
           >
             {{ navOpen ? 'Tutup' : 'Menu' }}
@@ -63,7 +63,7 @@
             v-for="item in nav"
             :key="item.to"
             :to="item.to"
-            class="inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-[0.9375rem] font-bold text-body no-underline transition-colors duration-150 ease-out hover:bg-leaf-100 hover:text-leaf-700 aria-[current=page]:bg-leaf-600 aria-[current=page]:text-white dark:hover:bg-leaf-800 dark:hover:text-leaf-200"
+            class="inline-flex min-h-11 items-center rounded-full px-3.5 py-2.5 text-[0.9375rem] font-semibold text-body no-underline transition-colors duration-150 ease-out hover:bg-leaf-100 hover:text-leaf-700 aria-[current=page]:bg-leaf-600 aria-[current=page]:text-white dark:hover:bg-leaf-800 dark:hover:text-leaf-200"
             @click="navOpen = false"
           >
             {{ item.label }}
@@ -93,7 +93,7 @@
               v-for="item in nav"
               :key="item.to"
               :to="item.to"
-              class="inline-flex min-h-11 items-center rounded-full px-4 py-2.5 text-sm font-bold text-quiet no-underline transition-colors duration-150 ease-out hover:bg-leaf-100 hover:text-leaf-700 dark:hover:bg-leaf-800 dark:hover:text-leaf-200"
+              class="inline-flex min-h-11 items-center rounded-full px-4 py-2.5 text-sm font-semibold text-quiet no-underline transition-colors duration-150 ease-out hover:bg-leaf-100 hover:text-leaf-700 dark:hover:bg-leaf-800 dark:hover:text-leaf-200"
             >
               {{ item.label }}
             </NuxtLink>

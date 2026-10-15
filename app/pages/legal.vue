@@ -18,7 +18,7 @@
           Penafian &amp; kredit &middot; dokumen hukum
         </p>
         <h1
-          class="m-0 max-w-3xl text-hero font-extrabold tracking-tight text-body"
+          class="m-0 max-w-3xl text-hero font-semibold tracking-tight text-body"
         >
           Ini bukan perusahaan. Ini karya fiksi.
         </h1>
@@ -45,7 +45,7 @@
             :key="clause.head"
             class="m-0 text-[1.0625rem] leading-relaxed text-quiet"
           >
-            <strong class="font-extrabold text-body">{{ clause.head }}</strong>
+            <strong class="font-semibold text-body">{{ clause.head }}</strong>
             {{ clause.body }}
           </p>
         </div>
@@ -79,7 +79,7 @@
             />
             <p class="m-0 mt-6 text-[1.0625rem] leading-relaxed text-quiet">
               &ldquo;Konoha&rdquo; diambil dari dunia fiksi anime
-              <em class="font-bold text-body not-italic">Naruto</em>, yang
+              <em class="font-semibold text-body not-italic">Naruto</em>, yang
               merupakan karya berhak cipta milik pemegang haknya. Nama itu
               dipakai di sini sebagai penghormatan dan penanda fiksi, bukan untuk
               mengklaim kepemilikan atas karya tersebut atau berafiliasi dengan
@@ -120,7 +120,7 @@
         </SectionHead>
 
         <blockquote
-          class="m-0 mt-8 max-w-3xl rounded-2xl border-2 border-leaf-400 bg-[var(--harm-leaf-bg)] p-6 text-[1.0625rem] leading-relaxed text-body"
+          class="m-0 mt-8 max-w-3xl rounded-lg border-2 border-leaf-400 bg-[var(--harm-leaf-bg)] p-6 text-[1.0625rem] leading-relaxed text-body"
         >
           Situs ini adalah karya satire. Perusahaan, desa, mata uang, badan
           audit, dan seluruh angka di dalamnya adalah rekaan. Tidak ada

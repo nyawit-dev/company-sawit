@@ -54,7 +54,7 @@
           </p>
 
           <h1
-            class="m-0 max-w-[22ch] text-hero font-extrabold tracking-tight text-white [text-shadow:0_2px_24px_rgb(6_20_13/0.55)]"
+            class="m-0 max-w-[22ch] text-hero font-semibold tracking-tight text-white [text-shadow:0_2px_24px_rgb(6_20_13/0.55)]"
           >
             Mengubah hutan Desa Konoha menjadi perkebunan yang menguntungkan.
           </h1>
@@ -69,14 +69,23 @@
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3">
+            <!-- NEFA's button: pill radius, 16px/32px padding, weight 400. The
+                 reference's primary is a filled pill and its secondary is
+                 outline, both at 14px — one step below the 16px body, which is
+                 what keeps a pill from looking like a toy.
+
+                 Over a photograph the primary has to be opaque, so it is white
+                 here rather than the reference's blue, and the secondary is
+                 translucent white with a blur backdrop instead of an outline
+                 that would vanish into a bright part of the image. -->
             <NuxtLink
               to="/tentang"
-              class="inline-flex min-h-11 cursor-pointer items-center rounded-full bg-white px-6 py-3 text-base font-bold text-leaf-800 no-underline shadow-[0_3px_0_var(--color-leaf-300)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-300)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-300)]"
+              class="inline-flex min-h-11 cursor-pointer items-center rounded-full bg-white px-8 py-4 text-sm font-normal text-leaf-800 no-underline shadow-[0_3px_0_var(--color-leaf-300)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-300)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-300)]"
               >Tentang perusahaan</NuxtLink
             >
             <a
               href="#dampak"
-              class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-white/70 bg-white/10 px-6 py-3 text-base font-bold text-white no-underline backdrop-blur-sm transition-colors duration-150 hover:border-white hover:bg-white/20"
+              class="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-white/70 bg-white/10 px-8 py-4 text-sm font-normal text-white no-underline backdrop-blur-sm transition-colors duration-150 hover:border-white hover:bg-white/20"
               >Lihat dampak</a
             >
           </div>
@@ -96,7 +105,7 @@
         <dl class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
           <div v-for="stat in stats" :key="stat.label">
             <dd
-              class="m-0 font-mono text-[clamp(1.5rem,2.4vw,1.875rem)] leading-none font-bold break-words text-leaf-700 dark:text-leaf-300"
+              class="m-0 font-mono text-[clamp(1.5rem,2.4vw,1.875rem)] leading-none font-semibold break-words text-leaf-700 dark:text-leaf-300"
             >
               {{ stat.value }}
             </dd>
@@ -126,12 +135,12 @@
       <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div class="flex flex-wrap items-start gap-4">
           <span
-            class="grid size-12 shrink-0 place-items-center rounded-2xl border-2 border-leaf-400 bg-leaf-100 font-mono text-sm font-bold text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
+            class="grid size-12 shrink-0 place-items-center rounded-lg border-2 border-leaf-400 bg-leaf-100 font-mono text-sm font-semibold text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
             >01</span
           >
           <div class="min-w-0 flex-1">
             <h2
-              class="m-0 text-display font-extrabold tracking-tight text-body"
+              class="m-0 text-display font-semibold tracking-tight text-body"
             >
               Dampak keberadaan kami
             </h2>
@@ -158,7 +167,7 @@
         <div class="mx-auto max-w-6xl px-6">
           <div class="mb-8 flex flex-wrap items-center gap-3">
             <span
-              class="font-mono text-xs font-bold"
+              class="font-mono text-xs font-semibold"
               :style="{ color: `var(--harm-${harm.hue}-num)` }"
               >{{ harm.num }}</span
             >
@@ -176,7 +185,7 @@
           <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
             <div :class="harm.photoFirst ? 'lg:order-2' : 'lg:order-1'">
               <h3
-                class="m-0 text-title font-extrabold text-body"
+                class="m-0 text-title font-semibold text-body"
               >
                 {{ harm.title }}
               </h3>
@@ -195,11 +204,11 @@
                    difference between the two numbers is the entire point. -->
               <dl v-if="harm.claim" class="m-0 mt-8 grid grid-cols-2 gap-4">
                 <div
-                  class="rounded-2xl border-2 bg-card p-5"
+                  class="rounded-lg border-2 bg-card p-5"
                   :style="{ borderColor: `var(--harm-${harm.hue}-br)` }"
                 >
                   <dd
-                    class="m-0 font-mono text-figure leading-none font-bold"
+                    class="m-0 font-mono text-figure leading-none font-semibold"
                     :style="{ color: `var(--harm-${harm.hue}-fg)` }"
                   >
                     {{ harm.claim.value }}
@@ -211,11 +220,11 @@
                   </dt>
                 </div>
                 <div
-                  class="rounded-2xl border-2 border-dashed bg-card/60 p-5"
+                  class="rounded-lg border-2 border-dashed bg-card/60 p-5"
                   :style="{ borderColor: `var(--harm-${harm.hue}-br)` }"
                 >
                   <dd
-                    class="m-0 font-mono text-figure leading-none font-bold text-body"
+                    class="m-0 font-mono text-figure leading-none font-semibold text-body"
                   >
                     {{ harm.unprinted.value }}
                   </dd>
@@ -286,12 +295,12 @@
       <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div class="flex flex-wrap items-start gap-4">
           <span
-            class="grid size-12 shrink-0 place-items-center rounded-2xl border-2 border-leaf-400 bg-leaf-100 font-mono text-sm font-bold text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
+            class="grid size-12 shrink-0 place-items-center rounded-lg border-2 border-leaf-400 bg-leaf-100 font-mono text-sm font-semibold text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
             >09</span
           >
           <div class="min-w-0 flex-1">
             <h2
-              class="m-0 text-display font-extrabold tracking-tight text-body"
+              class="m-0 text-display font-semibold tracking-tight text-body"
             >
               Hubungi kami
             </h2>
@@ -325,7 +334,7 @@ const asset_company_sawit_img_hero_aerial_jpg = '/company-sawit/img/hero-aerial.
 // The phrase the company puts in italics is the euphemism itself. Marking it
 // in the markup rather than styling the whole paragraph is what lets the
 // emphasis carry the sarcasm: the words are theirs, not the page's.
-const quote = (text: string) => `<em class="font-bold not-italic">${text}</em>`
+const quote = (text: string) => `<em class="font-semibold not-italic">${text}</em>`
 
 const stats = [
   { value: '412.000 ha', label: 'Konsesi di bawah pengelolaan' },

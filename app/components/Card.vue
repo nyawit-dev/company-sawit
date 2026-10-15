@@ -12,7 +12,7 @@
     default (no hue) is the filing card.
   -->
   <div
-    class="group relative overflow-hidden rounded-3xl border-2 bg-card transition-all duration-300 ease-out"
+    class="group relative overflow-hidden rounded-lg border-2 bg-card transition-all duration-300 ease-out"
     :class="[
       tone ? `border-${tone}-br` : 'border-hair',
       tone ? `harm-${tone}` : '',

@@ -18,7 +18,7 @@
           &middot; Konoha
         </p>
         <h1
-          class="m-0 max-w-3xl text-hero font-extrabold tracking-tight text-body"
+          class="m-0 max-w-3xl text-hero font-semibold tracking-tight text-body"
         >
           Perusahaan yang kami tulis untuk diri kami sendiri.
         </h1>
@@ -79,7 +79,7 @@
           <div
             v-for="seal in seals"
             :key="seal.name"
-            class="flex items-center gap-4 rounded-2xl border-2 border-hair bg-card p-5 transition-transform duration-300 ease-out hover:-translate-y-1"
+            class="flex items-center gap-4 rounded-lg border-2 border-hair bg-card p-5 transition-transform duration-300 ease-out hover:-translate-y-1"
           >
             <img
               :src="asset_company_sawit_logo_mark_svg"
@@ -90,7 +90,7 @@
             />
             <div class="min-w-0">
               <p
-                class="m-0 font-mono text-xs font-bold tracking-wide text-body"
+                class="m-0 font-mono text-xs font-semibold tracking-wide text-body"
               >
                 {{ seal.name }}
               </p>

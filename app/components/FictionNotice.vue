@@ -10,7 +10,7 @@
     <div class="mx-auto max-w-6xl px-6 py-10">
       <div class="flex flex-wrap items-start gap-4">
         <span
-          class="grid size-10 shrink-0 place-items-center rounded-xl border-2 border-leaf-400 bg-leaf-100 text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
+          class="grid size-10 shrink-0 place-items-center rounded-lg border-2 border-leaf-400 bg-leaf-100 text-leaf-800 dark:border-leaf-500 dark:bg-leaf-900 dark:text-leaf-200"
           aria-hidden="true"
         >
           <svg viewBox="0 0 24 24" class="size-5" fill="currentColor">
@@ -21,7 +21,7 @@
         </span>
         <div class="min-w-0 flex-1">
           <h4
-            class="m-0 text-[0.9375rem] font-extrabold tracking-tight text-body"
+            class="m-0 text-[0.9375rem] font-semibold tracking-tight text-body"
           >
             {{ label }}
           </h4>
@@ -38,14 +38,14 @@
           <p v-if="link" class="m-0 mt-3 text-sm">
             <NuxtLink
               :to="link"
-              class="font-bold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
+              class="font-semibold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
               >{{ linkLabel }}</NuxtLink
             >
           </p>
           <p v-else class="m-0 mt-3 text-sm">
             <NuxtLink
               to="/legal"
-              class="font-bold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
+              class="font-semibold text-leaf-700 underline decoration-2 underline-offset-2 transition-colors duration-150 ease-out hover:text-leaf-800 dark:text-leaf-300 dark:hover:text-leaf-200"
               >Baca penafian lengkap dan daftar kredit</NuxtLink
             >
           </p>

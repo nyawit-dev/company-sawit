@@ -14,7 +14,7 @@
         name="nama"
         autocomplete="name"
         required
-        class="min-h-11 w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+        class="min-h-11 w-full rounded-lg border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
       />
     </label>
 
@@ -29,7 +29,7 @@
         name="surel"
         autocomplete="email"
         required
-        class="min-h-11 w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+        class="min-h-11 w-full rounded-lg border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
       />
     </label>
 
@@ -42,7 +42,7 @@
         v-model="form.purpose"
         name="keperluan"
         required
-        class="min-h-11 w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+        class="min-h-11 w-full rounded-lg border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
       >
         <option value="">Pilih salah satu</option>
         <option value="media">Permintaan media</option>
@@ -65,7 +65,7 @@
         name="pesan"
         rows="5"
         required
-        class="w-full rounded-2xl border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
+        class="w-full rounded-lg border-2 border-hair bg-card px-4 py-3 font-sans text-base text-body transition-colors duration-150 ease-out focus:border-leaf-500 focus:outline-none"
       ></textarea>
     </label>
 
@@ -75,7 +75,7 @@
       <button
         type="submit"
         :disabled="sent"
-        class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-leaf-600 bg-leaf-600 px-6 py-3 text-base font-bold text-white shadow-[0_3px_0_var(--color-leaf-800)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-800)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-800)] disabled:cursor-not-allowed disabled:opacity-70"
+        class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-leaf-600 bg-leaf-600 px-6 py-3 text-base font-semibold text-white shadow-[0_3px_0_var(--color-leaf-800)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-800)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-800)] disabled:cursor-not-allowed disabled:opacity-70"
       >
         {{ sent ? 'Terkirim' : 'Kirim' }}
       </button>
@@ -88,7 +88,7 @@
     <p
       v-if="sent"
       role="status"
-      class="m-0 rounded-2xl border-2 border-dashed border-leaf-400 bg-sunken p-5 text-sm leading-relaxed text-body md:col-span-2"
+      class="m-0 rounded-lg border-2 border-dashed border-leaf-400 bg-sunken p-5 text-sm leading-relaxed text-body md:col-span-2"
     >
       Borang ini tidak mengirim data ke mana pun. PT Perkebunan Asap Emas
       Nusantara tidak ada, dan tidak ada kotak masuk yang menunggu pesan Anda.
