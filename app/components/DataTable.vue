@@ -15,9 +15,10 @@
        are 1.05:1 apart in night mode.
   -->
   <div
-    class="overflow-x-auto rounded-3xl border-2 border-hair bg-card shadow-[var(--shadow-card)]"
+    data-table-scroll
+    class="rounded-3xl border-2 border-hair bg-card shadow-[var(--shadow-card)]"
   >
-    <table class="w-full border-collapse text-left text-[0.9375rem]">
+    <table class="min-w-0 border-collapse text-left text-[0.9375rem]">
       <caption
         v-if="caption"
         class="border-b-2 border-hair bg-sunken px-5 py-4 text-left font-mono text-[0.6875rem] font-bold tracking-wider text-quiet uppercase"
@@ -30,7 +31,7 @@
             v-for="(col, i) in columns"
             :key="i"
             scope="col"
-            class="px-5 py-3.5 font-mono text-[0.625rem] font-bold tracking-wider whitespace-nowrap text-leaf-700 uppercase dark:text-leaf-300"
+            class="px-4 py-3.5 font-mono text-[0.625rem] font-bold tracking-wider break-words text-leaf-700 uppercase sm:whitespace-nowrap sm:px-5 dark:text-leaf-300"
             :class="col.omit ? 'border-l-2 border-leaf-400 dark:border-leaf-500' : ''"
           >
             {{ col.label }}
@@ -46,14 +47,14 @@
         >
           <th
             scope="row"
-            class="px-5 py-3.5 text-left font-mono text-sm font-bold whitespace-nowrap text-body"
+            class="px-4 py-3.5 text-left font-mono text-sm font-bold break-words text-body sm:whitespace-nowrap sm:px-5"
           >
             {{ row[0] }}
           </th>
           <td
             v-for="(cell, c) in row.slice(1)"
             :key="c"
-            class="px-5 py-3.5 align-top text-body"
+            class="px-4 py-3.5 align-top break-words text-body sm:px-5"
             :class="
               isOmitColumn(c) ? 'border-l-2 border-leaf-400 dark:border-leaf-500' : ''
             "

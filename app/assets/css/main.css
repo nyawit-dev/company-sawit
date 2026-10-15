@@ -23,8 +23,8 @@
   }
 
   body {
-    background-color: var(--color-paper);
-    color: var(--color-body);
+    background-color: var(--c-paper);
+    color: var(--c-body);
     font-family: var(--font-sans);
     /* Nunito's variable optical sizing only engages with this set. */
     font-optical-sizing: auto;
@@ -100,41 +100,45 @@
 [data-theme='hijau'] {
   color-scheme: light;
 
-  --color-paper: #f7f9f5;
-  --color-card: #ffffff;
-  --color-sunken: #edf2e9;
+  --c-paper: #f7f9f5;
+  --c-card: #ffffff;
+  --c-sunken: #edf2e9;
 
-  --color-body: #15251a;
-  --color-quiet: #4a5c50;
+  --c-body: #15251a;
+  --c-quiet: #4a5c50;
 
-  --color-hair: #d6e0d2;
-  --color-control: #b8d6bf;
+  --c-hair: #d6e0d2;
+  --c-control: #b8d6bf;
 }
 
 [data-theme='malam'] {
   color-scheme: dark;
 
-  --color-paper: #0d1410;
-  --color-card: #151f19;
-  --color-sunken: #0a110d;
+  --c-paper: #0d1410;
+  --c-card: #151f19;
+  --c-sunken: #0a110d;
 
-  --color-body: #eaf3ec;
-  --color-quiet: #a8beb0;
+  --c-body: #eaf3ec;
+  --c-quiet: #a8beb0;
 
-  --color-hair: #2a3b31;
-  --color-control: #4f6b58;
+  --c-hair: #2a3b31;
+  --c-control: #4f6b58;
 }
 
-/* Map the semantic tokens into Tailwind's namespace so `bg-paper`,
-   `text-body`, `border-hair` and friends exist as utilities. */
-@theme inline {
-  --color-paper: var(--color-paper);
-  --color-card: var(--color-card);
-  --color-sunken: var(--color-sunken);
-  --color-body: var(--color-body);
-  --color-quiet: var(--color-quiet);
-  --color-hair: var(--color-hair);
-  --color-control: var(--color-control);
+/* The surface tokens are classes, not colour utilities. Tailwind v4 mirrors
+   every custom property in @theme into `@layer theme`, and the mirror is a
+   self-referential alias (`--c-paper: var(--c-paper)`) that is invalid at
+   computed-value time — it collapsed both themes onto one background, which is
+   why the night mode never changed. These classes reference the theme-aware
+   tokens directly, so the cascade has exactly one definition per token. */
+@layer components {
+  .bg-paper { background-color: var(--c-paper); }
+  .bg-card { background-color: var(--c-card); }
+  .bg-sunken { background-color: var(--c-sunken); }
+  .text-body { color: var(--c-body); }
+  .text-quiet { color: var(--c-quiet); }
+  .border-hair { border-color: var(--c-hair); }
+  .border-control { border-color: var(--c-control); }
 }
 
 /* ---------------------------------------------------------------------------
@@ -283,19 +287,23 @@
 
 /* The scroll reveal is opt-in per element and always resolves, so a reader
    whose browser never fires the observer still sees the content. */
-.reveal {
-  opacity: 0;
-}
-
+/* The reveal is an ADDITIVE animation, never a visibility gate. The base
+   state is visible, so a reader whose observer never fires still reads the
+   whole page. Anything that starts at opacity:0 and depends on a callback to
+   become readable is broken by design, not by a failed script. */
 .reveal.is-in {
   animation: rise-in 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* No JS at all: the class never gets added, so there is nothing to undo. */
+.reveal {
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal.is-in {
     animation: none;
-    opacity: 1;
   }
 
   *,
@@ -304,5 +312,36 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Table containment.
+
+   The omission column carries a full sentence per row, and four columns of
+   prose have a min-content width of ~353px. Below the lg breakpoint the table
+   is forced to the width it is given and the text wraps inside it; above lg it
+   sizes to its content. This is CSS rather than Tailwind utilities because
+   `lg:table-auto` sorts after the unprefixed `table-fixed` at every width, so
+   the utility pairing silently never applied.
+   --------------------------------------------------------------------------- */
+/* The !important flags are deliberate. A wrapper carrying Tailwind's
+   overflow-hidden makes a descendant scroller resolve to `visible`, which is
+   what let a 353px table push the page 41px wide at 320px. Layering cannot fix
+   it because the conflicting utility sits in the same layer. */
+[data-table-scroll] {
+  max-width: 100%;
+  overflow-x: auto !important;
+  overscroll-behavior-x: contain;
+}
+
+[data-table-scroll] > table {
+  table-layout: fixed !important;
+  width: 100%;
+}
+
+@media (min-width: 64rem) {
+  [data-table-scroll] > table {
+    table-layout: auto;
   }
 }

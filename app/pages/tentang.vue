@@ -42,18 +42,12 @@
           sisi yang berbeda, adalah catatan penggusuran.
         </SectionHead>
 
-        <div class="grid items-start gap-8 lg:grid-cols-5 lg:gap-12">
-          <div
-            class="overflow-hidden rounded-2xl border-2 border-hair bg-card lg:col-span-3"
-          >
-            <div class="overflow-x-auto">
-              <DataTable
-                  caption="Tonggak perusahaan 1998&ndash;2024, menurut dokumen resmi perusahaan."
-                  :columns="historyColumns.map((label) => ({ label }))"
-                  :rows="history.map((r) => [r.year, r.event, r.omitted])"
-                />
-            </div>
-          </div>
+        <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+          <DataTable
+            caption="Tonggak perusahaan 1998&ndash;2024, menurut dokumen resmi perusahaan."
+            :columns="historyColumns.map((label) => ({ label }))"
+            :rows="history.map((r) => [r.year, r.event, r.omitted])"
+          />
 
           <Figure
             class="lg:col-span-2"
@@ -115,17 +109,11 @@
           tampak nyata.
         </SectionHead>
 
-        <div
-          class="overflow-hidden rounded-2xl border-2 border-hair bg-card"
-        >
-          <div class="overflow-x-auto">
-            <DataTable
-                  caption="Susunan pengurus dan masa jabatan, menurut anggaran dasar."
-                  :columns="boardColumns.map((label) => ({ label }))"
-                  :rows="board.map((p) => [p.role, p.term, p.background, p.omitted])"
-                />
-          </div>
-        </div>
+        <DataTable
+          caption="Susunan pengurus dan masa jabatan, menurut anggaran dasar."
+          :columns="boardColumns.map((label) => ({ label }))"
+          :rows="board.map((p) => [p.role, p.term, p.background, p.omitted])"
+        />
       </div>
     </section>
 
