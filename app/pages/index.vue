@@ -40,9 +40,16 @@
 
              Contrast is checked rather than assumed: the gradient bottoms out at
              leaf-900/90, and every text colour here is measured against the
-             darkest and lightest pixel of the actual image. -->
+             darkest and lightest pixel of the actual image.
+
+             `translate-y-6` was the bug that buried the eyebrow. This block is
+             anchored bottom-0 and the header is sticky at z-50, so a positive Y
+             translate lifts the whole text block past the photo's top edge: at a
+             1280x508 viewport the "Laporan Tahunan 2024" line began 43px above
+             the photo and sat underneath the header, half-covered. Padding
+             carries the offset now, which cannot lift anything out of the frame. -->
         <div
-          class="mx-auto max-w-6xl translate-y-6 px-6 pb-14 md:translate-y-8 md:pb-20"
+          class="mx-auto max-w-6xl px-6 pt-16 pb-14 md:pb-20 lg:pt-20"
         >
           <p
             class="m-0 mb-5 flex flex-wrap items-center gap-3 font-mono text-[0.8125rem] font-semibold tracking-[0.14em] uppercase text-leaf-100/90"
