@@ -21,9 +21,14 @@
         >
           <!-- The card is opaque, so the contrast of everything inside it is a
                property of the design rather than of the photograph's brightness
-               at one particular scroll position. -->
+               at one particular scroll position.
+
+               max-w-4xl, not max-w-3xl: the H1 is now 60px and a 768px card
+               broke it into four lines with the paragraph hugging the right
+               edge, which read as a column bolted onto the photo rather than a
+               headline sitting over it. -->
           <div
-            class="max-w-3xl rounded-3xl border-2 border-hair bg-card p-6 shadow-[0_4px_0_rgb(14_39_25/0.1),0_14px_40px_rgb(14_39_25/0.22)] md:p-9"
+            class="max-w-4xl rounded-3xl border-2 border-hair bg-card p-6 shadow-[0_4px_0_rgb(14_39_25/0.1),0_14px_40px_rgb(14_39_25/0.22)] md:p-9"
           >
             <p
               class="m-0 mb-4 flex flex-wrap items-center gap-3 font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
@@ -66,13 +71,19 @@
       </div>
     </section>
 
-    <!-- Register A: the stat strip. -->
+    <!-- Register A: the stat strip.
+
+         Every figure gets the SAME font size, chosen so the longest value fits
+         its column on one line. Letting the figure scale run free made "27%"
+         render at 48px and "9,8 miliar Ryo" at 30px, so the four cards came out
+         96/96/144/48px tall and the strip read as four unrelated boxes. The
+         size is capped below the figure scale for exactly that reason. -->
     <section class="border-b-2 border-hair bg-sunken">
       <div class="mx-auto max-w-6xl px-6 py-10">
         <dl class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
           <div v-for="stat in stats" :key="stat.label">
             <dd
-              class="m-0 font-mono text-figure leading-none font-bold text-leaf-700 dark:text-leaf-300"
+              class="m-0 font-mono text-[clamp(1.5rem,2.4vw,1.875rem)] leading-none font-bold break-words text-leaf-700 dark:text-leaf-300"
             >
               {{ stat.value }}
             </dd>
@@ -212,48 +223,50 @@
               :caption="harm.photo.caption"
             />
 
-            <!-- The operational table, in the block whose subject is the
-                 numbers themselves. -->
-            <div
-              v-else-if="harm.table"
-              class="overflow-hidden rounded-2xl border-2 border-hair bg-card"
-            >
-              <div class="overflow-x-auto">
-                <DataTable
-                  caption="Ringkasan operasional 2019&ndash;2024, sebagaimana dilaporkan perusahaan. Kolom terakhir ditulis untuk laman ini."
-                  :columns="harm.table.columns.map((label) => ({ label }))"
-                  :rows="harm.table.rows.map((row) => [row.year, row.area, row.tbs, row.omitted])"
-                />
-              </div>
-            </div>
-
-            <!-- Three photographs, for the programme that is also the
-                 convalescence bill. -->
-            <div v-else-if="harm.gallery" class="grid gap-6 md:grid-cols-3">
-              <Figure
-                v-for="shot in harm.gallery"
-                :key="shot.file"
-                :src="`/company-sawit/img/${shot.file}`"
-                :alt="shot.alt"
-                :caption="shot.caption"
-              />
-            </div>
-
-          <!-- Extra prose for the blocks that need it below the split. -->
-          <template v-if="harm.after">
-            <p
-              v-for="(para, i) in harm.after"
-              :key="i"
-              class="mt-8 mb-0 max-w-3xl text-[1.0625rem] leading-relaxed text-quiet"
-            >
-              <!-- eslint-disable-next-line vue/no-v-html -->
-              <span v-html="para"></span>
-            </p>
-          </template>
+            <!-- Extra prose for the blocks that need it below the split. -->
+            <template v-if="harm.after">
+              <p
+                v-for="(para, i) in harm.after"
+                :key="i"
+                class="mt-8 mb-0 max-w-3xl text-[1.0625rem] leading-relaxed text-quiet"
+              >
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <span v-html="para"></span>
+              </p>
+            </template>
           </div>
         </div>
+
+        <!-- Full-width blocks, OUTSIDE the two-column grid above.
+
+             The operational table and the three-photograph programme both live
+             here rather than in the split, and the reason is measured: inside a
+             528px grid cell the table came out 524px wide on a 1280px viewport
+             with every column forced to 131px, so "63.600" wrapped onto four
+             lines and a row grew to 187px tall. Three portrait frames in the
+             same cell came out 528px total instead of 1104px. Both blocks need
+             the full container width, and neither shares it with prose. -->
+        <DataTable
+          v-if="harm.table"
+          class="mt-8"
+          caption="Ringkasan operasional 2019&ndash;2024, sebagaimana dilaporkan perusahaan. Kolom terakhir ditulis untuk laman ini."
+          :columns="harm.table.columns.map((label) => ({ label }))"
+          :rows="harm.table.rows.map((row) => [row.year, row.area, row.tbs, row.omitted])"
+        />
+
+        <!-- Three photographs, for the programme that is also the convalescence
+             bill. -->
+        <div v-if="harm.gallery" class="mt-8 grid gap-6 md:grid-cols-3">
+          <Figure
+            v-for="shot in harm.gallery"
+            :key="shot.file"
+            :src="`/company-sawit/img/${shot.file}`"
+            :alt="shot.alt"
+            :caption="shot.caption"
+          />
+        </div>
       </section>
-      </section>
+    </section>
 
     <!-- ================= CONTACT ================= -->
     <section class="border-t-2 border-hair">

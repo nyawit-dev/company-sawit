@@ -42,22 +42,26 @@
           sisi yang berbeda, adalah catatan penggusuran.
         </SectionHead>
 
-        <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
-          <DataTable
-            caption="Tonggak perusahaan 1998&ndash;2024, menurut dokumen resmi perusahaan."
-            :columns="historyColumns.map((label) => ({ label }))"
-            :rows="history.map((r) => [r.year, r.event, r.omitted])"
-          />
-
-          <Figure
-            class="lg:col-span-2"
-            :src="asset_company_sawit_img_mill_jpg"
-            alt="Pabrik pengolahan kelapa sawit pada senja, dengan cerobong boiler tinggi, struktur konveyor, dan lampu kerja yang mulai menyala"
-            caption="Pabrik blok tengah, beroperasi sejak 2009. Bukan foto bangunan yang ada."
-            attribution="Gambar dibuat dengan model generatif untuk laman ini."
-          />
-        </div>
+        <!-- The history table sits OUTSIDE the two-column grid below, and the
+             measurement is why: inside a grid cell it came out 524px wide on a
+             1280px viewport, with rows 277–367px tall because two prose columns
+             were squeezed to 94px and 79px. It carries three columns, two of
+             them full sentences, so it needs the whole container. -->
+        <DataTable
+          class="mt-8"
+          caption="Tonggak perusahaan 1998&ndash;2024, menurut dokumen resmi perusahaan."
+          :columns="historyColumns.map((label) => ({ label }))"
+          :rows="history.map((r) => [r.year, r.event, r.omitted])"
+        />
       </div>
+
+      <Figure
+        class="mt-10"
+        :src="asset_company_sawit_img_mill_jpg"
+        alt="Pabrik pengolahan kelapa sawit pada senja, dengan cerobong boiler tinggi, struktur konveyor, dan lampu kerja yang mulai menyala"
+        caption="Pabrik blok tengah, beroperasi sejak 2009. Bukan foto bangunan yang ada."
+        attribution="Gambar dibuat dengan model generatif untuk laman ini."
+      />
     </section>
 
     <!-- 02. CERTIFICATIONS -->

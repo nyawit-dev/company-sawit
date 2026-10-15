@@ -349,31 +349,50 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Table containment.
+   Table containment and column geometry.
 
-   The omission column carries a full sentence per row, and four columns of
-   prose have a min-content width of ~353px. Below the lg breakpoint the table
-   is forced to the width it is given and the text wraps inside it; above lg it
-   sizes to its content. This is CSS rather than Tailwind utilities because
-   `lg:table-auto` sorts after the unprefixed `table-fixed` at every width, so
-   the utility pairing silently never applied.
-   --------------------------------------------------------------------------- */
-/* The !important flags are deliberate. A wrapper carrying Tailwind's
+   Two separate problems live here, and conflating them is what produced a
+   520px table on a 1280px viewport with "63.600" wrapped onto five lines.
+
+   1. CONTAINMENT. The omission column carries a full sentence per row, and four
+   columns of prose have a min-content width of ~353px. Below the lg breakpoint
+   the table must be forced to the width it is given and the text wrapped
+   inside it; above lg it sizes to its content again. This is CSS rather than
+   Tailwind utilities because `lg:table-auto` sorts after the unprefixed
+   `table-fixed` at every width, so the utility pairing silently never applied.
+
+   2. COLUMN WIDTHS. `table-layout: fixed` distributes the available width
+   EQUALLY unless the columns carry their own widths. Four equal columns in a
+   1100px table is fine, but in a 520px one it gives every column 130px, and
+   "63.600" does not fit in 130px of mono at 15px — it wraps to five lines and
+   the row grows to 187px tall. So the numeric columns declare their own share
+   of the width and the prose column takes the remainder.
+
+   The !important flags are deliberate. A wrapper carrying Tailwind's
    overflow-hidden makes a descendant scroller resolve to `visible`, which is
    what let a 353px table push the page 41px wide at 320px. Layering cannot fix
-   it because the conflicting utility sits in the same layer. */
+   it because the conflicting utility sits in the same layer.
+   --------------------------------------------------------------------------- */
 [data-table-scroll] {
   max-width: 100%;
   overflow-x: auto !important;
   overscroll-behavior-x: contain;
 }
 
+/* Fixed only below lg, so the table takes the width it is given and the text
+   wraps inside it. Column widths are declared by the component's <colgroup>,
+   which is the only place that beats `width: 100%` on the table without
+   !important — a stylesheet rule on th/td loses that fight, which is why four
+   equal 315px columns survived an earlier attempt. */
 [data-table-scroll] > table {
   table-layout: fixed !important;
   width: 100%;
 }
 
 @media (min-width: 64rem) {
+  /* Above lg the table sizes to its content again. The colgroup keeps its
+     proportions, so the numeric columns stay narrow and the omission column
+     keeps the slack. */
   [data-table-scroll] > table {
     table-layout: auto;
   }

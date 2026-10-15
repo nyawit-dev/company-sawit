@@ -2,22 +2,27 @@
   <!-- A theme switch as a physical toggle, because a select element would be
        the wrong object for something this decorative. The knob slides and the
        sun and moon swap, which is what tells you the choice took effect before
-       the palette has finished changing. -->
+       the palette has finished changing.
+
+       It is deliberately small — 52x30, knob 22px — because it is the quietest
+       control on the page and a reader comes to it for one tap, not to read it.
+       At the previous 76x44 it was the largest thing in the header and
+       out-shouted both the logo and the nav. -->
   <button
     type="button"
     role="switch"
     :aria-checked="dark"
     :aria-label="dark ? 'Ganti ke mode terang' : 'Ganti ke mode gelap'"
-    class="group relative flex h-11 w-[4.75rem] shrink-0 cursor-pointer items-center rounded-full border-2 border-hair bg-card transition-colors duration-300 ease-out"
+    class="group relative flex h-[1.875rem] w-[3.25rem] shrink-0 cursor-pointer items-center rounded-full border border-hair bg-sunken transition-colors duration-300 ease-out"
     @click="toggle"
   >
     <!-- The sun: day mode. Scales away in dark, where the moon takes over. -->
     <span
-      class="absolute left-1.5 grid size-7 place-items-center rounded-full bg-leaf-200 text-leaf-800 transition-all duration-300 ease-out group-aria-checked:scale-0 group-aria-checked:opacity-0"
+      class="absolute left-[0.1875rem] grid size-[1.375rem] place-items-center rounded-full bg-leaf-200 text-leaf-800 transition-all duration-300 ease-out group-aria-checked:scale-0 group-aria-checked:opacity-0"
     >
-      <svg viewBox="0 0 24 24" class="size-4" fill="none" aria-hidden="true">
+      <svg viewBox="0 0 24 24" class="size-3" fill="none" aria-hidden="true">
         <circle cx="12" cy="12" r="4.5" fill="currentColor" />
-        <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
           <path
             d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"
           />
@@ -27,9 +32,9 @@
 
     <!-- The moon: night mode. Scales in over the sun's position. -->
     <span
-      class="absolute right-1.5 grid size-7 scale-0 place-items-center rounded-full bg-leaf-800 text-leaf-100 opacity-0 transition-all duration-300 ease-out group-aria-checked:scale-100 group-aria-checked:opacity-100"
+      class="absolute right-[0.1875rem] grid size-[1.375rem] scale-0 place-items-center rounded-full bg-leaf-800 text-leaf-100 opacity-0 transition-all duration-300 ease-out group-aria-checked:scale-100 group-aria-checked:opacity-100"
     >
-      <svg viewBox="0 0 24 24" class="size-4" fill="currentColor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" class="size-3" fill="currentColor" aria-hidden="true">
         <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" />
       </svg>
     </span>
@@ -37,7 +42,7 @@
     <!-- The knob. It is the one thing that physically moves, so it carries the
          whole affordance: without motion this control reads as decoration. -->
     <span
-      class="absolute top-1 left-1 size-7 rounded-full bg-leaf-600 shadow-[0_2px_6px_rgb(14_39_25/0.35)] transition-transform duration-300 ease-out group-aria-checked:translate-x-[2.25rem]"
+      class="absolute top-[0.1875rem] left-[0.1875rem] size-[1.375rem] rounded-full bg-leaf-600 shadow-[0_1px_3px_rgb(14_39_25/0.35)] transition-transform duration-300 ease-out group-aria-checked:translate-x-[1.375rem]"
     ></span>
   </button>
 </template>

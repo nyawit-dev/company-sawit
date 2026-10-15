@@ -103,17 +103,11 @@
           Apa yang sungguhan di situs ini, dan siapa pembuatnya.
         </SectionHead>
 
-        <div
-          class="mt-8 overflow-hidden rounded-2xl border-2 border-hair bg-card"
-        >
-          <div class="overflow-x-auto">
-            <DataTable
+        <DataTable
                   caption="Komponen situs dan asal-usulnya."
                   :columns="creditColumns.map((label) => ({ label }))"
                   :rows="credits.map((r) => [r.component, r.maker, r.license])"
                 />
-          </div>
-        </div>
       </div>
     </section>
 

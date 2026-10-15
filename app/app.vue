@@ -9,8 +9,11 @@
     <header
       class="sticky top-0 z-50 border-b-2 border-hair bg-paper/90 backdrop-blur-md"
     >
+      <!-- No `flex-wrap` here. With it, the nav dropping to a second line pushed
+           the theme switch into the middle of the header instead of leaving it
+           at the right edge, which is where a reader looks for it. -->
       <div
-        class="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-6 py-3 md:gap-6"
+        class="mx-auto flex max-w-6xl items-center gap-4 px-6 py-2.5 md:gap-6"
       >
         <!-- The mark is not a nav item, so it must not carry aria-current:
              NuxtLink to="/" matches the home route and would announce the logo

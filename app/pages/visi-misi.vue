@@ -119,17 +119,11 @@
           akan terbaca sebagai janji.
         </SectionHead>
 
-        <div
-          class="mt-8 overflow-hidden rounded-2xl border-2 border-hair bg-card"
-        >
-          <div class="overflow-x-auto">
-            <DataTable
+        <DataTable
                   caption="Komitmen perusahaan dan lingkup pengecualiannya."
                   :columns="commitmentColumns.map((label) => ({ label }))"
                   :rows="commitments.map((c) => [c.name, c.year, c.excluded])"
                 />
-          </div>
-        </div>
       </div>
     </section>
 
