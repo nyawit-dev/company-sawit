@@ -4,12 +4,27 @@
          company's opening claim on it. The form is an annual report hero; the
          sentence underneath it is the arson. -->
     <section class="relative isolate">
+      <!-- The photograph is a BACKGROUND LAYER, not a fixed-height box.
+
+           It used to be `h-[20rem] md:h-[26rem] lg:h-[34rem]` in normal flow
+           with the text in an `absolute bottom-0` block on top. At 320px the
+           block measured 904px tall inside a 320px photo, so it escaped 584px
+           above its ancestor and the H1 sat entirely off-screen (measured
+           top=-169). At 1280x633 it was still broken: block 699px tall in a
+           544px hero, escaping 155px, with the "Laporan Tahunan 2024" eyebrow
+           at top=-9 — off-screen, hidden by nothing but geometry. The section's
+           computed overflow is `visible`, so nothing clipped or scrolled it;
+           the text was simply gone.
+
+           With the image absolutely positioned and the text left in normal
+           flow, the section's height is driven by its content, so the text can
+           no longer exceed the frame that contains it at any width. -->
       <img
         :src="asset_company_sawit_img_hero_aerial_jpg"
         alt="Foto udara perkebunan kelapa sawit PT Perkebunan Asap Emas Nusantara di pinggir Desa Konoha, dengan pita hutan yang masih tersisa di tepi atas bingkai"
         width="1600"
         height="900"
-        class="block h-[20rem] w-full object-cover object-center md:h-[26rem] lg:h-[34rem]"
+        class="absolute inset-0 -z-20 h-full w-full object-cover object-center"
       />
       <!-- The gradient is what makes the white type legible without a card, so
            its stops are set from the measured worst case rather than by eye.
@@ -28,7 +43,15 @@
         class="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-leaf-900 via-leaf-900/85 to-transparent"
       />
 
-      <div class="absolute inset-x-0 bottom-0">
+      <!-- In normal flow now, not `absolute bottom-0`.
+
+           The block was absolutely positioned so the text could sit at the
+           bottom of a fixed-height photo. That only works while the text is
+           shorter than the photo, which stopped being true as soon as the H1
+           wrapped at narrow widths. `min-h` restores the photographic scale on
+           wide screens; on narrow ones the section simply grows to fit its own
+           text, which is the behaviour that was missing. -->
+      <div class="relative min-h-[22rem] md:min-h-[30rem] lg:min-h-[36rem]">
         <!-- The gradient runs from transparent to near-opaque, so the type sits
              on the photo's darkest corner and stays legible without a card.
 
@@ -42,14 +65,17 @@
              leaf-900/90, and every text colour here is measured against the
              darkest and lightest pixel of the actual image.
 
-             `translate-y-6` was the bug that buried the eyebrow. This block is
-             anchored bottom-0 and the header is sticky at z-50, so a positive Y
-             translate lifts the whole text block past the photo's top edge: at a
-             1280x508 viewport the "Laporan Tahunan 2024" line began 43px above
-             the photo and sat underneath the header, half-covered. Padding
-             carries the offset now, which cannot lift anything out of the frame. -->
+             `translate-y-6` was an earlier bug that buried the eyebrow: the
+             block was anchored bottom-0 under a sticky z-50 header, so a
+             positive Y translate lifted the "Laporan Tahunan 2024" line 43px
+             above the photo and underneath the header, half-covered. Padding
+             carries that offset now, and the block itself is in normal flow, so
+             nothing can lift out of the frame at all. -->
+        <!-- `flex items-end` puts the copy at the bottom of the photographic
+             frame, which is where it sat before, and keeps it there now that
+             the block is in normal flow instead of absolutely positioned. -->
         <div
-          class="mx-auto max-w-6xl px-6 pt-16 pb-14 md:pb-20 lg:pt-20"
+          class="mx-auto flex max-w-6xl flex-col justify-end px-6 pt-20 pb-14 md:pb-20 lg:pt-24"
         >
           <p
             class="m-0 mb-5 flex flex-wrap items-center gap-3 font-mono text-[0.8125rem] font-semibold tracking-[0.14em] uppercase text-leaf-100/90"
@@ -138,6 +164,18 @@
          numbers: the figure the company published, and the figure it did not.
          The pair is the satire. The company never has to lie, it only has to
          choose which number to print. -->
+
+    <!-- IN-PAGE NAVIGATION.
+
+         Eight harm blocks, a stat strip and a contact form, and until now the
+         only way to any of them was scrolling. The header nav lists four
+         PAGES, which does not help inside one page. This bar names every block
+         on the homepage and follows the scroll.
+
+         It sits directly above the first harm section so it is already sticky
+         by the time a reader reaches the blocks it links to. -->
+    <SectionNav :items="sectionItems" />
+
     <section id="dampak" class="scroll-mt-24">
       <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div class="flex flex-wrap items-start gap-4">
@@ -192,7 +230,8 @@
       <section
         v-for="harm in harms"
         :key="harm.num"
-        class="reveal border-t-2 border-hair"
+        :id="`blok-${harm.num}`"
+        class="reveal scroll-mt-24 border-t-2 border-hair"
         :style="{ background: `var(--harm-${harm.hue}-bg)` }"
       >
         <div class="mx-auto max-w-6xl px-6 py-14 md:py-20">
@@ -487,7 +526,7 @@
     </section>
 
     <!-- ================= CONTACT ================= -->
-    <section class="border-t-2 border-hair">
+    <section id="kontak" class="scroll-mt-24 border-t-2 border-hair">
       <div class="mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div class="flex flex-wrap items-start gap-4">
           <span
@@ -769,6 +808,17 @@ const harms = [
         'Bibit yang akan ditanam di tanah yang baru dibersihkan. Gambar dibuat dengan model generatif untuk laman ini.',
     },
   },
+]
+
+// The section bar is DERIVED from `harms` rather than written out a second
+// time. A hand-maintained list has to be edited every time a block is added,
+// and the first time it is not, the nav links to an id that no longer exists
+// and the pill highlights nothing. `harms` is a plain array, so this is a plain
+// array too — a computed over a constant would be a wrapper with no purpose.
+const sectionItems = [
+  { id: 'dampak', label: 'Ringkasan' },
+  ...harms.map((h) => ({ id: `blok-${h.num}`, label: h.tag, num: h.num })),
+  { id: 'kontak', label: 'Kontak' },
 ]
 
 // The scroll reveal. Every element starts visible in the CSS and only the

@@ -195,6 +195,13 @@
   .text-quiet { color: var(--c-quiet); }
   .border-hair { border-color: var(--c-hair); }
   .border-control { border-color: var(--c-control); }
+
+  /* The section bar's pill row is one line that scrolls sideways on a phone.
+     Hiding its scrollbar is what keeps the row one line tall: a visible bar
+     would take layout height, and a row that wraps instead doubles the bar's
+     height mid-scroll and shoves the content under it. */
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
 /* ---------------------------------------------------------------------------
