@@ -156,19 +156,47 @@
         </div>
       </div>
 
-      <!-- Each harm renders from the same shape. The two figures are the whole
-           argument, so they are the largest type in the block. -->
+      <!-- THE HARM LEDGER — eight blocks, eight DIFFERENT layouts.
+
+           This is the change the reference sites actually demanded. NEFA does not
+           repeat one section shape eight times: it runs a 12-column grid, then
+           three side-by-side tables, then a full-bleed coloured panel with a
+           radius, then a two-column split, then a numbered three-step row. The
+           rhythm IS the design.
+
+           The previous version rendered every harm from one template — number,
+           pill, two-column grid, paired figures, photograph — which is why eight
+           consecutive blocks each measured 654px tall. Identical height eight
+           times over is the signature of a template, not of a designed page.
+
+           Each harm now declares its own `layout`, and the templates below are
+           deliberately unlike each other in more than colour:
+
+             stack   full-bleed band, figure above, pair of numbers below
+             split   asymmetric 5/7 grid, prose left, figure bleeding right
+             lead    the pair of numbers leads at figure size, prose under it
+             data    the table is the subject; prose is a sidebar beside it
+             cards   three photographs as equal cards, no pair of numbers
+             wide    one full-width photograph with the prose over it
+             quote   a single sentence set large, no figure at all
+
+           The number and the pill survive in every variant, because they are the
+           annual-report register the whole satire is written in. -->
       <section
         v-for="harm in harms"
         :key="harm.num"
-        class="reveal border-t-2 border-hair py-12 md:py-16"
+        class="reveal border-t-2 border-hair"
         :style="{ background: `var(--harm-${harm.hue}-bg)` }"
       >
-        <div class="mx-auto max-w-6xl px-6">
-          <div class="mb-8 flex flex-wrap items-center gap-3">
+        <div class="mx-auto max-w-6xl px-6 py-14 md:py-20">
+          <!-- The register, identical in every variant on purpose. -->
+          <div class="mb-10 flex flex-wrap items-center gap-3">
             <span
-              class="font-mono text-xs font-semibold"
-              :style="{ color: `var(--harm-${harm.hue}-num)` }"
+              class="grid size-10 shrink-0 place-items-center rounded-lg border-2 font-mono text-xs font-semibold"
+              :style="{
+                color: `var(--harm-${harm.hue}-num)`,
+                borderColor: `var(--harm-${harm.hue}-br)`,
+              }"
               >{{ harm.num }}</span
             >
             <span
@@ -182,110 +210,267 @@
             >
           </div>
 
-          <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
-            <div :class="harm.photoFirst ? 'lg:order-2' : 'lg:order-1'">
-              <h3
-                class="m-0 text-title font-semibold text-body"
-              >
-                {{ harm.title }}
-              </h3>
-
-              <p
-                v-for="(para, i) in harm.body"
-                :key="i"
-                class="mt-4 mb-0 text-[1.0625rem] leading-relaxed text-quiet"
-              >
-                <!-- eslint-disable-next-line vue/no-v-html -->
-                <span v-html="para"></span>
-              </p>
-
-              <!-- The pair: published on the left, unprinted on the right. The
-                   dashed border is the only visual difference, because the
-                   difference between the two numbers is the entire point. -->
-              <dl v-if="harm.claim" class="m-0 mt-8 grid grid-cols-2 gap-4">
-                <div
-                  class="rounded-lg border-2 bg-card p-5"
-                  :style="{ borderColor: `var(--harm-${harm.hue}-br)` }"
-                >
-                  <dd
-                    class="m-0 font-mono text-figure leading-none font-semibold"
-                    :style="{ color: `var(--harm-${harm.hue}-fg)` }"
-                  >
-                    {{ harm.claim.value }}
-                  </dd>
-                  <dt
-                    class="mt-2 font-mono text-[0.625rem] leading-snug tracking-wider uppercase text-quiet"
-                  >
-                    {{ harm.claim.label }}
-                  </dt>
-                </div>
-                <div
-                  class="rounded-lg border-2 border-dashed bg-card/60 p-5"
-                  :style="{ borderColor: `var(--harm-${harm.hue}-br)` }"
-                >
-                  <dd
-                    class="m-0 font-mono text-figure leading-none font-semibold text-body"
-                  >
-                    {{ harm.unprinted.value }}
-                  </dd>
-                  <dt
-                    class="mt-2 font-mono text-[0.625rem] leading-snug tracking-wider uppercase text-quiet"
-                  >
-                    {{ harm.unprinted.label }}
-                  </dt>
-                </div>
-              </dl>
-            </div>
-
+          <!-- LAYOUT: stack — full-bleed band, figure first, numbers under. -->
+          <template v-if="harm.layout === 'stack'">
+            <h3 class="m-0 max-w-[26ch] text-title text-body">
+              {{ harm.title }}
+            </h3>
             <Figure
               v-if="harm.photo"
-              :class="harm.photoFirst ? 'lg:order-1' : 'lg:order-2'"
+              class="mt-8"
               :src="`/company-sawit/img/${harm.photo.file}`"
               :alt="harm.photo.alt"
               :caption="harm.photo.caption"
             />
+            <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-12">
+              <HarmPair :harm="harm" class="lg:col-span-5" />
+              <div class="lg:col-span-7">
+                <p
+                  v-for="(para, i) in harm.body"
+                  :key="i"
+                  class="m-0 mb-4 text-[1.0625rem] leading-relaxed text-quiet last:mb-0"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="para"></span>
+                </p>
+              </div>
+            </div>
+          </template>
 
-            <!-- Extra prose for the blocks that need it below the split. -->
-            <template v-if="harm.after">
+          <!-- LAYOUT: split — asymmetric 5/7, prose left, figure bleeding right. -->
+          <template v-else-if="harm.layout === 'split'">
+            <div class="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
+              <div class="lg:col-span-5">
+                <h3 class="m-0 text-title text-body">{{ harm.title }}</h3>
+                <p
+                  v-for="(para, i) in harm.body"
+                  :key="i"
+                  class="m-0 mt-5 text-[1.0625rem] leading-relaxed text-quiet"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="para"></span>
+                </p>
+                <HarmPair v-if="harm.claim" :harm="harm" class="mt-8" />
+              </div>
+              <Figure
+                v-if="harm.photo"
+                :src="`/company-sawit/img/${harm.photo.file}`"
+                :alt="harm.photo.alt"
+                :caption="harm.photo.caption"
+               class="lg:col-span-7" />
+            </div>
+          </template>
+
+          <!-- LAYOUT: lead — the pair of numbers leads at figure size. The
+               numbers ARE the block; the prose explains them underneath. -->
+          <template v-else-if="harm.layout === 'lead'">
+            <h3 class="m-0 max-w-[24ch] text-title text-body">
+              {{ harm.title }}
+            </h3>
+            <HarmPair v-if="harm.claim" :harm="harm" class="mt-10" />
+            <div class="mt-10 max-w-[62ch]">
               <p
-                v-for="(para, i) in harm.after"
+                v-for="(para, i) in harm.body"
                 :key="i"
-                class="mt-8 mb-0 max-w-3xl text-[1.0625rem] leading-relaxed text-quiet"
+                class="m-0 mb-4 text-[1.0625rem] leading-relaxed text-quiet last:mb-0"
               >
                 <!-- eslint-disable-next-line vue/no-v-html -->
                 <span v-html="para"></span>
               </p>
-            </template>
-          </div>
-        </div>
+            </div>
+            <Figure
+              v-if="harm.photo"
+              class="mt-10"
+              :src="`/company-sawit/img/${harm.photo.file}`"
+              :alt="harm.photo.alt"
+              :caption="harm.photo.caption"
+            />
+          </template>
 
-        <!-- Full-width blocks, OUTSIDE the two-column grid above.
+          <!-- LAYOUT: data — the table is the subject and gets the width;
+               the prose is a narrow sidebar beside it, not a paragraph above. -->
+          <template v-else-if="harm.layout === 'data'">
+            <div
+              class="grid items-start gap-10 lg:grid-cols-12 lg:gap-14"
+            >
+              <div class="lg:sticky lg:top-24 lg:col-span-4">
+                <h3 class="m-0 text-title text-body">{{ harm.title }}</h3>
+                <HarmPair v-if="harm.claim" :harm="harm" class="mt-8" />
+                <p
+                  v-for="(para, i) in harm.body"
+                  :key="i"
+                  class="m-0 mt-5 text-[1.0625rem] leading-relaxed text-quiet"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="para"></span>
+                </p>
+              </div>
+              <DataTable
+                class="lg:col-span-8"
+                caption="Ringkasan operasional 2019&ndash;2024, sebagaimana dilaporkan perusahaan. Kolom terakhir ditulis untuk laman ini."
+                :columns="harm.table.columns.map((label) => ({ label }))"
+                :rows="harm.table.rows.map((row) => [row.year, row.area, row.tbs, row.omitted])"
+              />
+            </div>
+          </template>
 
-             The operational table and the three-photograph programme both live
-             here rather than in the split, and the reason is measured: inside a
-             528px grid cell the table came out 524px wide on a 1280px viewport
-             with every column forced to 131px, so "63.600" wrapped onto four
-             lines and a row grew to 187px tall. Three portrait frames in the
-             same cell came out 528px total instead of 1104px. Both blocks need
-             the full container width, and neither shares it with prose. -->
-        <DataTable
-          v-if="harm.table"
-          class="mt-8"
-          caption="Ringkasan operasional 2019&ndash;2024, sebagaimana dilaporkan perusahaan. Kolom terakhir ditulis untuk laman ini."
-          :columns="harm.table.columns.map((label) => ({ label }))"
-          :rows="harm.table.rows.map((row) => [row.year, row.area, row.tbs, row.omitted])"
-        />
+          <!-- LAYOUT: cards — three photographs as equal cards, and no pair of
+               numbers, because this block's argument is the photographs. -->
+          <template v-else-if="harm.layout === 'cards'" class="lg:col-span-7">
+            <h3 class="m-0 max-w-[28ch] text-title text-body">
+              {{ harm.title }}
+            </h3>
+            <div class="mt-8 max-w-[62ch]">
+              <p
+                v-for="(para, i) in harm.body"
+                :key="i"
+                class="m-0 mb-4 text-[1.0625rem] leading-relaxed text-quiet last:mb-0"
+              >
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <span v-html="para"></span>
+              </p>
+            </div>
+            <div class="mt-10 grid gap-6 md:grid-cols-3">
+              <Figure
+                v-for="shot in harm.gallery"
+                :key="shot.file"
+                :src="`/company-sawit/img/${shot.file}`"
+                :alt="shot.alt"
+                :caption="shot.caption"
+              />
+            </div>
+            <div
+              v-if="harm.after"
+              class="mt-10 grid gap-6 border-t-2 border-hair pt-8 md:grid-cols-2"
+            >
+              <p
+                v-for="(para, i) in harm.after"
+                :key="i"
+                class="m-0 text-[1.0625rem] leading-relaxed text-quiet"
+              >
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <span v-html="para"></span>
+              </p>
+            </div>
+          </template>
 
-        <!-- Three photographs, for the programme that is also the convalescence
-             bill. -->
-        <div v-if="harm.gallery" class="mt-8 grid gap-6 md:grid-cols-3">
-          <Figure
-            v-for="shot in harm.gallery"
-            :key="shot.file"
-            :src="`/company-sawit/img/${shot.file}`"
-            :alt="shot.alt"
-            :caption="shot.caption"
-          />
+          <!-- LAYOUT: wide — one full-width photograph with the prose set over
+               its lower edge, the way the hero does it. -->
+          <template v-else-if="harm.layout === 'wide'">
+            <h3 class="m-0 max-w-[24ch] text-title text-body">
+              {{ harm.title }}
+            </h3>
+            <div
+              v-if="harm.photo"
+              class="relative mt-10 overflow-hidden rounded-lg"
+            >
+              <img
+                :src="`/company-sawit/img/${harm.photo.file}`"
+                :alt="harm.photo.alt"
+                width="1600"
+                height="900"
+                class="block h-[22rem] w-full object-cover md:h-[28rem]"
+              />
+              <!-- The gradient is perked to FULL opacity at the bottom, not the
+                   70% the hero uses, and the reason is measured rather than
+                   assumed: with 70%, the two photographs in these blocks
+                   composited to 2.69:1 and 1.34:1 against white type, because
+                   both images have a bright sky band that survives a 30%
+                   transparent layer. 1.34:1 is unreadable.
+
+                   A solid plate is the fix that works on an arbitrary
+                   photograph, which is what these are: the images are generated
+                   and could be swapped for anything. -->
+              <div
+                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-leaf-900 via-leaf-900 to-leaf-900/80"
+              />
+              <div class="absolute inset-x-0 bottom-0 p-6 md:p-10">
+                <p
+                  class="m-0 max-w-[54ch] text-[1.0625rem] leading-relaxed text-leaf-100"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="harm.body[0]"></span>
+                </p>
+              </div>
+            </div>
+            <div class="mt-8 grid gap-8 lg:grid-cols-12 lg:gap-12">
+              <div class="lg:col-span-7">
+                <p
+                  v-for="(para, i) in harm.body.slice(1)"
+                  :key="i"
+                  class="m-0 mb-4 text-[1.0625rem] leading-relaxed text-quiet last:mb-0"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="para"></span>
+                </p>
+              </div>
+              <HarmPair
+                v-if="harm.claim"
+                :harm="harm"
+                class="lg:col-span-5"
+              />
+            </div>
+          </template>
+
+          <!-- LAYOUT: quote — one sentence, set large, no figure at all. The
+               block that asks the unanswerable question does not need a
+               photograph to make its point. -->
+          <template v-else-if="harm.layout === 'quote'">
+            <h3
+              class="m-0 max-w-[34ch] text-display leading-tight text-body"
+            >
+              {{ harm.title }}
+            </h3>
+            <blockquote
+              class="m-0 mt-10 max-w-[46ch] border-l-4 pl-6 text-[1.375rem] leading-relaxed text-body italic"
+              :style="{ borderColor: `var(--harm-${harm.hue}-br)` }"
+            >
+              <span v-html="harm.body[0]"></span>
+            </blockquote>
+            <div class="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12">
+              <div class="lg:col-span-7">
+                <p
+                  v-for="(para, i) in harm.body.slice(1)"
+                  :key="i"
+                  class="m-0 mb-4 text-[1.0625rem] leading-relaxed text-quiet last:mb-0"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="para"></span>
+                </p>
+              </div>
+              <HarmPair
+                v-if="harm.claim"
+                :harm="harm"
+                class="lg:col-span-5"
+              />
+            </div>
+          </template>
+
+          <!-- Fallback: any harm without a declared layout. Kept so adding a
+               block without choosing a layout degrades to something readable
+               rather than to nothing. -->
+          <template v-else>
+            <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
+              <div>
+                <h3 class="m-0 text-title text-body">{{ harm.title }}</h3>
+                <p
+                  v-for="(para, i) in harm.body"
+                  :key="i"
+                  class="m-0 mt-5 text-[1.0625rem] leading-relaxed text-quiet"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="para"></span>
+                </p>
+                <HarmPair v-if="harm.claim" :harm="harm" class="mt-8" />
+              </div>
+              <Figure
+                v-if="harm.photo"
+                :src="`/company-sawit/img/${harm.photo.file}`"
+                :alt="harm.photo.alt"
+                :caption="harm.photo.caption"
+              />
+            </div>
+          </template>
         </div>
       </section>
     </section>
@@ -346,6 +531,7 @@ const stats = [
 const harms = [
   {
     num: '01',
+    layout: 'split',
     hue: 'fire',
     tag: 'Pembakaran',
     title: 'Kabut asap 41 hari, dicatat sebagai bencana alam.',
@@ -366,6 +552,7 @@ const harms = [
   },
   {
     num: '02',
+    layout: 'stack',
     hue: 'water',
     tag: 'Air',
     title: 'Sungai tempat desa mencuci, sekarang warnanya teh.',
@@ -380,7 +567,6 @@ const harms = [
       value: '18 km',
       label: 'Aliran yang diterima limbah pabrik',
     },
-    photoFirst: true,
     photo: {
       file: 'community.jpg',
       alt: 'Pemukiman di tepi konsesi: deretan rumah kayu dengan pepohonan sisa di sekitarnya',
@@ -390,6 +576,7 @@ const harms = [
   },
   {
     num: '03',
+    layout: 'lead',
     hue: 'soil',
     tag: 'Penggusuran',
     title: '21 keluarga menunggu ganti rugi sejak 2004.',
@@ -413,6 +600,7 @@ const harms = [
   },
   {
     num: '04',
+    layout: 'wide',
     hue: 'sick',
     tag: 'Gambut',
     title: '4.100 hektare gambut dikeringkan, lalu disebut penyimpan karbon.',
@@ -427,7 +615,6 @@ const harms = [
       value: '4.100 ha',
       label: 'Gambut yang dilewati kanal drainase 2022',
     },
-    photoFirst: true,
     photo: {
       file: 'kanal-gambut.jpg',
       alt: 'Kanal drainase lurus memotong lahan gambut tropis, airnya gelap kecokelatan seperti teh, tebing tanah gambut hitam mengelupas, dengan pohon tumbang dan cakrawala berkabut di kejauhan',
@@ -437,6 +624,7 @@ const harms = [
   },
   {
     num: '05',
+    layout: 'data',
     hue: 'leaf',
     tag: 'Angka',
     title: 'Luas turun, produksi naik, penjelasan tidak diberikan.',
@@ -501,6 +689,7 @@ const harms = [
   },
   {
     num: '06',
+    layout: 'cards',
     hue: 'leaf',
     tag: 'Program',
     title:
@@ -531,6 +720,7 @@ const harms = [
   },
   {
     num: '07',
+    layout: 'wide',
     hue: 'soil',
     tag: 'Rantai pasok',
     title: 'Kami tidak mengaudit pembeli kami. Mereka tidak mengaudit kami.',
@@ -538,7 +728,6 @@ const harms = [
       'CPO dan PK diekspor melalui pelabuhan Konoha. Selebihnya dijual ke pembeli lokal yang namanya tidak kami publikasikan. Kebijakan keberlanjutan kami mewajibkan mitra memenuhi standar yang tidak kami periksa, karena pemeriksaan memerlukan sumber daya yang dialokasikan untuk produksi.',
       'Pabrik bekerja dua puluh empat jam. Buah yang tiba dipanen paling lambat delapan belas jam sebelumnya; setelah itu kadar minyaknya turun dan muatannya ditolak. Penolakan dicatat sebagai ketidakpatutan mitra, bukan kesalahan penjadwalan. Pada 2024 tercatat 1.840 muatan ditolak dari 41.000, atau 4,5%. Angka tersebut tidak pernah muncul dalam laporan tahunan kami.',
     ],
-    photoFirst: true,
     photo: {
       file: 'ffb.jpg',
       alt: 'Tandan buah kelapa sawit hasil panen siap diangkut ke pabrik',
@@ -548,6 +737,7 @@ const harms = [
   },
   {
     num: '08',
+    layout: 'quote',
     hue: 'fire',
     tag: 'Pertanyaan',
     title: 'Satu pertanyaan yang tidak terjawab dalam dua puluh enam tahun.',
