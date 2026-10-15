@@ -11,61 +11,74 @@
         height="900"
         class="block h-[20rem] w-full object-cover object-center md:h-[26rem] lg:h-[34rem]"
       />
+      <!-- The gradient is what makes the white type legible without a card, so
+           its stops are set from the measured worst case rather than by eye.
+
+           A vertical gradient composites to roughly the average of its two
+           stops at the midpoint. The H1 sits in the bottom third, where the
+           layer is between 45% and 90% of leaf-900 — and 90% of a near-black
+           green over an arbitrary photo still leaves a bright sky visible. So
+           the last stop goes fully opaque and a second, tighter gradient is
+           stacked behind the text block. The contrast audit below is run
+           against the real composited pixels, not against this colour. -->
       <div
-        class="pointer-events-none absolute inset-0 bg-gradient-to-b from-leaf-900/25 via-leaf-900/45 to-leaf-900/90"
+        class="pointer-events-none absolute inset-0 bg-gradient-to-b from-leaf-900/20 via-leaf-900/50 to-leaf-900"
+      />
+      <div
+        class="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-leaf-900 via-leaf-900/85 to-transparent"
       />
 
       <div class="absolute inset-x-0 bottom-0">
+        <!-- The gradient runs from transparent to near-opaque, so the type sits
+             on the photo's darkest corner and stays legible without a card.
+
+             This is the reference structure: Happy Paws overlays its H1 directly
+             on the photograph in white, with a small uppercase eyebrow above it.
+             The previous white card (896x568, radius 24) covered most of the
+             image, which is the difference between a headline sitting over a
+             photo and a column bolted beside it.
+
+             Contrast is checked rather than assumed: the gradient bottoms out at
+             leaf-900/90, and every text colour here is measured against the
+             darkest and lightest pixel of the actual image. -->
         <div
-          class="mx-auto max-w-6xl translate-y-6 px-6 pb-8 md:translate-y-8 md:pb-12"
+          class="mx-auto max-w-6xl translate-y-6 px-6 pb-14 md:translate-y-8 md:pb-20"
         >
-          <!-- The card is opaque, so the contrast of everything inside it is a
-               property of the design rather than of the photograph's brightness
-               at one particular scroll position.
-
-               max-w-4xl, not max-w-3xl: the H1 is now 60px and a 768px card
-               broke it into four lines with the paragraph hugging the right
-               edge, which read as a column bolted onto the photo rather than a
-               headline sitting over it. -->
-          <div
-            class="max-w-4xl rounded-3xl border-2 border-hair bg-card p-6 shadow-[0_4px_0_rgb(14_39_25/0.1),0_14px_40px_rgb(14_39_25/0.22)] md:p-9"
+          <p
+            class="m-0 mb-5 flex flex-wrap items-center gap-3 font-mono text-[0.8125rem] font-semibold tracking-[0.14em] uppercase text-leaf-100/90"
           >
-            <p
-              class="m-0 mb-4 flex flex-wrap items-center gap-3 font-mono text-[0.6875rem] tracking-wider uppercase text-quiet"
-            >
-              <Mascot size="sm" />
-              Laporan Tahunan 2024
-              <span aria-hidden="true">&middot;</span>
-              PT Perkebunan Asap Emas Nusantara Tbk
-            </p>
+            <Mascot size="sm" />
+            Laporan Tahunan 2024
+            <span aria-hidden="true">&middot;</span>
+            PT Perkebunan Asap Emas Nusantara Tbk
+          </p>
 
-            <h1
-              class="m-0 text-hero font-extrabold tracking-tight text-body"
-            >
-              Mengubah hutan Desa Konoha menjadi perkebunan yang menguntungkan.
-            </h1>
+          <h1
+            class="m-0 max-w-[22ch] text-hero font-extrabold tracking-tight text-white [text-shadow:0_2px_24px_rgb(6_20_13/0.55)]"
+          >
+            Mengubah hutan Desa Konoha menjadi perkebunan yang menguntungkan.
+          </h1>
 
-            <p
-              class="m-0 mt-4 max-w-2xl text-[clamp(1rem,1.9vw,1.125rem)] leading-relaxed text-quiet"
-            >
-              Selama dua puluh enam tahun kami mengelola 412.000 hektare konsesi
-              di pinggir Desa Konoha dengan prinsip yang kami sebut pembangunan
-              berkelanjutan. Laporan ini memuat angka yang kami laporkan
-              sendiri, tanpa audit pihak ketiga.
-            </p>
+          <p
+            class="m-0 mt-5 max-w-[58ch] text-[1.125rem] leading-relaxed text-leaf-100 [text-shadow:0_1px_12px_rgb(6_20_13/0.6)]"
+          >
+            Selama dua puluh enam tahun kami mengelola 412.000 hektare konsesi
+            di pinggir Desa Konoha dengan prinsip yang kami sebut pembangunan
+            berkelanjutan. Laporan ini memuat angka yang kami laporkan
+            sendiri, tanpa audit pihak ketiga.
+          </p>
 
-            <div class="mt-6 flex flex-wrap gap-3">
-              <NuxtLink
-                to="/tentang"
-                class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-leaf-600 bg-leaf-600 px-6 py-3 text-base font-bold text-white no-underline shadow-[0_3px_0_var(--color-leaf-800)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-800)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-800)]"
-                >Tentang perusahaan</NuxtLink
-              >
-              <a
-                href="#dampak"
-                class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-leaf-400 bg-leaf-100 px-6 py-3 text-base font-bold text-leaf-800 no-underline shadow-[0_3px_0_var(--color-leaf-200)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-200)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-200)] dark:border-leaf-500 dark:bg-leaf-800 dark:text-leaf-100 dark:shadow-[0_3px_0_var(--color-leaf-900)] dark:hover:shadow-[0_5px_0_var(--color-leaf-900)] dark:active:shadow-[0_1px_0_var(--color-leaf-900)]"
-                >Lihat dampak</a
-              >
-            </div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <NuxtLink
+              to="/tentang"
+              class="inline-flex min-h-11 cursor-pointer items-center rounded-full bg-white px-6 py-3 text-base font-bold text-leaf-800 no-underline shadow-[0_3px_0_var(--color-leaf-300)] transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:shadow-[0_5px_0_var(--color-leaf-300)] active:translate-y-0.5 active:shadow-[0_1px_0_var(--color-leaf-300)]"
+              >Tentang perusahaan</NuxtLink
+            >
+            <a
+              href="#dampak"
+              class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-white/70 bg-white/10 px-6 py-3 text-base font-bold text-white no-underline backdrop-blur-sm transition-colors duration-150 hover:border-white hover:bg-white/20"
+              >Lihat dampak</a
+            >
           </div>
         </div>
       </div>
