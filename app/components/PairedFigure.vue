@@ -33,7 +33,7 @@
         {{ side.label }}
       </dt>
       <dd
-        class="m-0 mt-1.5 text-[clamp(1.5rem,3.5vw,2rem)] leading-none font-extrabold tracking-tight"
+        class="m-0 mt-1.5 text-figure leading-none font-extrabold tracking-tight"
         :class="[tone ? 'text-body' : i === 0 ? 'text-body' : 'text-leaf-700 dark:text-leaf-300']"
       >
         {{ side.value }}

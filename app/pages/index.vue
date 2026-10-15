@@ -35,7 +35,7 @@
             </p>
 
             <h1
-              class="m-0 text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] font-extrabold tracking-tight text-body"
+              class="m-0 text-hero font-extrabold tracking-tight text-body"
             >
               Mengubah hutan Desa Konoha menjadi perkebunan yang menguntungkan.
             </h1>
@@ -72,7 +72,7 @@
         <dl class="m-0 grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
           <div v-for="stat in stats" :key="stat.label">
             <dd
-              class="m-0 font-mono text-[clamp(1.5rem,3.5vw,2rem)] leading-none font-bold text-leaf-700 dark:text-leaf-300"
+              class="m-0 font-mono text-figure leading-none font-bold text-leaf-700 dark:text-leaf-300"
             >
               {{ stat.value }}
             </dd>
@@ -107,7 +107,7 @@
           >
           <div class="min-w-0 flex-1">
             <h2
-              class="m-0 text-[clamp(1.5rem,3.5vw,2.25rem)] leading-tight font-extrabold tracking-tight text-body"
+              class="m-0 text-display font-extrabold tracking-tight text-body"
             >
               Dampak keberadaan kami
             </h2>
@@ -152,7 +152,7 @@
           <div class="grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
             <div :class="harm.photoFirst ? 'lg:order-2' : 'lg:order-1'">
               <h3
-                class="m-0 text-[clamp(1.25rem,2.6vw,1.75rem)] leading-tight font-extrabold text-body"
+                class="m-0 text-title font-extrabold text-body"
               >
                 {{ harm.title }}
               </h3>
@@ -175,7 +175,7 @@
                   :style="{ borderColor: `var(--harm-${harm.hue}-br)` }"
                 >
                   <dd
-                    class="m-0 font-mono text-[clamp(1.5rem,3vw,2rem)] leading-none font-bold"
+                    class="m-0 font-mono text-figure leading-none font-bold"
                     :style="{ color: `var(--harm-${harm.hue}-fg)` }"
                   >
                     {{ harm.claim.value }}
@@ -191,7 +191,7 @@
                   :style="{ borderColor: `var(--harm-${harm.hue}-br)` }"
                 >
                   <dd
-                    class="m-0 font-mono text-[clamp(1.5rem,3vw,2rem)] leading-none font-bold text-body"
+                    class="m-0 font-mono text-figure leading-none font-bold text-body"
                   >
                     {{ harm.unprinted.value }}
                   </dd>
@@ -265,7 +265,7 @@
           >
           <div class="min-w-0 flex-1">
             <h2
-              class="m-0 text-[clamp(1.5rem,3.5vw,2.25rem)] leading-tight font-extrabold tracking-tight text-body"
+              class="m-0 text-display font-extrabold tracking-tight text-body"
             >
               Hubungi kami
             </h2>

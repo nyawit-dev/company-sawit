@@ -18,7 +18,7 @@
           &middot; Konoha
         </p>
         <h1
-          class="m-0 max-w-3xl text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] font-extrabold tracking-tight text-body"
+          class="m-0 max-w-3xl text-hero font-extrabold tracking-tight text-body"
         >
           Perusahaan yang kami tulis untuk diri kami sendiri.
         </h1>

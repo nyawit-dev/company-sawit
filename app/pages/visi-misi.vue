@@ -11,7 +11,7 @@
           Visi, misi, dan komitmen &middot; 2025
         </p>
         <h1
-          class="m-0 max-w-3xl text-[clamp(1.75rem,4.5vw,2.75rem)] leading-[1.1] font-extrabold tracking-tight text-body"
+          class="m-0 max-w-3xl text-hero font-extrabold tracking-tight text-body"
         >
           Kami akan terus membuka lahan baru sampai tidak ada lahan yang tersisa
           untuk dibuka.
@@ -37,7 +37,7 @@
           class="m-0 mt-8 max-w-3xl border-t-2 border-leaf-400 pt-6"
         >
           <p
-            class="m-0 mb-4 text-[clamp(1.25rem,2.6vw,1.625rem)] leading-[1.32] font-bold tracking-tight text-body italic"
+            class="m-0 mb-4 text-title font-bold tracking-tight text-body italic"
           >
             Menjadi perusahaan perkebunan kelapa sawit terdepan yang mengubah
             seluruh hutan tropis yang tersisa menjadi kebun produktif, dan

@@ -70,6 +70,39 @@
   --font-sans: 'Nunito', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
+  /* The heading scale. Every level is a clamp so it stays proportional from
+     320px up, and every line-height is set explicitly: an unset ratio collapses
+     to ~1.10 on a 3-line heading, which makes the lines touch. The reference
+     sites sit at 1.25 for body-adjacent headings and 1.20 for the hero, and
+     that slack is what stops a long Indonesian headline from crowding.
+
+     Both ends are SOLVED, not eyeballed, because the two ends fight each other
+     and guessing gets one of them wrong. The floor comes from 320px: a 44px hero
+     broke a 6-word headline into 7 lines and pushed the document 17px wide, so
+     at 320px the hero has to be 28px. The ceiling comes from the references:
+     60px at desktop. For `clamp(FLOOR, base + slope*vw, CEIL)` to hit both:
+
+       base  = FLOOR - slope * 3.2      (vw at 320px is 3.2)
+       slope = (CEIL - FLOOR) / 9.6     (12.8 - 3.2)
+
+     The trap this avoids: setting base = FLOOR. That makes the middle term
+     overshoot the floor at 320px (1.75rem + 2.5vw = 36px there), so the floor
+     never binds and the narrow viewport gets a heading 8px too large — which is
+     exactly the 29px overflow this file carries the scar from.
+
+     hero    28px @320 → 60px @1280, ratio 1.20
+     display 22 → 48, ratio 1.17
+     title   20 → 32, ratio 1.25
+     figure  26 → 48, ratio 1.00  (the report's headline numbers) */
+  --text-hero: clamp(1.75rem, 1.0833rem + 3.3333vw, 3.75rem);
+  --text-hero--line-height: 1.2;
+  --text-display: clamp(1.375rem, 0.8333rem + 2.7083vw, 3rem);
+  --text-display--line-height: 1.17;
+  --text-title: clamp(1.25rem, 1rem + 1.25vw, 2rem);
+  --text-title--line-height: 1.25;
+  --text-figure: clamp(1.625rem, 1.1667rem + 2.2917vw, 3rem);
+  --text-figure--line-height: 1;
+
   /* A single green scale, shared by both themes. The primary is green-600:
      white text on it measures 6.82:1, and as text on a light card it measures
      6.82:1 the other way, so one value works for both jobs. */
